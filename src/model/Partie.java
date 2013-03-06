@@ -1,6 +1,6 @@
 package model;
 
-public class Partie {
+public class Partie extends Model {
 	
 	
 	private Plateau plateau;
@@ -9,9 +9,32 @@ public class Partie {
 	
 	
 	
-	public Partie(int taille_plateau, int nb_joueur) {
-		this.taille_plateau = taille_plateau;
+	public Partie(int nb_joueur, int taille_plateau) {
 		this.nb_joueur = nb_joueur;
+		this.taille_plateau = taille_plateau;
+		this.plateau = new Plateau(this);
+		notifyPions(plateau.getPions());
+	}
+
+
+
+	public int getTaillePlateau() {
+		return taille_plateau;
+	}
+	
+	public int getNbJoueur() {
+		return nb_joueur;
+	}
+	
+	
+	public char getJoueur() {
+		return plateau.getJoueur();
+	}
+	
+	public char nextJoueur() {
+		plateau.nextJoueur();
+		notifyCurrentPlayer(plateau.getJoueur());
+		return plateau.getJoueur();
 	}
 	
 }

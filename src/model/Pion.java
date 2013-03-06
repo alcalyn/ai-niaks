@@ -1,5 +1,6 @@
 package model;
 
+
 public class Pion {
 	
 	public static final char
@@ -10,11 +11,32 @@ public class Pion {
 	
 	
 	private char couleur;
+	private Coords coords;
 
 
 	public Pion(char couleur) {
 		this.couleur = couleur;
 	}
+
+
+	public char getCouleur() {
+		return couleur;
+	}
+
+
+	public Coords getCoords() {
+		return coords;
+	}
+
+	public void setCoords(Coords coords) {
+		this.coords = coords;
+	}
+	
+	public void setCoords(Coords3 coords) {
+		this.coords = coords.toCoords();
+	}
+	
+	
 	
 	
 }
