@@ -101,13 +101,19 @@ public class Plateau {
 		
 		int k = 0;
 		
-		for(int i = taille_plateau * 2; i > taille_plateau; i--) {
-			for(int j = 0; j <= taille_plateau * 2 - i; j++) {
-				Coords c = new Coords(taille_plateau - k, i - taille_plateau + k);
-				getPion(joueur, k).setCoords(branche.mul(c));
-				k++;
+		for(int j = 1; j <= taille_plateau; j++) {
+			for(int i = j; i <= taille_plateau; i++) {
+				int x = i;
+				int y = taille_plateau + j - i;
+				
+				Coords c = new Coords(x, y);
+				getPion(joueur, k++).setCoords(branche.mul(c));
 			}
 		}
+		
+		/*
+		 		
+		 */
 	}
 	
 	
