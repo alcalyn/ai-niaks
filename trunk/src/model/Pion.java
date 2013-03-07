@@ -37,6 +37,8 @@ public class Pion {
 	}
 	
 	
-	
+	public String toString() {
+		return "Pion ["+(int) couleur+"] : "+coords.toString();
+	}
 	
 }

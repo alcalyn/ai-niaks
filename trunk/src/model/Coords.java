@@ -21,5 +21,14 @@ public class Coords {
 		return new Coords(x + y/2, - (int) Math.round((y * Math.sqrt(3)) / 2));
 	}
 	
+	public boolean equals(Coords other) {
+		return other.x == x && other.y == y ;
+	}
+	
+	
+	public String toString() {
+		return "Coords ("+x+", "+y+")";
+	}
+	
 	
 }

@@ -24,7 +24,6 @@ public class NiaksFrame extends JFrame implements Observer {
 		initFrame();
 		initPlateauPanel();
 		
-		partie.addObserver(this);
 		partie.addObserver(plateau_panel);
 	}
 	

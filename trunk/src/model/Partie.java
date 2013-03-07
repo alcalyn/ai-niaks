@@ -36,5 +36,11 @@ public class Partie extends Model {
 		notifyCurrentPlayer(plateau.getJoueur());
 		return plateau.getJoueur();
 	}
+
+
+
+	public Plateau getPlateau() {
+		return plateau;
+	}
 	
 }
