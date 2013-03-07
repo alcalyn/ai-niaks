@@ -27,7 +27,7 @@ public class PionPanel extends JPanel {
 	
 	public void paintComponent(Graphics g) {
 		Coords coords = pion.getCoords().mul(PlateauPanel.cell_spacing).toWindow(plateau_panel.getRotation());
-		g.setColor(PlateauPanel.joueurColor(pion.getCouleur()));
+		g.setColor(joueurColor(pion.getCouleur()));
 		if(isOver) g.setColor(new Color(g.getColor().getRGB() + 0x88000000, true));
 		
 		if(drag == null) {
@@ -48,6 +48,20 @@ public class PionPanel extends JPanel {
 			PlateauPanel.pion_size
 		);
 	}
+	
+	
+	public static Color joueurColor(char joueur) {
+		switch(joueur) {
+			case Pion.BLANC:	return new Color(0xFFFFFF);
+			case Pion.NOIR:		return new Color(0x000000);
+			case Pion.BLEU:		return new Color(0x0000FF);
+			case Pion.JAUNE:	return new Color(0xFFFF00);
+			case Pion.VERT:		return new Color(0x00FF00);
+			case Pion.ROUGE:	return new Color(0xFF0000);
+			
+			default: return null;
+		}
+	}
 
 	public void setOver(boolean b) {
 		isOver = b;
@@ -60,6 +74,10 @@ public class PionPanel extends JPanel {
 	
 	public void stopDrag() {
 		drag = null;
+	}
+	
+	public Pion getPionModel() {
+		return pion;
 	}
 
 }
