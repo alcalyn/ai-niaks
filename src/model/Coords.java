@@ -1,5 +1,8 @@
 package model;
 
+import java.awt.Point;
+import java.awt.geom.AffineTransform;
+
 public class Coords {
 	
 	public int x, y;
@@ -18,7 +21,21 @@ public class Coords {
 	}
 	
 	public Coords toWindow() {
-		return new Coords(x + y/2, - (int) Math.round((y * Math.sqrt(3)) / 2));
+		return toWindow(0);
+	}
+	
+	public Coords toWindow(double rotation) {
+		int _x = x + y/2;
+		int _y = - (int) Math.round((y * Math.sqrt(3)) / 2);
+		
+		if(rotation != 0) {
+			Point a = new Point(_x, _y);
+			AffineTransform.getRotateInstance(rotation).transform(a, a);
+			_x = a.x;
+			_y = a.y;
+		}
+		
+		return new Coords(_x, _y);
 	}
 	
 	public boolean equals(Coords other) {
