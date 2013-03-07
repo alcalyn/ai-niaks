@@ -13,11 +13,6 @@ import model.Pion;
 public class NiaksFrame extends JFrame implements Observer {
 	
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7409878114591059470L;
-
 	private Partie partie;
 	
 	private PlateauPanel plateau_panel;

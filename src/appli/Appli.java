@@ -12,7 +12,7 @@ public class Appli {
 	public static void main(String[] args) {
 
 		int taille_plateau = 4;
-		int nb_joueur = 2;
+		int nb_joueur = 6;
 		
 		Model model = new Partie(nb_joueur, taille_plateau);
 

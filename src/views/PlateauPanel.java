@@ -62,6 +62,7 @@ public class PlateauPanel extends JPanel implements Observer {
 		dimension = new Dimension(diametre, diametre);
 		origin = new Point(diametre/2, diametre/2);
 		
+		
 		initPions();
 	}
 	
@@ -70,6 +71,7 @@ public class PlateauPanel extends JPanel implements Observer {
 			
 			public void mouseMoved(MouseEvent e) {
 				boolean over = false;
+				PionPanel pp = pion_over;
 				
 				Point m = new Point(
 					e.getX() - origin.x,
@@ -112,7 +114,7 @@ public class PlateauPanel extends JPanel implements Observer {
 					if(!over) pion_over = null;
 				}
 				
-				repaint();
+				if(pion_over != pp || dragging) repaint();
 			}
 			
 			public void mouseDragged(MouseEvent e) {
@@ -126,11 +128,11 @@ public class PlateauPanel extends JPanel implements Observer {
 				if(dragging) {
 					dragging = false;
 					pion_over.stopDrag();
-					// TODO Drag event
+					pionMoved(pion_over.getPionModel(), mouse_coords);
 					repaint();
 				}
 			}
-			
+
 			public void mousePressed(MouseEvent e) {
 				if(pion_over != null) {
 					dragging = true;
@@ -218,9 +220,11 @@ public class PlateauPanel extends JPanel implements Observer {
 	private void paintCell(Graphics g, Coords coords) {
 		g.setColor(cell_color);
 		
+		/*
 		if(coords.equals(mouse_coords)) {
 			g.setColor(Color.GRAY);
 		}
+		*/
 		
 		Coords c = coords.mul(cell_spacing).toWindow(rotation);
 		
@@ -233,17 +237,8 @@ public class PlateauPanel extends JPanel implements Observer {
 		);
 	}
 	
-	public static Color joueurColor(char joueur) {
-		switch(joueur) {
-			case Pion.BLANC:	return new Color(0xFFFFFF);
-			case Pion.NOIR:		return new Color(0x000000);
-			case Pion.BLEU:		return new Color(0x0000FF);
-			case Pion.JAUNE:	return new Color(0xFFFF00);
-			case Pion.VERT:		return new Color(0x00FF00);
-			case Pion.ROUGE:	return new Color(0xFF0000);
-			
-			default: return null;
-		}
+	private void pionMoved(Pion pion, Coords coords) {
+		System.out.println("Pion moved : "+pion+" to "+coords);
 	}
 	
 	
