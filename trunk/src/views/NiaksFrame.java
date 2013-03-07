@@ -3,9 +3,6 @@ package views;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 
 import model.Observer;
 import model.Partie;
@@ -16,6 +13,11 @@ import model.Pion;
 public class NiaksFrame extends JFrame implements Observer {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7409878114591059470L;
+
 	private Partie partie;
 	
 	private PlateauPanel plateau_panel;

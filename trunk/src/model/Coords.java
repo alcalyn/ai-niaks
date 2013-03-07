@@ -20,6 +20,20 @@ public class Coords {
 		return new Coords(x * coef, y * coef);
 	}
 	
+	public Coords add(Coords c) {
+		return new Coords(x + c.x, y + c.y);
+	}
+	
+	public Coords rotate(double rotation) {
+		if(rotation != 0) {
+			Point a = new Point(x, y);
+			AffineTransform.getRotateInstance(rotation).transform(a, a);
+			return new Coords(a.x, a.y);
+		}
+		
+		return new Coords(x, y);
+	}
+	
 	public Coords toWindow() {
 		return toWindow(0);
 	}
