@@ -2,35 +2,53 @@ package model;
 
 public class Plateau {
 	
+	private Joueur[] joueurs;
 	
-	private Partie partie;
+	private int taille;
 	private Pion[][] pions;
-	private char joueur;
+	private int joueur;
 	
 	
-	public Plateau(Partie partie) {
-		this.partie = partie;
-		joueur = 1;
+	public Plateau(int taille, Joueur[] joueurs) {
+		this.taille = taille;
+		this.joueurs = joueurs;
+		joueur = 0;
 		initPions();
 		placerPions();
 	}
 	
-	private void initPions() {
-		int nb_joueur = partie.getNbJoueur();
-		int taille_plateau = partie.getTaillePlateau();
-		int nb_pion = (taille_plateau * (taille_plateau + 1)) / 2;
+	public Plateau(Plateau copy) {
+		this.taille = copy.taille;
+		this.joueur = copy.joueur;
+		this.joueurs = copy.joueurs;
+		
+		int nb_joueur = copy.getNbJoueur();
+		int nb_pion = (copy.taille * (copy.taille + 1)) / 2;
 		
 		pions = new Pion[nb_joueur][nb_pion];
 		
 		for(int i = 0;i<nb_joueur;i++) {
 			for(int j = 0;j<nb_pion;j++) {
-				pions[i][j] = new Pion((char) (i + 1));
+				pions[i][j] = new Pion(copy.pions[i][j]);
+			}
+		}
+	}
+	
+	private void initPions() {
+		int nb_joueur = getNbJoueur();
+		int nb_pion = (taille * (taille + 1)) / 2;
+		
+		pions = new Pion[nb_joueur][nb_pion];
+		
+		for(int i = 0;i<nb_joueur;i++) {
+			for(int j = 0;j<nb_pion;j++) {
+				pions[i][j] = new Pion(joueurs[i]);
 			}
 		}
 	}
 	
 	private void placerPions() {
-		switch(partie.getNbJoueur()) {
+		switch(getNbJoueur()) {
 			case 1:
 				placerPions(1, 1);
 				break;
@@ -97,14 +115,13 @@ public class Plateau {
 	}
 	
 	private void placerPions(char joueur, Coords3 branche) {
-		int taille_plateau = partie.getTaillePlateau();
 		
 		int k = 0;
 		
-		for(int j = 1; j <= taille_plateau; j++) {
-			for(int i = j; i <= taille_plateau; i++) {
+		for(int j = 1; j <= taille; j++) {
+			for(int i = j; i <= taille; i++) {
 				int x = i;
-				int y = taille_plateau + j - i;
+				int y = taille + j - i;
 				
 				Coords c = new Coords(x, y);
 				getPion(joueur, k++).setCoords(branche.mul(c));
@@ -125,12 +142,16 @@ public class Plateau {
 		return pions;
 	}
 
-	public char getJoueur() {
+	public int getJoueur() {
 		return joueur;
+	}
+	
+	public int getNbJoueur() {
+		return joueurs.length;
 	}
 
 	public void nextJoueur() {
-		if(++joueur > partie.getNbJoueur()) joueur = 1;
+		if(++joueur > getNbJoueur()) joueur = 1;
 	}
 	
 	

@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 import model.Coords;
 import model.Coords3;
+import model.Joueur;
 import model.Observer;
 import model.Partie;
 import model.Pion;
@@ -281,7 +282,7 @@ public class PlateauPanel extends JPanel implements Observer {
 		repaint();
 	}
 
-	public void updateCurrentPlayer(char joueur) {
+	public void updateCurrentPlayer(Joueur joueur) {
 		repaint();
 	}
 	

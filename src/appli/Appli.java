@@ -1,8 +1,11 @@
 package appli;
 
 import views.NiaksFrame;
+import model.Humain;
+import model.Joueur;
 import model.Model;
 import model.Observer;
+import model.Ordinateur;
 import model.Partie;
 
 public class Appli {
@@ -12,9 +15,13 @@ public class Appli {
 	public static void main(String[] args) {
 
 		int taille_plateau = 4;
-		int nb_joueur = 6;
 		
-		Model model = new Partie(nb_joueur, taille_plateau);
+		Joueur [] joueurs = new Joueur[] {
+			new Humain("Vous"),
+			new Ordinateur(0.5)
+		};
+		
+		Model model = new Partie(joueurs, taille_plateau);
 
 		Observer view = new NiaksFrame((Partie) model);
 		

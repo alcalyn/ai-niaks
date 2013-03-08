@@ -15,6 +15,11 @@ public class Coords {
 	public Coords() {
 	}
 	
+	public Coords(Coords copy) {
+		this.x = copy.x;
+		this.y = copy.y;
+	}
+	
 	
 	public Coords mul(int coef) {
 		return new Coords(x * coef, y * coef);
