@@ -28,7 +28,9 @@ public class PlateauPanel extends JPanel implements Observer {
 	 * 
 	 */
 	private static final long serialVersionUID = 1809255821090205779L;
-	public static final Color bg_color = new Color(0xFFFFCC);
+	
+	public static final Color bg_color = Color.WHITE;
+	public static final Color plateau_color = new Color(0xFFFFCC);
 	public static final Color cell_color = new Color(0x000000);
 	public static final int pion_size = 28;
 	public static final int cell_size = 16;
@@ -58,10 +60,9 @@ public class PlateauPanel extends JPanel implements Observer {
 		
 		addMouseListeners();
 		
-		diametre = (int) Math.ceil((cell_spacing * 2 * partie.getTaillePlateau()) * Math.sqrt(3) + (2 * panel_padding));
+		diametre = (int) Math.ceil((cell_spacing * 2 * partie.getTaillePlateau()) * Math.sqrt(3) + (2 * panel_padding) + pion_size);
 		dimension = new Dimension(diametre, diametre);
 		origin = new Point(diametre/2, diametre/2);
-		
 		
 		initPions();
 	}
@@ -175,14 +176,16 @@ public class PlateauPanel extends JPanel implements Observer {
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		origin = new Point(getWidth()/2, getHeight()/2);
 		
-		g.setColor(Color.WHITE);
+		g.setColor(bg_color);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
 		int taille = partie.getTaillePlateau();
 		
-		g.setColor(bg_color);
-		g.fillOval(0, 0, dimension.width, dimension.height);
+		g.setColor(plateau_color);
+		g.fillOval(origin.x - dimension.width/2, origin.y - dimension.height/2, dimension.width, dimension.height);
 		
 		// position milieu
 		paintCell(g, new Coords(0, 0));
