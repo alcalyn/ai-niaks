@@ -1,0 +1,21 @@
+
+
+tout doux liste :
+
+	-	Vue ok pour l'instant, avancer le modèle :
+		créer dans Partie une fonction qui recoie un coup joué, Partie::play(Pion pion, Coords coords);
+		elle vérifie si le pion appartient bien au joueur qui joue en ce moment,
+		elle verifie si la case destination existe, si le coup est valide...
+		si c'est bon elle fait nextPlayer() et update les vues.
+		sinon throw une NiaksException
+	
+	-	Petit bug d'arrondi dans la vue, dans les cases loin du centre,
+		la souris n'est plus très en face des cases.
+	
+	-	abstract Joueur, une classe qui a un pseudo de joueur, une fonction abstraite jouer,
+		et les classes filles seront soit
+			LocalHumain (attente d'un coup joué sur la vue),
+			SocketHumain (attente d'un coup joué par un client),
+			Ordinateur (possede difficulté, execute minimax)
+	
+	-	Ecran d'accueil...
