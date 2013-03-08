@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Color;
+
 
 public class Pion {
 	
@@ -10,17 +12,22 @@ public class Pion {
 		VIDE = 0;
 	
 	
-	private char couleur;
+	private Joueur joueur;
 	private Coords coords;
 
 
-	public Pion(char couleur) {
-		this.couleur = couleur;
+	public Pion(Joueur joueur) {
+		this.joueur = joueur;
+	}
+	
+	public Pion(Pion copy) {
+		this.joueur = copy.joueur;
+		this.coords = new Coords(copy.coords);
 	}
 
 
-	public char getCouleur() {
-		return couleur;
+	public Color getCouleur() {
+		return joueur.getCouleur();
 	}
 
 
@@ -38,7 +45,7 @@ public class Pion {
 	
 	
 	public String toString() {
-		return "Pion ["+(int) couleur+"] : "+coords.toString();
+		return "Pion ["+joueur.getPseudo()+"] : "+coords.toString();
 	}
 	
 }

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
+import model.Joueur;
 import model.Observer;
 import model.Partie;
 import model.Pion;
@@ -50,7 +51,7 @@ public class NiaksFrame extends JFrame implements Observer {
 	}
 
 
-	public void updateCurrentPlayer(char joueur) {
+	public void updateCurrentPlayer(Joueur joueur) {
 	}
 	
 	

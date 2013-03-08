@@ -5,14 +5,14 @@ public class Partie extends Model {
 	
 	private Plateau plateau;
 	private int taille_plateau;
-	private int nb_joueur;
+	private Joueur[] joueurs;
 	
 	
 	
-	public Partie(int nb_joueur, int taille_plateau) {
-		this.nb_joueur = nb_joueur;
+	public Partie(Joueur[] joueurs, int taille_plateau) {
+		this.joueurs = joueurs;
 		this.taille_plateau = taille_plateau;
-		this.plateau = new Plateau(this);
+		this.plateau = new Plateau(taille_plateau, joueurs);
 		notifyPions(plateau.getPions());
 	}
 
@@ -23,17 +23,25 @@ public class Partie extends Model {
 	}
 	
 	public int getNbJoueur() {
-		return nb_joueur;
+		return joueurs.length;
 	}
 	
 	
-	public char getJoueur() {
+	public int getJoueur() {
 		return plateau.getJoueur();
 	}
 	
-	public char nextJoueur() {
+	public Joueur[] getJoueurs() {
+		return joueurs;
+	}
+	
+	public Joueur getJoueur(int i) {
+		return joueurs[i];
+	}
+	
+	public int nextJoueur() {
 		plateau.nextJoueur();
-		notifyCurrentPlayer(plateau.getJoueur());
+		notifyCurrentPlayer(joueurs[plateau.getJoueur()]);
 		return plateau.getJoueur();
 	}
 

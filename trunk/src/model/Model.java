@@ -20,7 +20,7 @@ public abstract class Model {
 		}
 	}
 	
-	protected void notifyCurrentPlayer(char joueur) {
+	protected void notifyCurrentPlayer(Joueur joueur) {
 		for (Observer o : views) {
 			o.updateCurrentPlayer(joueur);
 		}
