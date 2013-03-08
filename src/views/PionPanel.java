@@ -27,8 +27,12 @@ public class PionPanel extends JPanel {
 	
 	public void paintComponent(Graphics g) {
 		Coords coords = pion.getCoords().mul(PlateauPanel.cell_spacing).toWindow(plateau_panel.getRotation());
+		
 		g.setColor(joueurColor(pion.getCouleur()));
-		if(isOver) g.setColor(new Color(g.getColor().getRGB() + 0x88000000, true));
+		
+		if(isOver) {
+			g.setColor(new Color(g.getColor().getRGB() + 0xCC000000, true));
+		}
 		
 		if(drag == null) {
 			setPosition(coords.x, coords.y);

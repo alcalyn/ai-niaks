@@ -137,11 +137,12 @@ public class PlateauPanel extends JPanel implements Observer {
 			public void mousePressed(MouseEvent e) {
 				if(pion_over != null) {
 					dragging = true;
+					setForeground(pion_over);
 					pion_over.drag(new Coords(e.getX() - origin.x, e.getY() - origin.y));
 					repaint();
 				}
 			}
-			
+
 			public void mouseExited(MouseEvent e) {
 			}
 			
@@ -221,16 +222,19 @@ public class PlateauPanel extends JPanel implements Observer {
 	}
 	
 	private void paintCell(Graphics g, Coords coords) {
-		g.setColor(cell_color);
-		
-		/*
-		if(coords.equals(mouse_coords)) {
-			g.setColor(Color.GRAY);
-		}
-		*/
-		
 		Coords c = coords.mul(cell_spacing).toWindow(rotation);
 		
+		g.setColor(cell_color);
+		
+		if(dragging && coords.equals(mouse_coords)) {
+			g.setColor(Color.GRAY);
+			g.drawOval(
+				c.x - pion_size/2 + origin.x,
+				c.y - pion_size/2 + origin.y,
+				pion_size,
+				pion_size
+			);
+		}
 		
 		g.fillOval(
 			c.x - cell_size / 2 + origin.x,
@@ -240,8 +244,16 @@ public class PlateauPanel extends JPanel implements Observer {
 		);
 	}
 	
+	private void setForeground(PionPanel pion_over) {
+		remove(pion_over);
+		add(pion_over, 0);
+	}
+	
 	private void pionMoved(Pion pion, Coords coords) {
 		System.out.println("Pion moved : "+pion+" to "+coords);
+		
+		// test :
+		pion.setCoords(coords);
 	}
 	
 	
