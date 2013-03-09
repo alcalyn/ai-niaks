@@ -279,11 +279,9 @@ public class PlateauPanel extends JPanel implements Observer {
 	}
 	
 	public void updatePions(Pion[][] pions) {
-		repaint();
 	}
 
 	public void updateCurrentPlayer(Joueur joueur) {
-		repaint();
 	}
 	
 }

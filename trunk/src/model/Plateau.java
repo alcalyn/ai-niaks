@@ -151,7 +151,7 @@ public class Plateau {
 	}
 
 	public void nextJoueur() {
-		if(++joueur > getNbJoueur()) joueur = 1;
+		if(++joueur >= getNbJoueur()) joueur = 0;
 	}
 	
 	
