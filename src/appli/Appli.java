@@ -17,8 +17,12 @@ public class Appli {
 		int taille_plateau = 4;
 		
 		Joueur [] joueurs = new Joueur[] {
-			new Humain("Vous"),
-			new Ordinateur(0.5)
+			new Humain("Marcel"),
+			new Ordinateur(0.5),
+			new Humain("Julien"),
+			new Ordinateur(0.5),
+			new Humain("Aragorn fils d'Arathorn, roi des Terres du Milieu"),
+			new Ordinateur(0.5),
 		};
 		
 		Model model = new Partie(joueurs, taille_plateau);
@@ -26,6 +30,7 @@ public class Appli {
 		Observer view = new NiaksFrame((Partie) model);
 		
 		model.addObserver(view);
+		
 	}
 
 }

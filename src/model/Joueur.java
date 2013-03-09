@@ -33,8 +33,8 @@ public abstract class Joueur {
 	public static Color defaultColor(int c) {
 		return new Color[]{
 				new Color(0x0000FF),
-				new Color(0x00FF00),
 				new Color(0xFFFF00),
+				new Color(0x00FF00),
 				new Color(0xFF0000),
 				new Color(0xFFFFFF),
 				new Color(0x000000),
