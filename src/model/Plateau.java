@@ -7,6 +7,7 @@ public class Plateau {
 	private int taille;
 	private Pion[][] pions;
 	private int joueur;
+	private Pion[] cases;
 	
 	
 	public Plateau(int taille, Joueur[] joueurs) {
@@ -14,6 +15,7 @@ public class Plateau {
 		this.joueurs = joueurs;
 		joueur = 0;
 		initPions();
+		initCases();
 		placerPions();
 	}
 	
@@ -45,6 +47,11 @@ public class Plateau {
 				pions[i][j] = new Pion(joueurs[i]);
 			}
 		}
+	}
+	
+	private void initCases() {
+		int nb = 6 * taille * (taille + 1) + 1;
+		cases = new Pion[nb];
 	}
 	
 	private void placerPions() {
@@ -115,7 +122,6 @@ public class Plateau {
 	}
 	
 	private void placerPions(char joueur, Coords3 branche) {
-		
 		int k = 0;
 		
 		for(int j = 1; j <= taille; j++) {
@@ -124,18 +130,38 @@ public class Plateau {
 				int y = taille + j - i;
 				
 				Coords c = new Coords(x, y);
-				getPion(joueur, k++).setCoords(branche.mul(c));
+				Pion pion = getPion(joueur, k++);
+				pion.setCoords(branche.mul(c));
+				cases[indexOf(x, y)] = pion;
 			}
 		}
-		
-		/*
-		 		
-		 */
 	}
 	
 	
 	public Pion getPion(char joueur, int i) {
 		return pions[joueur - 1][i];
+	}
+	
+	public Pion getPion(Coords3 c) {
+		return getPion(c.toCoords());
+	}
+	
+	public Pion getPion(Coords c) {
+		return cases[indexOf(c.x, c.y)];
+	}
+	
+	public boolean isset(Coords3 c) {
+		return isset(c.toCoords());
+	}
+	
+	public boolean isset(Coords c) {
+		// TODO indiquer si une case existe
+		return true;
+	}
+	
+	private static int indexOf(int x, int y) {
+		// TODO retourner le bon index par rapport à x et y
+		return 0;
 	}
 	
 	public Pion [][] getPions() {
