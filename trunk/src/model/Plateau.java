@@ -23,6 +23,7 @@ public class Plateau {
 		this.taille = copy.taille;
 		this.joueur = copy.joueur;
 		this.joueurs = copy.joueurs;
+		this.cases = new Pion[copy.cases.length];
 		
 		int nb_joueur = copy.getNbJoueur();
 		int nb_pion = (copy.taille * (copy.taille + 1)) / 2;
@@ -32,6 +33,8 @@ public class Plateau {
 		for(int i = 0;i<nb_joueur;i++) {
 			for(int j = 0;j<nb_pion;j++) {
 				pions[i][j] = new Pion(copy.pions[i][j]);
+				Coords c = copy.pions[i][j].getCoords();
+				cases[indexOf(c.x, c.y)] = pions[i][j];
 			}
 		}
 	}
