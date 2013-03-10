@@ -6,6 +6,7 @@ import java.awt.geom.AffineTransform;
 public class Coords {
 	
 	public static final Coords
+		EAST		= new Coords(1, 0),
 		NORTH_EAST	= new Coords(0, 1),
 		NORTH_WEST	= new Coords(-1, -1),
 		WEST		= new Coords(-1, 0),

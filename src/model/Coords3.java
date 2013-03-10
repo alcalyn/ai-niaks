@@ -2,6 +2,16 @@ package model;
 
 public class Coords3 {
 	
+	public static final Coords3
+		EAST		= new Coords3(1, 0, 0),
+		NORTH_EAST	= new Coords3(0, 1, 0),
+		NORTH_WEST	= new Coords3(0, 0, 1),
+		WEST		= new Coords3(-1, 0, 0),
+		SOUTH_WEST	= new Coords3(0, -1, 0),
+		SOUTH_EAST	= new Coords3(0, 0, -1);
+	
+	
+	
 	public int x, y, z;
 
 	public Coords3(int x, int y, int z) {
