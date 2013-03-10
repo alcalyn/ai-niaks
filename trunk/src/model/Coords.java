@@ -5,7 +5,17 @@ import java.awt.geom.AffineTransform;
 
 public class Coords {
 	
+	public static final Coords
+		NORTH_EAST	= new Coords(0, 1),
+		NORTH_WEST	= new Coords(-1, -1),
+		WEST		= new Coords(-1, 0),
+		SOUTH_WEST	= new Coords(0, -1), // comme au subway !!!
+		SOUTH_EAST	= new Coords(1, -1);
+	
+	
+	
 	public int x, y;
+	
 
 	public Coords(int x, int y) {
 		this.x = x;
@@ -38,6 +48,8 @@ public class Coords {
 		
 		return new Coords(x, y);
 	}
+	
+	
 	
 	public Coords toWindow() {
 		return toWindow(0);

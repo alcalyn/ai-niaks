@@ -52,7 +52,7 @@ public class PlateauPanel extends JPanel implements Observer {
 	
 	private Coords mouse_coords = new Coords();
 	
-	private double rotation = 5 * (Math.PI / 3);
+	private double rotation = 0;
 	
 	
 	public PlateauPanel(Partie partie) {
@@ -230,8 +230,8 @@ public class PlateauPanel extends JPanel implements Observer {
 		if(dragging && coords.equals(mouse_coords)) {
 			g.setColor(Color.GRAY);
 			g.drawOval(
-				c.x - pion_size/2 + origin.x,
-				c.y - pion_size/2 + origin.y,
+				c.x - pion_size / 2 + origin.x,
+				c.y - pion_size / 2 + origin.y,
 				pion_size,
 				pion_size
 			);
@@ -254,7 +254,16 @@ public class PlateauPanel extends JPanel implements Observer {
 		System.out.println("Pion moved : "+pion+" to "+coords);
 		
 		// test :
-		pion.setCoords(coords);
+		partie.getPlateau().movePion(pion, coords);
+	}
+	
+	public void setBottomBranch(int branch) {
+		setRotation((((branch % 6) + 2) * Math.PI) / 3);
+	}
+	
+	public void setRotation(double rotation) {
+		this.rotation = rotation;
+		repaint();
 	}
 	
 	
