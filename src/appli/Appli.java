@@ -1,12 +1,12 @@
 package appli;
 
-import views.NiaksFrame;
 import model.Humain;
 import model.Joueur;
 import model.Model;
 import model.Observer;
 import model.Ordinateur;
 import model.Partie;
+import views.NiaksFrame;
 
 public class Appli {
 

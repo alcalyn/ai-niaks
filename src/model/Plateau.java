@@ -53,8 +53,7 @@ public class Plateau {
 	}
 	
 	private void initCases() {
-		int nb = 6 * taille * (taille + 1) + 1;
-		cases = new Pion[nb];
+		cases = new Pion[getCaseMatriceLength()];
 	}
 	
 	private void placerPions() {
@@ -134,8 +133,7 @@ public class Plateau {
 				
 				Coords c = new Coords(x, y);
 				Pion pion = getPion(joueur, k++);
-				pion.setCoords(branche.mul(c));
-				cases[indexOf(x, y)] = pion;
+				movePion(pion, branche.mul(c).toCoords());
 			}
 		}
 	}
@@ -145,12 +143,23 @@ public class Plateau {
 		return pions[joueur - 1][i];
 	}
 	
-	public Pion getPion(Coords3 c) {
-		return getPion(c.toCoords());
+	public Pion getCase(Coords3 c) {
+		return getCase(c.toCoords());
 	}
 	
-	public Pion getPion(Coords c) {
+	public Pion getCase(Coords c) {
 		return cases[indexOf(c.x, c.y)];
+	}
+	
+	public void movePion(Pion pion, Coords coords) {
+		if(cases[indexOf(coords)] == null) {
+			if(pion.getCoords() != null) {
+				cases[indexOf(pion.getCoords())] = null;
+			}
+			
+			pion.setCoords(coords);
+			cases[indexOf(coords)] = pion;
+		}
 	}
 	
 	public boolean isset(Coords3 c) {
@@ -162,9 +171,22 @@ public class Plateau {
 		return true;
 	}
 	
-	private static int indexOf(int x, int y) {
-		// TODO retourner le bon index par rapport à x et y
-		return 0;
+	private int indexOf(int x, int y) {
+		//return 4 * taille * (2 * taille + y + 1) + x + y;
+		int _x = x + 2 * taille;
+		int _y = y + 2 * taille;
+		int module = 4 * taille + 1;
+		return _y * module + _x;
+	}
+	
+	private int getCaseMatriceLength() {
+		 // crade...
+		int nb = taille * 4 + 1;
+		return nb * nb;
+	}
+	
+	private int indexOf(Coords coords) {
+		return indexOf(coords.x, coords.y);
 	}
 	
 	public Pion [][] getPions() {
