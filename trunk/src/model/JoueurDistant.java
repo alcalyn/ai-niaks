@@ -2,41 +2,33 @@ package model;
 
 
 
-public class Humain extends Joueur implements CoupListener {
+public class JoueurDistant extends Joueur implements CoupListener {
 	
 	
 	private Coup coup_recu = null;
 	
 
-	public Humain(String pseudo) {
+	public JoueurDistant(String pseudo, String ip) {
 		super(pseudo);
 	}
-	
 
 	@Override
 	public Coup jouerCoup() {
-		Coup c = coup_recu;
-		coup_recu = null;
-		return c;
+		return coup_recu;
 	}
 
 	public void coupPlayed(Coup coup) throws IllegalMoveNiaksException {
-		if(coup.getJoueur() == this) {
-			coup_recu = coup;
-			getPartie().notifyCoupPlayed(this);
-		}
+		// TODO Auto-generated method stub
+		
 	}
-
 
 	@Override
 	public boolean playsInstantly() {
 		return false;
 	}
 
-
 	public void purge() {
 		coup_recu = null;
 	}
-	
 
 }

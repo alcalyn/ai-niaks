@@ -24,4 +24,10 @@ public class Ordinateur extends Joueur {
 		return null;
 	}
 
+
+	@Override
+	public boolean playsInstantly() {
+		return true;
+	}
+
 }

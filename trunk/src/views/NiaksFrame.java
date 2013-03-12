@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
+import model.CoupEmitter;
+import model.CoupListener;
 import model.Joueur;
 import model.Observer;
 import model.Partie;
@@ -11,7 +13,7 @@ import model.Pion;
 
 
 
-public class NiaksFrame extends JFrame implements Observer {
+public class NiaksFrame extends JFrame implements Observer, CoupEmitter {
 	
 	private static final long serialVersionUID = 7409878114591059470L;
 	
@@ -34,12 +36,10 @@ public class NiaksFrame extends JFrame implements Observer {
 		partie.addObserver(plateau_panel);
 		partie.addObserver(joueurs_panel);
 		
-		Joueur j = partie.getJoueur(partie.getJoueur());
+		Joueur j = partie.getJoueur();
 		updateCurrentPlayer(j);
 		joueurs_panel.updateCurrentPlayer(j);
 	}
-
-
 
 	private void initFrame() {
 		setTitle("Niaks");
@@ -58,7 +58,12 @@ public class NiaksFrame extends JFrame implements Observer {
 		joueurs_panel = new JoueursPanel(partie);
 		add(joueurs_panel, BorderLayout.EAST);
 	}
-
+	
+	
+	public void addCoupListener(CoupListener coup_listener) {
+		plateau_panel.addCoupListener(coup_listener);
+	}
+	
 
 	public void updatePions(Pion[][] pions) {
 		repaint();

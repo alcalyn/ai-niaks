@@ -16,13 +16,11 @@ public class JoueursPanel extends JPanel implements Observer {
 	private static final long serialVersionUID = 4353656578680780896L;
 	
 	
-	private Partie partie;
 	private JoueurPanel [] joueur_panel;
 	
 	
 	public JoueursPanel(Partie partie) {
 		super();
-		this.partie = partie;
 		partie.addObserver(this);
 		initPanel();
 		

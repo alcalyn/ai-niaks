@@ -193,7 +193,11 @@ public class Plateau {
 		return pions;
 	}
 
-	public int getJoueur() {
+	public Joueur getJoueur() {
+		return joueurs[joueur];
+	}
+	
+	public int getJoueurIndex() {
 		return joueur;
 	}
 	

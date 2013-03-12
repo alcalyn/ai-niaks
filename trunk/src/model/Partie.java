@@ -11,11 +11,90 @@ public class Partie extends Model {
 	
 	public Partie(Joueur[] joueurs, int taille_plateau) {
 		this.joueurs = joueurs;
+		for (Joueur joueur : joueurs) {
+			joueur.attachPartie(this);
+		}
 		this.taille_plateau = taille_plateau;
 		this.plateau = new Plateau(taille_plateau, joueurs);
 		notifyPions(plateau.getPions());
+		
+		start();
 	}
-
+	
+	
+	/**
+	 * 
+	 * @return Coup généré avec le chemin intermédiaire si le pion passe par plusieurs cases
+	 * @throws IllegalMoveNiaksException si le coup est invalide
+	 */
+	public Coup coupValide(Coup coup) throws IllegalMoveNiaksException {
+		//throw new IllegalMoveNiaksException(coup, "Coup impossible car j'en ai décidé ainsi");
+		return coup;
+	}
+	
+	
+	/**
+	 * 
+	 * @param coup à faire jouer tout de suite
+	 * @throws IllegalMoveNiaksException si le coup est invalide
+	 */
+	public void jouerCoup(Coup coup) throws IllegalMoveNiaksException {
+		coup = coupValide(coup);
+		
+		plateau.movePion(coup.getPion(), coup.getCaseArrivee());
+		nextJoueur();
+	}
+	
+	
+	/**
+	 * 
+	 * @param joueur qui vient de jouer
+	 * @throws IllegalMoveNiaksException
+	 */
+	public void notifyCoupPlayed(CoupListener joueur) throws IllegalMoveNiaksException {
+		if(joueur == plateau.getJoueur()) {
+			faireJouer();
+		} else {
+			joueur.purge();
+		}
+	}
+	
+	
+	/**
+	 * Fait jouer le joueur actuel
+	 * @throws IllegalMoveNiaksException
+	 */
+	public void faireJouer() throws IllegalMoveNiaksException {
+		Coup coup = plateau.getJoueur().jouerCoup();
+		
+		if(coup != null) {
+			jouerCoup(coup);
+			start();
+		}
+	}
+	
+	
+	/**
+	 * Fait jouer tant que le joueur joue directement (ordi)
+	 * et s'arrete quand il doit attendre un coup (humain sur UI, joueur distant)
+	 */
+	public void start() {
+		while(plateau.getJoueur().playsInstantly()) {
+			Coup coup = plateau.getJoueur().jouerCoup();
+			
+			if(coup == null) {
+				System.out.println("Partie : Erreur, coup instantané null");
+			}
+			
+			try {
+				jouerCoup(coup);
+			} catch(IllegalMoveNiaksException e) {
+				System.out.println(e);
+				e.printStackTrace();
+			}
+		}
+	}
+	
 
 
 	public int getTaillePlateau() {
@@ -26,9 +105,12 @@ public class Partie extends Model {
 		return joueurs.length;
 	}
 	
-	
-	public int getJoueur() {
+	public Joueur getJoueur() {
 		return plateau.getJoueur();
+	}
+	
+	public int getJoueurIndex() {
+		return plateau.getJoueurIndex();
 	}
 	
 	public Joueur[] getJoueurs() {
@@ -41,8 +123,8 @@ public class Partie extends Model {
 	
 	public int nextJoueur() {
 		plateau.nextJoueur();
-		notifyCurrentPlayer(joueurs[plateau.getJoueur()]);
-		return plateau.getJoueur();
+		notifyCurrentPlayer(plateau.getJoueur());
+		return plateau.getJoueurIndex();
 	}
 
 
@@ -50,5 +132,8 @@ public class Partie extends Model {
 	public Plateau getPlateau() {
 		return plateau;
 	}
+
+
+	
 	
 }
