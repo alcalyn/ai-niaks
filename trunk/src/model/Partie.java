@@ -53,25 +53,19 @@ public class Partie extends Model {
 	 */
 	public void notifyCoupPlayed(CoupListener joueur) throws IllegalMoveNiaksException {
 		if(joueur == plateau.getJoueur()) {
-			faireJouer();
+			Coup coup = plateau.getJoueur().jouerCoup();
+			
+			if(coup != null) {
+				jouerCoup(coup);
+				start();
+			} else {
+				System.out.println("Partie :: Erreur, coup notified but null");
+			}
 		} else {
 			joueur.purge();
 		}
 	}
 	
-	
-	/**
-	 * Fait jouer le joueur actuel
-	 * @throws IllegalMoveNiaksException
-	 */
-	public void faireJouer() throws IllegalMoveNiaksException {
-		Coup coup = plateau.getJoueur().jouerCoup();
-		
-		if(coup != null) {
-			jouerCoup(coup);
-			start();
-		}
-	}
 	
 	
 	/**
