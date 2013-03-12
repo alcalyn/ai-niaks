@@ -31,6 +31,10 @@ public class Pion {
 	}
 
 
+	public Joueur getJoueur() {
+		return joueur;
+	}
+
 	public Coords getCoords() {
 		return coords;
 	}

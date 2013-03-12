@@ -12,10 +12,16 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.event.EventListenerList;
 
 import model.Coords;
 import model.Coords3;
+import model.Coup;
+import model.CoupEmitter;
+import model.CoupListener;
+import model.IllegalMoveNiaksException;
 import model.Joueur;
 import model.Observer;
 import model.Partie;
@@ -23,12 +29,10 @@ import model.Pion;
 
 
 
-public class PlateauPanel extends JPanel implements Observer {
+public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1809255821090205779L;
+	
 	
 	public static final Color bg_color = Color.WHITE;
 	public static final Color plateau_color = new Color(0xFFFFCC);
@@ -42,6 +46,7 @@ public class PlateauPanel extends JPanel implements Observer {
 	
 	private Partie partie;
 	private PionPanel[] pions;
+	private EventListenerList coup_listeners = new EventListenerList();
 	
 	private Point origin;
 	private int diametre;
@@ -253,8 +258,20 @@ public class PlateauPanel extends JPanel implements Observer {
 	private void pionMoved(Pion pion, Coords coords) {
 		System.out.println("Pion moved : "+pion+" to "+coords);
 		
-		// test :
-		partie.getPlateau().movePion(pion, coords);
+		if(pion.getJoueur() == partie.getJoueur()) {
+			for (CoupListener coup_listener : coup_listeners.getListeners(CoupListener.class)) {
+				try {
+					coup_listener.coupPlayed(new Coup(pion, coords));
+				} catch (IllegalMoveNiaksException e) {
+					JOptionPane.showMessageDialog(this, e.getMessage(), "Coup invalide", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}
+	}
+	
+	
+	public void addCoupListener(CoupListener coupListener) {
+		coup_listeners.add(CoupListener.class, coupListener);
 	}
 	
 	public void setBottomBranch(int branch) {
@@ -292,5 +309,6 @@ public class PlateauPanel extends JPanel implements Observer {
 
 	public void updateCurrentPlayer(Joueur joueur) {
 	}
+	
 	
 }

@@ -8,6 +8,7 @@ public abstract class Joueur {
 	
 	private String pseudo;
 	private Color couleur = null;
+	private Partie partie = null;
 	
 	
 	public Joueur(String pseudo) {
@@ -27,7 +28,22 @@ public abstract class Joueur {
 		return pseudo;
 	}
 	
+	public Partie getPartie() {
+		return partie;
+	}
+	
+	public void attachPartie(Partie partie) {
+		this.partie = partie;
+	}
+	
+	
+	
 	public abstract Coup jouerCoup();
+	
+	public abstract boolean playsInstantly();
+	
+	
+	
 	
 	
 	public static Color defaultColor(int c) {
