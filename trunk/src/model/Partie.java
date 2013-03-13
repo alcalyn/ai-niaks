@@ -24,18 +24,43 @@ public class Partie extends Model {
 	
 	/**
 	 * 
-	 * @return Coup généré avec le chemin intermédiaire si le pion passe par plusieurs cases
+	 * @return Coup gï¿½nï¿½rï¿½ avec le chemin intermï¿½diaire si le pion passe par plusieurs cases
 	 * @throws IllegalMoveNiaksException si le coup est invalide
 	 */
 	public Coup coupValide(Coup coup) throws IllegalMoveNiaksException {
-		//throw new IllegalMoveNiaksException(coup, "Coup impossible car j'en ai décidé ainsi");
+		
+		if (coup.getCaseDepart().equals(coup.getCaseArrivee()))
+		throw new IllegalMoveNiaksException(coup, "Coup impossible,il faut dÃ©placÃ© le pion");
+		
+		else if (plateau.isEmpty(coup.getCaseArrivee()))
+		throw new IllegalMoveNiaksException(coup, "Coup impossible, la case n'est pas libre");
+		
+		
+		//throw new IllegalMoveNiaksException(coup, "Coup impossible, ce coup succÃ©ssif n'est pas valide");
+		
+		
+		//throw new IllegalMoveNiaksException(coup, "Coup impossible, pas de retour en arriÃ¨re possible");
+		
+		//else if(coup.getCaseArrivee())
+		//throw new IllegalMoveNiaksException(coup, "Coup impossible, un pion ne peut pas etre arrÃ©ter dans un des triangles externe");
+		
+		
+		//throw new IllegalMoveNiaksException(coup, "Coup impossible, il faut liberer le triangle de dÃ©part");
+		
+		
+		//throw new IllegalMoveNiaksException(coup, "Coup impossible, diagonale impossible");		
+		
+		//else if (plateau.isEmptyLis(coup.getChemin()))
+		//throw new IllegalMoveNiaksException(coup, "Coup impossible, une pÃ¨ce bloque ce coup long");
+		//throw new IllegalMoveNiaksException(coup, "Coup impossible, un coup long doit etre symetrique");
+
 		return coup;
 	}
 	
 	
 	/**
 	 * 
-	 * @param coup à faire jouer tout de suite
+	 * @param coup ï¿½ faire jouer tout de suite
 	 * @throws IllegalMoveNiaksException si le coup est invalide
 	 */
 	public void jouerCoup(Coup coup) throws IllegalMoveNiaksException {
@@ -77,7 +102,7 @@ public class Partie extends Model {
 			Coup coup = plateau.getJoueur().jouerCoup();
 			
 			if(coup == null) {
-				System.out.println("Partie : Erreur, coup instantané null");
+				System.out.println("Partie : Erreur, coup instantanï¿½ null");
 			}
 			
 			try {
