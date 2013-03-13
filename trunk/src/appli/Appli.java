@@ -1,5 +1,6 @@
 package appli;
 
+import model.Coords;
 import model.Humain;
 import model.Joueur;
 import model.Ordinateur;
@@ -16,9 +17,9 @@ public class Appli {
 		
 		Joueur [] joueurs = new Joueur[] {
 			new Humain("Marcel"),
-			//new Ordinateur(1),
-			//new Humain("Julien"),
-			//new Humain("Aragorn fils d'Arathorn, roi des Terres du Milieu"),
+			new Ordinateur(1),
+			new Humain("Julien"),
+			new Humain("Aragorn fils d'Arathorn, roi des Terres du Milieu"),
 		};
 		
 		
@@ -34,6 +35,9 @@ public class Appli {
 				view.addCoupListener((Humain) joueur);
 			}
 		}
+		
+		
+		partie.enableNiakwork();
 	}
 
 }

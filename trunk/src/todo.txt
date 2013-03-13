@@ -2,20 +2,20 @@
 
 tout doux liste :
 
-	-	Vue ok pour l'instant, avancer le modèle :
-		créer dans Partie une fonction qui recoie un coup joué, Partie::play(Pion pion, Coords coords);
-		elle vérifie si le pion appartient bien au joueur qui joue en ce moment,
+	-	Vue ok pour l'instant, avancer le modï¿½le :
+		crï¿½er dans Partie une fonction qui recoie un coup jouï¿½, Partie::play(Pion pion, Coords coords);
+		elle vï¿½rifie si le pion appartient bien au joueur qui joue en ce moment,
 		elle verifie si la case destination existe, si le coup est valide...
 		si c'est bon elle fait nextPlayer() et update les vues.
 		sinon throw une NiaksException
+		
+	-	Pouvoir attendre des joueurs avant de lancer une partie,
+		afin d'ajouter des joueurs Ã  la volÃ©e avant de commencer.
+		Donc menu > Partie > Lancer la partie, ajouter ordi...
+		un event est intercÃ©ptÃ© si un joueur distant tente de se co, et demande de l'accepter ou pas
 	
 	-	Petit bug d'arrondi dans la vue, dans les cases loin du centre,
-		la souris n'est plus très en face des cases.
-	
-	-	abstract Joueur, une classe qui a un pseudo de joueur, une fonction abstraite jouer,
-		et les classes filles seront soit
-			LocalHumain (attente d'un coup joué sur la vue),
-			SocketHumain (attente d'un coup joué par un client),
-			Ordinateur (possede difficulté, execute minimax)
+		la souris n'est plus trï¿½s en face des cases.
 	
 	-	Ecran d'accueil...
+	
