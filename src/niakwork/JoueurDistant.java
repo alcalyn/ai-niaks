@@ -3,8 +3,6 @@ package niakwork;
 import java.net.Socket;
 
 import model.Coup;
-import model.CoupListener;
-import model.IllegalMoveNiaksException;
 import model.Joueur;
 
 

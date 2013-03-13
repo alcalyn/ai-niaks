@@ -137,7 +137,13 @@ public class Partie extends Model {
 	public boolean isNiakworkEnabled() {
 		return niakwork != null && niakwork.isEnabled();
 	}
-
+	
+	
+	
+	
+	public Niakwork getNiakwork() {
+		return niakwork;
+	}
 
 	public int getTaillePlateau() {
 		return taille_plateau;

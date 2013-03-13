@@ -1,6 +1,5 @@
 package appli;
 
-import model.Coords;
 import model.Humain;
 import model.Joueur;
 import model.Ordinateur;
@@ -36,8 +35,8 @@ public class Appli {
 			}
 		}
 		
-		
 		partie.enableNiakwork();
+		partie.getNiakwork().searchHost();
 	}
 
 }
