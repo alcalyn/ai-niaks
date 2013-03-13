@@ -1,11 +1,15 @@
 package model;
 
+import niakwork.Niakwork;
+
 public class Partie extends Model {
 	
 	
 	private Plateau plateau;
 	private int taille_plateau;
 	private Joueur[] joueurs;
+	
+	private Niakwork niakwork = null;
 	
 	
 	
@@ -53,7 +57,6 @@ public class Partie extends Model {
 		//else if (plateau.isEmptyLis(coup.getChemin()))
 		//throw new IllegalMoveNiaksException(coup, "Coup impossible, une pèce bloque ce coup long");
 		//throw new IllegalMoveNiaksException(coup, "Coup impossible, un coup long doit etre symetrique");
-
 		return coup;
 	}
 	
@@ -114,6 +117,26 @@ public class Partie extends Model {
 		}
 	}
 	
+	
+	
+	public void enableNiakwork() {
+		if(niakwork == null) {
+			niakwork = new Niakwork(this);
+		}
+		
+		niakwork.enable();
+	}
+	
+	public void disableNiakwork() {
+		if(niakwork != null) {
+			niakwork.disable();
+			niakwork = null;
+		}
+	}
+	
+	public boolean isNiakworkEnabled() {
+		return niakwork != null && niakwork.isEnabled();
+	}
 
 
 	public int getTaillePlateau() {
