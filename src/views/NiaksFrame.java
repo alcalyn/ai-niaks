@@ -1,8 +1,10 @@
 package views;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import model.CoupEmitter;
 import model.CoupListener;
@@ -18,58 +20,49 @@ public class NiaksFrame extends JFrame implements Observer, CoupEmitter {
 	private static final long serialVersionUID = 7409878114591059470L;
 	
 	
+	private JPanel card_pseudo = null;
+	private JPanel card_prepare = null;
+	private JPanel card_game = null;
 	
-	private Partie partie;
-	
-	private PlateauPanel plateau_panel;
-	private JoueursPanel joueurs_panel;
+	private CardLayout card_layout = new CardLayout();
 	
 	
-	public NiaksFrame(Partie partie) {
+	public NiaksFrame() {
 		super();
-		this.partie = partie;
 		initFrame();
 		
-		initPlateauPanel();
-		initJoueursPanel();
-		
-		partie.addObserver(plateau_panel);
-		partie.addObserver(joueurs_panel);
-		
-		Joueur j = partie.getJoueur();
-		updateCurrentPlayer(j);
-		joueurs_panel.updateCurrentPlayer(j);
+		//add(new CardPseudo(), "pseudo");
 	}
-
+	
+	
 	private void initFrame() {
 		setTitle("Niaks");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 600);
-		setLayout(new BorderLayout());
+		setLayout(new CardLayout());
 		setVisible(true);
 	}
 	
-	private void initPlateauPanel() {
-		plateau_panel = new PlateauPanel(partie);
-		add(plateau_panel, BorderLayout.CENTER);
+	
+	
+	public void startPartie(Partie partie) {
+		card_game = new CardGame(partie);
+		partie.addObserver((Observer) card_game);
+		
+		add(card_game, "game");
 	}
 	
-	private void initJoueursPanel() {
-		joueurs_panel = new JoueursPanel(partie);
-		add(joueurs_panel, BorderLayout.EAST);
-	}
 	
 	
+	@Override
 	public void addCoupListener(CoupListener coup_listener) {
-		plateau_panel.addCoupListener(coup_listener);
 	}
 	
-
+	@Override
 	public void updatePions(Pion[][] pions) {
-		repaint();
 	}
 
-
+	@Override
 	public void updateCurrentPlayer(Joueur joueur) {
 		setTitle("Niaks - (A "+joueur.getPseudo()+" de jouer)");
 		repaint();
