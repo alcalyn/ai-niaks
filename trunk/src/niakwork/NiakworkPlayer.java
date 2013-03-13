@@ -7,13 +7,13 @@ import model.Joueur;
 
 
 
-public class JoueurDistant extends Joueur {
+public class NiakworkPlayer extends Joueur {
 	
 	
 	
 	
 
-	public JoueurDistant(String pseudo, Socket socket) {
+	public NiakworkPlayer(String pseudo, Socket socket) {
 		super(pseudo);
 	}
 
