@@ -16,9 +16,9 @@ public class Appli {
 		
 		Joueur [] joueurs = new Joueur[] {
 			new Humain("Marcel"),
-			new Ordinateur(1),
-			new Humain("Julien"),
-			new Humain("Aragorn fils d'Arathorn, roi des Terres du Milieu"),
+			//new Ordinateur(1),
+			//new Humain("Julien"),
+			//new Humain("Aragorn fils d'Arathorn, roi des Terres du Milieu"),
 		};
 		
 		

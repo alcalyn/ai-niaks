@@ -146,6 +146,9 @@ public class Plateau {
 	public Pion getCase(Coords3 c) {
 		return getCase(c.toCoords());
 	}
+	public boolean isEmpty(Coords c){
+		return getCase(c)==null;
+	}
 	
 	public Pion getCase(Coords c) {
 		return cases[indexOf(c.x, c.y)];
@@ -208,7 +211,19 @@ public class Plateau {
 	public void nextJoueur() {
 		if(++joueur >= getNbJoueur()) joueur = 0;
 	}
-	
+
+	public boolean isEmptyLis(Coords[] chemin) {
+//		for (Coords coords : chemin) {
+//			isEmpty(coords);
+//		}
+		return true;
+	}
+	public int getZone(Coords3 c){
+		int Z = 0;
+		
+		return Z;
+
+		}
 	
 	
 }
