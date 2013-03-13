@@ -3,8 +3,6 @@ package niakwork;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.Socket;
 
 public class NiakworkAuth extends Thread {
@@ -15,8 +13,10 @@ public class NiakworkAuth extends Thread {
 	
 	
 	public NiakworkAuth(Niakwork niakwork, Socket socket) {
+		super("Thread-NiakworkAuth");
 		this.niakwork = niakwork;
 		this.socket = socket;
+		start();
 	}
 	
 	
@@ -24,25 +24,33 @@ public class NiakworkAuth extends Thread {
 	@Override
 	public void run() {
 		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+			BufferedReader br = Niakwork.getBR(socket);
+			BufferedWriter bw = Niakwork.getBW(socket);
 			
-			String read;
-			boolean ok = false;
+			System.out.println("ServerAuth > waiting for protocol header...");
 			
-			while(!ok && ((read = br.readLine()) != null)) {
-				if(read.equalsIgnoreCase(Niakwork.niawkork_version)) {
-					bw.write(Niakwork.niawkork_version+" OK");
-					bw.flush();
-					niakwork.notifyAuthentifiedClient(socket);
-					ok = true;
-				} else {
-					break;
+			String read = null;
+			
+			while(true) {
+				read = br.readLine();
+				
+				if(read != null) {
+					if(read.equalsIgnoreCase(Niakwork.niawkwork_version)) {
+						System.out.println("ServerAuth > protocol header received");
+						niakwork.notifyAuthentifiedClient(socket);
+						bw.write(Niakwork.niawkwork_version+" OK");
+						bw.newLine();
+						bw.flush();
+						break;
+					} else {
+						System.out.println("ServerAuth > bad protocol header received, abort");
+						br.close();
+						bw.close();
+						break;
+					}
 				}
 			}
 			
-			br.close();
-			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
