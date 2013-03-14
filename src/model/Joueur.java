@@ -4,8 +4,6 @@ import java.awt.Color;
 
 public abstract class Joueur {
 	
-	private static int joueur_count = 0;
-	
 	private String pseudo;
 	private Color couleur = null;
 	private Partie partie = null;
@@ -13,7 +11,6 @@ public abstract class Joueur {
 	
 	public Joueur(String pseudo) {
 		this.pseudo = pseudo;
-		this.setCouleur(defaultColor(joueur_count++));
 	}
 	
 	public Color getCouleur() {
