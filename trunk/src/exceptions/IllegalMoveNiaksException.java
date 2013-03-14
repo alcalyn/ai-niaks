@@ -1,4 +1,6 @@
-package model;
+package exceptions;
+
+import model.Coup;
 
 public class IllegalMoveNiaksException extends NiaksException {
 	
