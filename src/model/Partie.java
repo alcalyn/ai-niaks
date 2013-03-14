@@ -1,6 +1,6 @@
 package model;
 
-import niakwork.Niakwork;
+import exceptions.IllegalMoveNiaksException;
 
 public class Partie {
 	
@@ -15,9 +15,11 @@ public class Partie {
 	public Partie(Niaks niaks, Joueur[] joueurs, int taille_plateau) {
 		this.niaks = niaks;
 		this.joueurs = joueurs;
+		
 		for (Joueur joueur : joueurs) {
 			joueur.attachPartie(this);
 		}
+		
 		this.taille_plateau = taille_plateau;
 		this.plateau = new Plateau(taille_plateau, joueurs);
 		niaks.notifyPions(plateau.getPions());

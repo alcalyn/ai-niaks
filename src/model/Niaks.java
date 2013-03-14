@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.PartieNotReadyToStartNiaksException;
+import exceptions.ProfilNotSetNiaksException;
 import niakwork.Niakwork;
 
 public class Niaks extends Model {

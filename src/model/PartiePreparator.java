@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import exceptions.PartieNotReadyToStartNiaksException;
+
 public class PartiePreparator {
 	
 	private Niaks niaks;
@@ -37,6 +39,14 @@ public class PartiePreparator {
 		if(taille > 0) {
 			this.taille_plateau = taille;
 		}
+	}
+	
+	public Humain getHost() {
+		return host;
+	}
+	
+	public ArrayList<Joueur> getJoueurs() {
+		return joueurs;
 	}
 	
 	public void addJoueur(Joueur j) {

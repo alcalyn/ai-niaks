@@ -1,10 +1,10 @@
 package appli;
 
+import exceptions.PartieNotReadyToStartNiaksException;
+import exceptions.ProfilNotSetNiaksException;
 import model.Humain;
 import model.Niaks;
 import model.Ordinateur;
-import model.PartieNotReadyToStartNiaksException;
-import model.ProfilNotSetNiaksException;
 import views.NiaksFrame;
 
 
@@ -18,8 +18,6 @@ public class Appli {
 		Niaks niaks = new Niaks();
 		
 		NiaksFrame niaks_frame = new NiaksFrame(niaks);
-		
-		niaks.addObserver(niaks_frame);
 		
 		
 		boolean lancer_direct = true;

@@ -16,12 +16,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.EventListenerList;
 
+import exceptions.IllegalMoveNiaksException;
+
 import model.Coords;
 import model.Coords3;
 import model.Coup;
 import model.CoupEmitter;
 import model.CoupListener;
-import model.IllegalMoveNiaksException;
+import model.Humain;
 import model.Joueur;
 import model.Observer;
 import model.Partie;
@@ -65,6 +67,12 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 		this.partie = partie;
 		
 		addMouseListeners();
+		
+		for (Joueur joueur : partie.getJoueurs()) {
+			if(joueur instanceof Humain) {
+				addCoupListener((Humain) joueur);
+			}
+		}
 		
 		diametre = (int) Math.ceil((cell_spacing * 2 * partie.getTaillePlateau()) * Math.sqrt(3) + (2 * panel_padding) + pion_size);
 		dimension = new Dimension(diametre, diametre);

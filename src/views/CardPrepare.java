@@ -22,7 +22,7 @@ public class CardPrepare extends JPanel implements Observer {
 		
 		this.partie_preparator = partie_preparator;
 		
-		add(new JLabel("preparation"));
+		add(new JLabel(partie_preparator.getHost().getPseudo()));
 	}
 
 

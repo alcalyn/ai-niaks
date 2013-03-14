@@ -5,6 +5,8 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import exceptions.ProfilNotSetNiaksException;
+
 import model.CoupEmitter;
 import model.CoupListener;
 import model.Joueur;
@@ -14,11 +16,10 @@ import model.Partie;
 import model.PartiePreparator;
 import model.Pion;
 import model.ProfilManager;
-import model.ProfilNotSetNiaksException;
 
 
 
-public class NiaksFrame extends JFrame implements Observer, CoupEmitter {
+public class NiaksFrame extends JFrame implements Observer {
 	
 	private static final long serialVersionUID = 7409878114591059470L;
 	
@@ -33,6 +34,8 @@ public class NiaksFrame extends JFrame implements Observer, CoupEmitter {
 		super();
 		this.niaks = niaks;
 		initFrame();
+		
+		niaks.addObserver(this);
 		
 		checkForProfil();
 	}
@@ -66,35 +69,36 @@ public class NiaksFrame extends JFrame implements Observer, CoupEmitter {
 	public void promptPseudo() {
 		card_pseudo = new CardPseudo(niaks);
 		
+		getContentPane().removeAll();
 		add(card_pseudo);
-		
-		validate();
 	}
 	
 	public void startPreparation(PartiePreparator partie_preparator) {
-		card_prepare = new CardPrepare(partie_preparator);
-		niaks.addObserver((Observer) card_prepare);
-		
 		if(card_pseudo != null) {
-			remove(card_pseudo);
 			card_pseudo = null;
 		}
 		
+		card_prepare = new CardPrepare(partie_preparator);
+		niaks.addObserver((Observer) card_prepare);
+		
+		getContentPane().removeAll();
 		add(card_prepare);
 	}
 	
 	public void startPartie(Partie partie) {
+		if(card_prepare != null) {
+			niaks.removeObserver((Observer) card_prepare);
+			card_prepare = null;
+		}
+		
 		card_game = new CardGame(partie);
 		niaks.addObserver((Observer) card_game);
 		
+		getContentPane().removeAll();
 		add(card_game);
 	}
 	
 	
-	
-	@Override
-	public void addCoupListener(CoupListener coup_listener) {
-	}
 	
 	@Override
 	public void updatePions(Pion[][] pions) {

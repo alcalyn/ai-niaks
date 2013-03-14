@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.IllegalMoveNiaksException;
+
 
 
 public class JoueurDistant extends Joueur implements CoupListener {

@@ -13,6 +13,10 @@ public abstract class Model {
 		views.add(view);
 	}
 	
+	public void removeObserver(Observer view) {
+		views.remove(view);
+	}
+	
 	
 	
 	protected void notifyEtat(int etat_partie) {

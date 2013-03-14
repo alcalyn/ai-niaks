@@ -2,6 +2,8 @@ package model;
 
 import java.util.EventListener;
 
+import exceptions.IllegalMoveNiaksException;
+
 public interface CoupListener extends EventListener {
 	
 	

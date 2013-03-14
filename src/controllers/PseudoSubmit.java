@@ -5,8 +5,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 
+import exceptions.ProfilNotSetNiaksException;
+
 import model.Niaks;
-import model.ProfilNotSetNiaksException;
+import model.ProfilManager;
 
 public class PseudoSubmit implements ActionListener {
 	
@@ -23,6 +25,7 @@ public class PseudoSubmit implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		ProfilManager.addPseudo(pseudo.getText());
 		niaks.setProfil(pseudo.getText());
 		try {
 			niaks.startPreparation();
