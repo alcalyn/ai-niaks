@@ -51,10 +51,50 @@ public class PartiePreparator {
 	
 	public void addJoueur(Joueur j) {
 		joueurs.add(j);
+		setDefaultColor();
+		niaks.notifyJoueurs(getArrayJoueurs());
+	}
+	
+	public void addJoueur(Joueur j, int at) {
+		joueurs.add(at, j);
+		setDefaultColor();
+		niaks.notifyJoueurs(getArrayJoueurs());
+	}
+	
+	public void removeJoueur(Joueur j) {
+		joueurs.remove(j);
+		setDefaultColor();
+		niaks.notifyJoueurs(getArrayJoueurs());
+	}
+	
+	public void removeJoueur(int idx) {
+		if(idx < joueurs.size()) {
+			joueurs.remove(idx);
+			setDefaultColor();
+			niaks.notifyJoueurs(getArrayJoueurs());
+		}
+	}
+	
+	public void setDefaultColor() {
+		for(int i=0;i<joueurs.size();i++) {
+			joueurs.get(i).setCouleur(Joueur.defaultColor(i));
+		}
+	}
+	
+	
+	
+	private Joueur[] getArrayJoueurs() {
+		Joueur [] ret = new Joueur[joueurs.size()];
+		joueurs.toArray(ret);
+		return ret;
 	}
 	
 	public int getNbJoueur() {
 		return joueurs.size();
+	}
+	
+	public Niaks getNiaks() {
+		return niaks;
 	}
 	
 	
