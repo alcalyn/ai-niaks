@@ -2,25 +2,25 @@ package model;
 
 import niakwork.Niakwork;
 
-public class Partie extends Model {
+public class Partie {
 	
+	private Niaks niaks;
 	
 	private Plateau plateau;
 	private int taille_plateau;
 	private Joueur[] joueurs;
 	
-	private Niakwork niakwork = null;
 	
 	
-	
-	public Partie(Joueur[] joueurs, int taille_plateau) {
+	public Partie(Niaks niaks, Joueur[] joueurs, int taille_plateau) {
+		this.niaks = niaks;
 		this.joueurs = joueurs;
 		for (Joueur joueur : joueurs) {
 			joueur.attachPartie(this);
 		}
 		this.taille_plateau = taille_plateau;
 		this.plateau = new Plateau(taille_plateau, joueurs);
-		notifyPions(plateau.getPions());
+		niaks.notifyPions(plateau.getPions());
 		
 		start();
 	}
@@ -119,31 +119,7 @@ public class Partie extends Model {
 	
 	
 	
-	public void enableNiakwork() {
-		if(niakwork == null) {
-			niakwork = new Niakwork(this);
-		}
-		
-		niakwork.enable();
-	}
-	
-	public void disableNiakwork() {
-		if(niakwork != null) {
-			niakwork.disable();
-			niakwork = null;
-		}
-	}
-	
-	public boolean isNiakworkEnabled() {
-		return niakwork != null && niakwork.isEnabled();
-	}
-	
-	
-	
-	
-	public Niakwork getNiakwork() {
-		return niakwork;
-	}
+
 
 	public int getTaillePlateau() {
 		return taille_plateau;
@@ -171,11 +147,13 @@ public class Partie extends Model {
 	
 	public int nextJoueur() {
 		plateau.nextJoueur();
-		notifyCurrentPlayer(plateau.getJoueur());
+		niaks.notifyCurrentPlayer(plateau.getJoueur());
 		return plateau.getJoueurIndex();
 	}
 
-
+	public Niaks getNiaks() {
+		return niaks;
+	}
 
 	public Plateau getPlateau() {
 		return plateau;

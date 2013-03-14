@@ -1,42 +1,47 @@
 package appli;
 
 import model.Humain;
-import model.Joueur;
+import model.Niaks;
 import model.Ordinateur;
-import model.Partie;
+import model.PartieNotReadyToStartNiaksException;
+import model.ProfilNotSetNiaksException;
 import views.NiaksFrame;
+
 
 public class Appli {
 
 	//hello world
 
 	public static void main(String[] args) {
-
-		int taille_plateau = 4;
-		
-		Joueur [] joueurs = new Joueur[] {
-			new Humain("Marcel"),
-			new Ordinateur(1),
-			new Humain("Julien"),
-			new Humain("Aragorn fils d'Arathorn, roi des Terres du Milieu"),
-		};
 		
 		
-		Partie partie = new Partie(joueurs, taille_plateau);
-
-		NiaksFrame view = new NiaksFrame(partie);
+		Niaks niaks = new Niaks();
 		
-		partie.addObserver(view);
+		NiaksFrame niaks_frame = new NiaksFrame(niaks);
+		
+		niaks.addObserver(niaks_frame);
 		
 		
-		for (Joueur joueur : joueurs) {
-			if(joueur instanceof Humain) {
-				view.addCoupListener((Humain) joueur);
+		boolean lancer_direct = true;
+		
+		if(lancer_direct) {
+			try {
+				niaks.setProfil("Roger");
+				niaks.startPreparation();
+				niaks.enableNiakwork();
+				niaks.getPartiePreparator().addJoueur(new Humain("Alfred"));
+				
+				niaks.startPartie();
+			} catch (ProfilNotSetNiaksException e) {
+				e.printStackTrace();
+			} catch (PartieNotReadyToStartNiaksException e) {
+				e.printStackTrace();
 			}
+			
 		}
 		
-		partie.enableNiakwork();
-		partie.getNiakwork().searchHost();
+		
+		
 	}
 
 }
