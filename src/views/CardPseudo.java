@@ -1,8 +1,10 @@
 package views;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -27,7 +29,7 @@ public class CardPseudo extends JPanel {
 	public CardPseudo(Niaks niaks) {
 		super();
 		this.niaks = niaks;
-		setLayout(new FlowLayout());
+		setLayout(new GridBagLayout());
 		
 		setBackground(new Color(0xFFFFFF));
 		
@@ -38,9 +40,20 @@ public class CardPseudo extends JPanel {
 		button = new JButton("Valider");
 		button.addActionListener(new PseudoSubmit(niaks, pseudo));
 		
-		add(label);
-		add(pseudo);
-		add(button);
+		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(2, 4, 2, 4);
+		
+		c.gridx = 0;
+		c.gridy = 0;
+		add(label, c);
+		
+		c.gridx = 1;
+		add(pseudo, c);
+		
+		c.gridx = 0;
+		c.gridy = 1;
+		c.gridwidth = 2;
+		add(button, c);
 	}
 
 }

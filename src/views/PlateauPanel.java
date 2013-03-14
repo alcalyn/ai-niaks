@@ -331,6 +331,10 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 	@Override
 	public void updateJoueurs(Joueur[] joueurs) {
 	}
+
+	@Override
+	public void updateProfil(String pseudo) {
+	}
 	
 	
 }

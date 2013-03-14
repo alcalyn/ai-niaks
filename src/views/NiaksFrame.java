@@ -29,11 +29,15 @@ public class NiaksFrame extends JFrame implements Observer {
 	private JPanel card_prepare = null;
 	private JPanel card_game = null;
 	
+	private NiakMenu niak_menu;
+	
 	
 	public NiaksFrame(Niaks niaks) {
 		super();
 		this.niaks = niaks;
 		initFrame();
+
+		initNiakMenu();
 		
 		niaks.addObserver(this);
 		
@@ -42,11 +46,17 @@ public class NiaksFrame extends JFrame implements Observer {
 	
 	
 	private void initFrame() {
-		setTitle("Niaks");
+		String pseudo = niaks.getProfil();
+		setTitle(pseudo == null ? "Niaks" : "Niaks - "+pseudo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 600);
 		setLayout(new BorderLayout());
 		setVisible(true);
+	}
+	
+	private void initNiakMenu() {
+		niak_menu = new NiakMenu(niaks);
+		add(niak_menu, BorderLayout.NORTH);
 	}
 	
 	
@@ -69,8 +79,8 @@ public class NiaksFrame extends JFrame implements Observer {
 	public void promptPseudo() {
 		card_pseudo = new CardPseudo(niaks);
 		
-		getContentPane().removeAll();
-		add(card_pseudo);
+		clean();
+		add(card_pseudo, BorderLayout.CENTER);
 	}
 	
 	public void startPreparation(PartiePreparator partie_preparator) {
@@ -81,8 +91,8 @@ public class NiaksFrame extends JFrame implements Observer {
 		card_prepare = new CardPrepare(partie_preparator);
 		niaks.addObserver((Observer) card_prepare);
 		
-		getContentPane().removeAll();
-		add(card_prepare);
+		clean();
+		add(card_prepare, BorderLayout.CENTER);
 	}
 	
 	public void startPartie(Partie partie) {
@@ -94,8 +104,14 @@ public class NiaksFrame extends JFrame implements Observer {
 		card_game = new CardGame(partie);
 		niaks.addObserver((Observer) card_game);
 		
-		getContentPane().removeAll();
+		clean();
 		add(card_game);
+	}
+	
+	
+	private void clean() {
+		getContentPane().removeAll();
+		add(niak_menu, BorderLayout.NORTH);
 	}
 	
 	
@@ -106,8 +122,6 @@ public class NiaksFrame extends JFrame implements Observer {
 
 	@Override
 	public void updateCurrentPlayer(Joueur joueur) {
-		setTitle("Niaks - (A "+joueur.getPseudo()+" de jouer)");
-		repaint();
 	}
 
 
@@ -144,6 +158,12 @@ public class NiaksFrame extends JFrame implements Observer {
 
 	@Override
 	public void updateJoueurs(Joueur[] joueurs) {
+	}
+
+
+	@Override
+	public void updateProfil(String pseudo) {
+		setTitle(pseudo == null ? "Niaks" : "Niaks - "+pseudo);
 	}
 	
 	
