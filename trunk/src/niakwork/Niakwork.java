@@ -10,6 +10,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import model.Niaks;
 import model.Partie;
 
 public class Niakwork {
@@ -19,13 +20,13 @@ public class Niakwork {
 	public static int port = 23456;
 	
 	
-	private Partie partie;
+	private Niaks niaks;
 	private boolean enabled = false;
 	private NiakworkServer server = null;
 	
 	
-	public Niakwork(Partie partie) {
-		this.partie = partie;
+	public Niakwork(Niaks niaks) {
+		this.niaks = niaks;
 	}
 	
 	
@@ -46,17 +47,30 @@ public class Niakwork {
 	
 	public void searchHost() {
 		String host_adress = null;
+		String network_prefix = null;
 		
 		try {
 			host_adress = InetAddress.getLocalHost().getHostAddress();
+			
+			byte [] raw_ip = InetAddress.getLocalHost().getAddress();
+			network_prefix = "";
+			
+			for (int i=0;i<3;i++) {
+				int n = raw_ip[i];
+				if(n < 0) n += 256;
+				network_prefix += n+".";
+			}
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Niakwork > searching host except me ("+host_adress+") ...");
+		System.out.println("Niakwork > searching host ");
+		System.out.println("           from "+network_prefix+"1");
+		System.out.println("           to   "+network_prefix+"254");
+		System.out.println("           except me ("+host_adress+") ...");
 		
 		for(int i=1;i<=254;i++) {
-			String ip = "192.168.0."+i;
+			String ip = network_prefix+i;
 			
 			if((host_adress == null) || !ip.equals(host_adress)) {
 				connectTo(new InetSocketAddress(ip, port));
@@ -69,6 +83,11 @@ public class Niakwork {
 		server = new NiakworkServer(this, port);
 	}
 	
+	private void stopServer() {
+		server.close();
+		server = null;
+	}
+	
 	public void enable() {
 		if(!enabled) {
 			startServer();
@@ -78,7 +97,7 @@ public class Niakwork {
 	
 	public void disable() {
 		if(enabled) {
-			server.close();
+			stopServer();
 			server = null;
 			
 			enabled = false;

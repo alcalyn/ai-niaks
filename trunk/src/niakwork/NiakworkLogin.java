@@ -3,7 +3,9 @@ package niakwork;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.InetSocketAddress;
+import java.net.NoRouteToHostException;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 
@@ -56,9 +58,15 @@ public class NiakworkLogin extends Thread {
 					}
 				}
 			}
-			
+		
+		} catch (NoRouteToHostException e) {
+			//System.out.println("Pas de route ici : "+endpoint.getAddress());
+			//e.printStackTrace();
 		} catch (SocketTimeoutException e) {
 			//System.out.println("Rien ici : "+endpoint.getAddress());
+			//e.printStackTrace();
+		} catch (ConnectException e) {
+			//System.out.println("Connection refusee ici : "+endpoint.getAddress());
 			//e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();

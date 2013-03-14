@@ -14,17 +14,43 @@ public abstract class Model {
 	}
 	
 	
+	
+	protected void notifyEtat(int etat_partie) {
+		for(int i=0;i<views.size();i++) {
+			Observer o = views.get(i);
+			o.updateEtat(etat_partie);
+		}
+	}
+	
+	protected void notifyTaillePlateau(int taille) {
+		for(int i=0;i<views.size();i++) {
+			Observer o = views.get(i);
+			o.updateTaillePlateau(taille);
+		}
+	}
+	
+	protected void notifyJoueurs(Joueur joueurs[]) {
+		for(int i=0;i<views.size();i++) {
+			Observer o = views.get(i);
+			o.updateJoueurs(joueurs);
+		}
+	}
+	
 	protected void notifyPions(Pion [][] pions) {
-		for (Observer o : views) {
+		for(int i=0;i<views.size();i++) {
+			Observer o = views.get(i);
 			o.updatePions(pions);
 		}
 	}
 	
 	protected void notifyCurrentPlayer(Joueur joueur) {
-		for (Observer o : views) {
+		for(int i=0;i<views.size();i++) {
+			Observer o = views.get(i);
 			o.updateCurrentPlayer(joueur);
 		}
 	}
+	
+
 	
 	
 	

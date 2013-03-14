@@ -304,10 +304,24 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 		setCursor(Cursor.getDefaultCursor());
 	}
 	
+	@Override
 	public void updatePions(Pion[][] pions) {
 	}
-
+	
+	@Override
 	public void updateCurrentPlayer(Joueur joueur) {
+	}
+
+	@Override
+	public void updateEtat(int etat_partie) {
+	}
+
+	@Override
+	public void updateTaillePlateau(int taille) {
+	}
+
+	@Override
+	public void updateJoueurs(Joueur[] joueurs) {
 	}
 	
 	

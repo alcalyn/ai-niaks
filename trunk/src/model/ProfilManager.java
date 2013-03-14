@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ProfilManager {
 	
-	public static final String app_dir_location = "C:\\Users\\Julien\\Desktop\\";
+	public static final String app_dir_location = "";
 	public static final String app_dir_name = "niaks";
 	
 	private static File app_dir = null;
@@ -22,6 +22,8 @@ public class ProfilManager {
 					System.out.println("ProfilManager n'a pas pu creer le dossier de l'application");
 				}
 			}
+			
+			init = true;
 		}
 	}
 	
@@ -57,14 +59,21 @@ public class ProfilManager {
 		
 		if(!exists) {
 			try {
-				new File(app_dir_location+app_dir_name+"\\"+pseudo).createNewFile();
+				new File(app_dir_location+app_dir_name+File.separator+pseudo).createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 	
-	
-	
+	public static String getPseudo() {
+		String [] pseudos = getPseudos();
+		
+		if(pseudos.length == 1) {
+			return pseudos[0];
+		} else {
+			return null;
+		}
+	}
 	
 }

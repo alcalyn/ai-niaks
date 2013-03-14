@@ -21,7 +21,7 @@ public class JoueursPanel extends JPanel implements Observer {
 	
 	public JoueursPanel(Partie partie) {
 		super();
-		partie.addObserver(this);
+		partie.getNiaks().addObserver(this);
 		initPanel();
 		
 		joueur_panel = new JoueurPanel[partie.getNbJoueur()];
@@ -46,15 +46,30 @@ public class JoueursPanel extends JPanel implements Observer {
 	}
 	
 	
-
+	@Override
 	public void updatePions(Pion[][] pions) {
 	}
 
-
+	@Override
 	public void updateCurrentPlayer(Joueur joueur) {
 		for (JoueurPanel p : joueur_panel) {
 			p.updateCurrentPlayer(joueur);
 		}
+	}
+
+
+	@Override
+	public void updateEtat(int etat_partie) {
+	}
+
+
+	@Override
+	public void updateTaillePlateau(int taille) {
+	}
+
+
+	@Override
+	public void updateJoueurs(Joueur[] joueurs) {
 	}
 	
 	

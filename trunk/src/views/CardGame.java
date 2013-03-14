@@ -34,8 +34,8 @@ public class CardGame extends JPanel implements Observer, CoupEmitter {
 		initJoueursPanel();
 		initNiakMenu();
 		
-		partie.addObserver(plateau_panel);
-		partie.addObserver(joueurs_panel);
+		partie.getNiaks().addObserver(plateau_panel);
+		partie.getNiaks().addObserver(joueurs_panel);
 		
 		Joueur j = partie.getJoueur();
 		updateCurrentPlayer(j);
@@ -74,6 +74,21 @@ public class CardGame extends JPanel implements Observer, CoupEmitter {
 	@Override
 	public void updateCurrentPlayer(Joueur joueur) {
 		repaint();
+	}
+
+
+	@Override
+	public void updateEtat(int etat_partie) {
+	}
+
+
+	@Override
+	public void updateTaillePlateau(int taille) {
+	}
+
+
+	@Override
+	public void updateJoueurs(Joueur[] joueurs) {
 	}
 
 }
