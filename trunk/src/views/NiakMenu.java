@@ -3,18 +3,18 @@ package views;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
-import model.Partie;
+import model.Niaks;
 
 public class NiakMenu extends JMenuBar {
 	
 	private static final long serialVersionUID = 775631860645850544L;
 	
 	
-	private Partie partie;
+	private Niaks niaks;
 	
 	
-	public NiakMenu(Partie partie) {
-		this.partie = partie;
+	public NiakMenu(Niaks niaks) {
+		this.niaks = niaks;
 		
 		add(menuPartie());
 		add(menuJoueurs());

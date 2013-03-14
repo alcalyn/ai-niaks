@@ -71,6 +71,11 @@ public class JoueursPanel extends JPanel implements Observer {
 	@Override
 	public void updateJoueurs(Joueur[] joueurs) {
 	}
+
+
+	@Override
+	public void updateProfil(String pseudo) {
+	}
 	
 	
 	

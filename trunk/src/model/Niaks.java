@@ -43,6 +43,11 @@ public class Niaks extends Model {
 	
 	public void setProfil(String pseudo) {
 		this.pseudo = pseudo;
+		notifyProfil(pseudo);
+	}
+	
+	public String getProfil() {
+		return pseudo;
 	}
 	
 	

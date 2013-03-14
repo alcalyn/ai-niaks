@@ -19,6 +19,15 @@ public abstract class Model {
 	
 	
 	
+	
+	
+	protected void notifyProfil(String pseudo) {
+		for(int i=0;i<views.size();i++) {
+			Observer o = views.get(i);
+			o.updateProfil(pseudo);
+		}
+	}
+	
 	protected void notifyEtat(int etat_partie) {
 		for(int i=0;i<views.size();i++) {
 			Observer o = views.get(i);

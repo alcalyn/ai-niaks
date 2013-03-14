@@ -21,7 +21,6 @@ public class CardGame extends JPanel implements Observer, CoupEmitter {
 	
 	private PlateauPanel plateau_panel;
 	private JoueursPanel joueurs_panel;
-	private NiakMenu niak_menu;
 	
 	
 	
@@ -32,7 +31,6 @@ public class CardGame extends JPanel implements Observer, CoupEmitter {
 		
 		initPlateauPanel();
 		initJoueursPanel();
-		initNiakMenu();
 		
 		partie.getNiaks().addObserver(plateau_panel);
 		partie.getNiaks().addObserver(joueurs_panel);
@@ -53,10 +51,7 @@ public class CardGame extends JPanel implements Observer, CoupEmitter {
 		add(joueurs_panel, BorderLayout.EAST);
 	}
 	
-	private void initNiakMenu() {
-		niak_menu = new NiakMenu(partie);
-		add(niak_menu, BorderLayout.NORTH);
-	}
+	
 
 
 	@Override
@@ -89,6 +84,11 @@ public class CardGame extends JPanel implements Observer, CoupEmitter {
 
 	@Override
 	public void updateJoueurs(Joueur[] joueurs) {
+	}
+
+
+	@Override
+	public void updateProfil(String pseudo) {
 	}
 
 }

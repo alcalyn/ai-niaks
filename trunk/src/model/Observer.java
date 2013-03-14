@@ -3,6 +3,7 @@ package model;
 public interface Observer {
 	
 	
+	public void updateProfil(String pseudo);
 	
 	public void updateEtat(int etat_partie);
 	
