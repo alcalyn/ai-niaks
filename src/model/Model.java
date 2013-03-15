@@ -63,7 +63,12 @@ public abstract class Model {
 		}
 	}
 	
-
+	protected void notifyNiakwork(boolean isEnabled) {
+		for(int i=0;i<views.size();i++) {
+			Observer o = views.get(i);
+			o.updateNiakwork(isEnabled);
+		}
+	}
 	
 	
 	

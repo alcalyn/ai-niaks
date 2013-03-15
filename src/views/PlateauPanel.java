@@ -335,6 +335,12 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 	@Override
 	public void updateProfil(String pseudo) {
 	}
+
+	@Override
+	public void updateNiakwork(boolean isEnabled) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

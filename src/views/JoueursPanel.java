@@ -76,6 +76,13 @@ public class JoueursPanel extends JPanel implements Observer {
 	@Override
 	public void updateProfil(String pseudo) {
 	}
+
+
+	@Override
+	public void updateNiakwork(boolean isEnabled) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

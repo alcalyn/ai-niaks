@@ -56,6 +56,7 @@ public class NiaksFrame extends JFrame implements Observer, ExceptionCatcher {
 	
 	private void initNiakMenu() {
 		niak_menu = new NiakMenu(niaks, this);
+		niaks.addObserver(niak_menu);
 		add(niak_menu, BorderLayout.NORTH);
 	}
 	
@@ -171,6 +172,11 @@ public class NiaksFrame extends JFrame implements Observer, ExceptionCatcher {
 	@Override
 	public void catchException(NiaksException e) {
 		JOptionPane.showMessageDialog(this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+	}
+
+
+	@Override
+	public void updateNiakwork(boolean isEnabled) {
 	}
 
 
