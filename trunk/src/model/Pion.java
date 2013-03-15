@@ -15,6 +15,7 @@ public class Pion {
 	private int endZone;
 	private Joueur joueur;
 	private Coords coords;
+//	private Case caseDuPion;
 
 
 	public Pion(Joueur joueur) {
@@ -70,5 +71,13 @@ public class Pion {
 	public void setEndZone(int endZone) {
 		this.endZone = endZone;
 	}
+
+//	public Case getCaseDuPion() {
+//		return caseDuPion;
+//	}
+//
+//	public void setCaseDuPion(Case caseDuPion) {
+//		this.caseDuPion = caseDuPion;
+//	}
 	
 }

@@ -58,5 +58,7 @@ public abstract class Joueur {
 		return coordBut;
 	}
 	
-	
+	public void setBut(Coords c) {
+		this.coordBut=c;
+	}	
 }

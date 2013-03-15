@@ -5,9 +5,9 @@ public class Case {
 	private Coords coordCase;
 	private boolean empty;
 	
-	public Case (Coords c){
+	public Case (Coords c, boolean b){
 		this.coordCase= c;
-		this.empty = true;
+		this.empty = b;
 	}
 	
 	public boolean isEmpty() {
@@ -18,16 +18,12 @@ public class Case {
 		this.empty = true;
 	}
 	
-	public void cetOccupied (){
+	public void setOccupied (){
 		this.empty = false;
 	}
 	
 	public Coords getCoordCase() {
 		return coordCase;
-	}
-	
-	public void setCoordCase(Coords coordCase) {
-		this.coordCase = coordCase;
 	}
 	
 }
