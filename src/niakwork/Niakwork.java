@@ -11,20 +11,14 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-import javax.swing.event.EventListenerList;
-
-import exceptions.IllegalMoveNiaksException;
-
-import model.Coup;
-import model.CoupListener;
 import model.Niaks;
+import exceptions.NiaksException;
 
 public class Niakwork {
 	
 	public static final String niawkwork_version = "NIAKWORK/1.0";
 	public static int login_timeout = 650;
-	public static int port = 23456;
+	public static int [] ports = new int[] {23456, 23457};
 	
 	
 	private Niaks niaks;
@@ -57,10 +51,12 @@ public class Niakwork {
 	
 	public void searchHost() {
 		String host_adress = null;
+		int host_port = -1;
 		String network_prefix = null;
 		
 		try {
 			host_adress = InetAddress.getLocalHost().getHostAddress();
+			host_port = server.getPort();
 			
 			byte [] raw_ip = InetAddress.getLocalHost().getAddress();
 			network_prefix = "";
@@ -77,20 +73,22 @@ public class Niakwork {
 		System.out.println("Niakwork > searching host ");
 		System.out.println("           from "+network_prefix+"1");
 		System.out.println("           to   "+network_prefix+"254");
-		System.out.println("           except me ("+host_adress+") ...");
+		System.out.println("           except me ("+host_adress+":"+host_port+") ...");
 		
 		for(int i=1;i<=254;i++) {
 			String ip = network_prefix+i;
 			
-			if((host_adress == null) || !ip.equals(host_adress)) {
-				connectTo(new InetSocketAddress(ip, port));
+			for (int port : ports) {
+				if((host_adress == null) || !(ip.equals(host_adress) && (port == host_port))) {
+					connectTo(new InetSocketAddress(ip, port));
+				}
 			}
 		}
 	}
 	
 	
-	public void startServer() {
-		server = new NiakworkServer(this, port);
+	public void startServer() throws NiaksException {
+		server = new NiakworkServer(this, ports);
 	}
 	
 	public void stopServer() {
