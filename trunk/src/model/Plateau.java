@@ -52,6 +52,19 @@ public class Plateau {
 		}
 	}
 	
+	//initialise la matrice des objets cases 
+//	private void initCasesObjet() {
+//		int nb_case = (taille * (taille + 1)) / 2;
+//		
+//		Case[][] tabCase = new Case[nb_case][nb_case];
+//		for(int i = 0;i<nb_case;i++) {
+//			for(int j = 0 ; j<nb_case ; j++) {
+//				tabCase[i][j] = new Case(new Coords (i,j));
+//			}
+//		}
+//		
+//	}
+	
 	private void initCases() {
 		cases = new Pion[getCaseMatriceLength()];
 	}
@@ -133,11 +146,24 @@ public class Plateau {
 				
 				Coords c = new Coords(x, y);
 				Pion pion = getPion(joueur, k++);
-				movePion(pion, branche.mul(c).toCoords());
+				movePion(pion, branche.mul(c).toCoords() );			
 			}
 		}
 	}
 	
+	private void placerCases() {
+		
+		for(int j = 1; j <= taille; j++) {
+			for(int i = j; i <= taille; i++) {
+				int x = i;
+				int y = taille + j - i;
+				
+				Coords c = new Coords(x, y);
+				Case ca = new Case(c);
+				ca.isEmpty();
+			}
+		}
+	}
 	
 	public Pion getPion(char joueur, int i) {
 		return pions[joueur - 1][i];
@@ -154,24 +180,46 @@ public class Plateau {
 		return cases[indexOf(c.x, c.y)];
 	}
 	
-	public void movePion(Pion pion, Coords coords) {
-		if(cases[indexOf(coords)] == null) {
+	public void movePion(Pion pion, Coords c) {
+		if(cases[indexOf(c)] == null) {
 			if(pion.getCoords() != null) {
 				cases[indexOf(pion.getCoords())] = null;
 			}
 			
-			pion.setCoords(coords);
-			cases[indexOf(coords)] = pion;
+			pion.setCoords(c);
+			cases[indexOf(c)] = pion;
+			
 		}
 	}
+	
+	public void movePionC(Pion pion, Case c) {
+		if(cases[indexOf(c.getCoordCase())] == null) {
+			if(pion.getCoords() != null) {
+				cases[indexOf(pion.getCoords())] = null;
+			}
+			
+			pion.setCoords(c.getCoordCase());
+			cases[indexOf(c.getCoordCase())] = pion;
+			
+		}
+	}
+	
 	
 	public boolean isset(Coords3 c) {
 		return isset(c.toCoords());
 	}
 	
 	public boolean isset(Coords c) {
-		// TODO indiquer si une case existe
-		return true;
+		if (c.x < taille && c.y < taille && c.x>-taille && c.y>-taille)
+		 return true;
+		else
+		for ( int i=0 ; i< taille; i++){
+			for ( int j=0 ; j< taille; j++){
+		if(c.x == taille+i && c.y == taille+j)
+			return true;
+			}
+		}
+		return false;
 	}
 	
 	private int indexOf(int x, int y) {

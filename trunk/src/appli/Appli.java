@@ -10,7 +10,6 @@ import views.NiaksFrame;
 
 public class Appli {
 
-	//hello world
 
 	public static void main(String[] args) {
 		

@@ -38,7 +38,8 @@ public class Partie {
 		if (coup.getCaseDepart().equals(coup.getCaseArrivee()))
 		throw new IllegalMoveNiaksException(coup, "Coup impossible,il faut déplacé le pion");
 		
-		else if (plateau.isEmpty(coup.getCaseArrivee()))
+		//else if (plateau.isEmpty(coup.getCaseArrivee()))
+		else if (coup.getCaseArrivee().isEmpty())
 		throw new IllegalMoveNiaksException(coup, "Coup impossible, la case n'est pas libre");
 		
 		
@@ -47,7 +48,7 @@ public class Partie {
 		
 		//throw new IllegalMoveNiaksException(coup, "Coup impossible, pas de retour en arrière possible");
 		
-		//else if(coup.getCaseArrivee())
+		//else if(coup.getCaseArrivee().appartienta(liste de case des triangles inerdits))
 		//throw new IllegalMoveNiaksException(coup, "Coup impossible, un pion ne peut pas etre arréter dans un des triangles externe");
 		
 		
@@ -59,7 +60,7 @@ public class Partie {
 		//else if (plateau.isEmptyLis(coup.getChemin()))
 		//throw new IllegalMoveNiaksException(coup, "Coup impossible, une pèce bloque ce coup long");
 		//throw new IllegalMoveNiaksException(coup, "Coup impossible, un coup long doit etre symetrique");
-		return coup;
+		else return coup;
 	}
 	
 	
@@ -71,7 +72,7 @@ public class Partie {
 	public void jouerCoup(Coup coup) throws IllegalMoveNiaksException {
 		coup = coupValide(coup);
 		
-		plateau.movePion(coup.getPion(), coup.getCaseArrivee());
+		plateau.movePionC(coup.getPion(), coup.getCaseArrivee());
 		nextJoueur();
 	}
 	
