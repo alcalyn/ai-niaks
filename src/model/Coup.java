@@ -4,15 +4,15 @@ public class Coup {
 	
 	
 	private Pion pion = null;
-	private Coords case_depart = null;
-	private Coords case_arrivee = null;
+	private Case case_depart = null;
+	private Case case_arrivee = null;
 	private Coords[] chemin = null;
 	
 	
 	public Coup(Pion pion, Coords destination) {
 		this.pion = pion;
-		this.case_depart = pion.getCoords();
-		this.case_arrivee = destination;
+		this.case_depart = new Case (pion.getCoords());
+		this.case_arrivee = new Case (destination);
 	}
 	
 	
@@ -31,11 +31,11 @@ public class Coup {
 		return pion;
 	}
 
-	public Coords getCaseDepart() {
+	public Case getCaseDepart() {
 		return case_depart;
 	}
 
-	public Coords getCaseArrivee() {
+	public Case getCaseArrivee() {
 		return case_arrivee;
 	}
 
