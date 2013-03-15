@@ -3,12 +3,9 @@ package views;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import exceptions.ProfilNotSetNiaksException;
-
-import model.CoupEmitter;
-import model.CoupListener;
 import model.Joueur;
 import model.Niaks;
 import model.Observer;
@@ -16,10 +13,13 @@ import model.Partie;
 import model.PartiePreparator;
 import model.Pion;
 import model.ProfilManager;
+import controllers.ExceptionCatcher;
+import exceptions.NiaksException;
+import exceptions.ProfilNotSetNiaksException;
 
 
 
-public class NiaksFrame extends JFrame implements Observer {
+public class NiaksFrame extends JFrame implements Observer, ExceptionCatcher {
 	
 	private static final long serialVersionUID = 7409878114591059470L;
 	
@@ -55,7 +55,7 @@ public class NiaksFrame extends JFrame implements Observer {
 	}
 	
 	private void initNiakMenu() {
-		niak_menu = new NiakMenu(niaks);
+		niak_menu = new NiakMenu(niaks, this);
 		add(niak_menu, BorderLayout.NORTH);
 	}
 	
@@ -81,6 +81,7 @@ public class NiaksFrame extends JFrame implements Observer {
 		
 		clean();
 		add(card_pseudo, BorderLayout.CENTER);
+		validate();
 	}
 	
 	public void startPreparation(PartiePreparator partie_preparator) {
@@ -165,6 +166,14 @@ public class NiaksFrame extends JFrame implements Observer {
 	public void updateProfil(String pseudo) {
 		setTitle(pseudo == null ? "Niaks" : "Niaks - "+pseudo);
 	}
+
+
+	@Override
+	public void catchException(NiaksException e) {
+		JOptionPane.showMessageDialog(this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+	}
+
+
 	
 	
 }

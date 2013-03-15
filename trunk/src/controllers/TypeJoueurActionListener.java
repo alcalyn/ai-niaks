@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 
 import model.Humain;
-import model.Niaks;
 import model.Ordinateur;
 import model.PartiePreparator;
 
@@ -26,7 +25,6 @@ public class TypeJoueurActionListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		@SuppressWarnings("unchecked")
 		JComboBox c = (JComboBox) e.getSource();
 		
 		int select = c.getSelectedIndex();
