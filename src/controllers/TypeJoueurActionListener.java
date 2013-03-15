@@ -27,7 +27,7 @@ public class TypeJoueurActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		@SuppressWarnings("unchecked")
-		JComboBox<String> c = (JComboBox<String>) e.getSource();
+		JComboBox c = (JComboBox) e.getSource();
 		
 		int select = c.getSelectedIndex();
 		if(index == partie_preparator.getNbJoueur()) {

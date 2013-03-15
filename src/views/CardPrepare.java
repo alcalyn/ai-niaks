@@ -113,8 +113,8 @@ public class CardPrepare extends JPanel implements Observer {
 	}
 
 	
-	private JComboBox<String> createComboBox(boolean listening, int index) {
-		JComboBox<String> combo = new JComboBox<String>();
+	private JComboBox createComboBox(boolean listening, int index) {
+		JComboBox combo = new JComboBox();
 		
 		combo.addItem("Vide");
 		combo.addItem("Joueur local");
@@ -126,8 +126,8 @@ public class CardPrepare extends JPanel implements Observer {
 		return combo;
 	}
 	
-	private JComboBox<String> createComboBox(Joueur c, int index) {
-		JComboBox<String> combo = createComboBox(false, index);
+	private JComboBox createComboBox(Joueur c, int index) {
+		JComboBox combo = createComboBox(false, index);
 		
 		if(c instanceof Humain)			combo.setSelectedIndex(1);
 		if(c instanceof NiakworkPlayer) combo.setSelectedIndex(2);
@@ -143,8 +143,8 @@ public class CardPrepare extends JPanel implements Observer {
 		return combo;
 	}
 	
-	private JComboBox<String> createCPULevel() {
-		JComboBox<String> combo = new JComboBox<String>();
+	private JComboBox createCPULevel() {
+		JComboBox combo = new JComboBox();
 		
 		combo.addItem("Facile");
 		combo.addItem("Moyen");
