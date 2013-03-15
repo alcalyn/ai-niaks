@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import niakwork.NiakworkPlayerSocket;
+
 import model.Joueur;
 import model.Niaks;
 import model.Observer;
@@ -177,6 +179,18 @@ public class NiaksFrame extends JFrame implements Observer, ExceptionCatcher {
 
 	@Override
 	public void updateNiakwork(boolean isEnabled) {
+	}
+
+
+	@Override
+	public void updateNiakworkClientFound(NiakworkPlayerSocket npsocket) {
+		JOptionPane.showConfirmDialog(
+			this,
+			"Un joueur distant veut se connecter",
+			"Niakwork",
+			JOptionPane.YES_NO_OPTION,
+			JOptionPane.QUESTION_MESSAGE
+		);
 	}
 
 

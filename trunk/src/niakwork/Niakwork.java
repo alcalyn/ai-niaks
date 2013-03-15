@@ -9,6 +9,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.event.EventListenerList;
@@ -29,7 +30,8 @@ public class Niakwork {
 	private Niaks niaks;
 	private NiakworkServer server = null;
 	
-	private EventListenerList listeners = new EventListenerList();
+	
+	private ArrayList<NiakworkHostSocket> hosts = new ArrayList<NiakworkHostSocket>();
 	
 	
 	public Niakwork(Niaks niaks) {
@@ -39,17 +41,11 @@ public class Niakwork {
 	
 	
 	public void notifyAuthentifiedClient(Socket socket) {
-		System.out.println("Client authentified : "+socket.getInetAddress());
-		for (NiakworkListener listener : listeners.getListeners(NiakworkListener.class)) {
-			listener.clientFound(new NiakworkPlayerSocket(this, socket));
-		}
+		niaks.niakworkClientFound(new NiakworkPlayerSocket(this, socket));
 	}
 	
 	public void notifyAuthentifiedServer(Socket socket) {
-		System.out.println("Server authentified : "+socket.getInetAddress());
-		for (NiakworkListener listener : listeners.getListeners(NiakworkListener.class)) {
-			listener.hostFound(new NiakworkPlayerSocket(this, socket));
-		}
+		hosts.add(new NiakworkHostSocket(this, socket));
 	}
 	
 	
@@ -109,11 +105,11 @@ public class Niakwork {
 		stopServer();
 	}
 	
-	public void addNiakworkListener(NiakworkListener listener) {
-		listeners.add(NiakworkListener.class, listener);
+	public NiakworkHostSocket[] getHostsFound() {
+		NiakworkHostSocket[] ret = new NiakworkHostSocket[hosts.size()];
+		hosts.toArray(ret);
+		return ret;
 	}
-	
-	
 	
 
 

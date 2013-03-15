@@ -6,6 +6,8 @@ import java.awt.Insets;
 
 import javax.swing.JPanel;
 
+import niakwork.NiakworkPlayerSocket;
+
 import model.Joueur;
 import model.Observer;
 import model.Partie;
@@ -80,6 +82,13 @@ public class JoueursPanel extends JPanel implements Observer {
 
 	@Override
 	public void updateNiakwork(boolean isEnabled) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void updateNiakworkClientFound(NiakworkPlayerSocket npsocket) {
 		// TODO Auto-generated method stub
 		
 	}

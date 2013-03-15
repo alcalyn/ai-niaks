@@ -3,6 +3,7 @@ package model;
 import exceptions.PartieNotReadyToStartNiaksException;
 import exceptions.ProfilNotSetNiaksException;
 import niakwork.Niakwork;
+import niakwork.NiakworkPlayerSocket;
 
 public class Niaks extends Model {
 	
@@ -79,6 +80,10 @@ public class Niaks extends Model {
 		}
 		
 		return niakwork;
+	}
+	
+	public void niakworkClientFound(NiakworkPlayerSocket niakwork_player_socket) {
+		
 	}
 
 
