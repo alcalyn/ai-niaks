@@ -72,10 +72,10 @@ public abstract class Model {
 		}
 	}
 	
-	protected void notifyNiakworkClientFound(NiakworkPlayerSocket npsocket) {
+	protected void notifyNiakworkClientWantJoin(NiakworkPlayerSocket npsocket, String pseudo) {
 		for(int i=0;i<views.size();i++) {
 			Observer o = views.get(i);
-			o.updateNiakworkClientFound(npsocket);
+			o.updateNiakworkClientWantJoin(npsocket, pseudo);
 		}
 	}
 	

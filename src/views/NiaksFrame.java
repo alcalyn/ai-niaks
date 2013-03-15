@@ -183,14 +183,20 @@ public class NiaksFrame extends JFrame implements Observer, ExceptionCatcher {
 
 
 	@Override
-	public void updateNiakworkClientFound(NiakworkPlayerSocket npsocket) {
-		JOptionPane.showConfirmDialog(
+	public void updateNiakworkClientWantJoin(NiakworkPlayerSocket npsocket, String pseudo) {
+		int response = JOptionPane.showConfirmDialog(
 			this,
-			"Un joueur distant veut se connecter",
+			"'"+pseudo+"' veut se connecter",
 			"Niakwork",
 			JOptionPane.YES_NO_OPTION,
 			JOptionPane.QUESTION_MESSAGE
 		);
+		
+		if(response == JOptionPane.YES_OPTION) {
+			niaks.niakworkAcceptClient(npsocket, pseudo);
+		} else {
+			niaks.niakworkDenyClient(npsocket);
+		}
 	}
 
 

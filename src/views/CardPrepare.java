@@ -247,7 +247,7 @@ public class CardPrepare extends JPanel implements Observer {
 
 
 	@Override
-	public void updateNiakworkClientFound(NiakworkPlayerSocket npsocket) {
+	public void updateNiakworkClientWantJoin(NiakworkPlayerSocket npsocket, String pseudo) {
 		// TODO Auto-generated method stub
 		
 	}
