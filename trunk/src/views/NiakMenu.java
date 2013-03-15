@@ -8,7 +8,7 @@ import model.Joueur;
 import model.Niaks;
 import model.Observer;
 import model.Pion;
-import controllers.LancerPartie;
+import controllers.MenuButton;
 
 public class NiakMenu extends JMenuBar implements Observer {
 	
@@ -18,37 +18,87 @@ public class NiakMenu extends JMenuBar implements Observer {
 	private Niaks niaks;
 	private NiaksFrame niaks_frame;
 	
+	
+	private JMenu		partie;
+	private JMenuItem		lancer_partie;
+	
+	private JMenu		joueurs;
+	
+	private JMenu		niakwork;
+	private JMenuItem		connect;
+	private JMenuItem		disconnect;
+	private JMenu			found_hosts;
+	private JMenuItem			no_host_found;
+	
+	private JMenu		projet;
+	
+	private JMenu		about;
+	
+	
 	public NiakMenu(Niaks niaks, NiaksFrame niaks_frame) {
 		this.niaks = niaks;
 		this.niaks_frame = niaks_frame;
 		
 		add(menuPartie());
 		add(menuJoueurs());
+		add(menuNiakwork());
+		add(menuProjet());
 		add(menuAbout());
+		
+		updateNiakwork(niaks.isNiakworkEnabled());
 	}
 	
 	
 
 	private JMenu menuPartie() {
-		JMenu menu = new JMenu("Partie");
+		partie = new JMenu("Partie");
 		
-		JMenuItem lancer_partie = new JMenuItem("Lancer la partie");
-		lancer_partie.addActionListener(new LancerPartie(niaks, niaks_frame));
-		menu.add(lancer_partie);
+		lancer_partie = new JMenuItem("Lancer la partie");
+		lancer_partie.addActionListener(new MenuButton(niaks, niaks_frame, MenuButton.LANCER_PARTIE));
+		partie.add(lancer_partie);
 		
-		return menu;
+		return partie;
 	}
 	
 	private JMenu menuJoueurs() {
-		JMenu menu = new JMenu("Joueurs");
+		joueurs = new JMenu("Joueurs");
 		
-		return menu;
+		return joueurs;
+	}
+	
+	private JMenu menuNiakwork() {
+		niakwork = new JMenu("Niakwork");
+		
+		connect = new JMenuItem("Se connecter");
+		connect.addActionListener(new MenuButton(niaks, niaks_frame, MenuButton.CONNECT));
+		niakwork.add(connect);
+		
+		disconnect = new JMenuItem("Se déconnecter");
+		disconnect.addActionListener(new MenuButton(niaks, niaks_frame, MenuButton.DISCONNECT));
+		niakwork.add(disconnect);
+		
+		niakwork.addSeparator();
+		
+		found_hosts = new JMenu("Hôtes trouvés");
+		niakwork.add(found_hosts);
+		
+		no_host_found = new JMenuItem("aucun hôte trouvé...");
+		no_host_found.setEnabled(false);
+		found_hosts.add(no_host_found);
+		
+		return niakwork;
+	}
+	
+	private JMenu menuProjet() {
+		projet = new JMenu("Projet L3");
+		
+		return projet;
 	}
 	
 	private JMenu menuAbout() {
-		JMenu menu = new JMenu("?");
+		about = new JMenu("?");
 		
-		return menu;
+		return about;
 	}
 
 	
@@ -58,48 +108,61 @@ public class NiakMenu extends JMenuBar implements Observer {
 
 	@Override
 	public void updateProfil(String pseudo) {
-		// TODO Auto-generated method stub
-		
 	}
 
 
 
 	@Override
 	public void updateEtat(int etat_partie) {
-		// TODO Auto-generated method stub
+		lancer_partie.setEnabled(etat_partie == Niaks.PREPARATION);
 		
+		/*
+		switch (etat_partie) {
+			case Niaks.PSEUDO:
+				break;
+				
+			case Niaks.PREPARATION:
+				break;
+				
+			case Niaks.PARTIE:
+				break;
+	
+			default:
+				break;
+		}
+		*/
 	}
 
 
 
 	@Override
 	public void updateTaillePlateau(int taille) {
-		// TODO Auto-generated method stub
-		
 	}
 
 
 
 	@Override
 	public void updateJoueurs(Joueur[] joueurs) {
-		// TODO Auto-generated method stub
-		
 	}
 
 
 
 	@Override
 	public void updatePions(Pion[][] pions) {
-		// TODO Auto-generated method stub
-		
 	}
 
 
 
 	@Override
 	public void updateCurrentPlayer(Joueur joueur) {
-		// TODO Auto-generated method stub
-		
+	}
+
+
+
+	@Override
+	public void updateNiakwork(boolean isEnabled) {
+		connect.setEnabled(!isEnabled);
+		disconnect.setEnabled(isEnabled);
 	}
 
 	

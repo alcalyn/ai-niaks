@@ -91,4 +91,11 @@ public class CardGame extends JPanel implements Observer, CoupEmitter {
 	public void updateProfil(String pseudo) {
 	}
 
+
+	@Override
+	public void updateNiakwork(boolean isEnabled) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

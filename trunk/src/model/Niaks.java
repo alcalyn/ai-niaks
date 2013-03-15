@@ -54,26 +54,30 @@ public class Niaks extends Model {
 	public void enableNiakwork() {
 		if(niakwork == null) {
 			niakwork = new Niakwork(this);
+			notifyNiakwork(true);
 		}
-		
-		niakwork.enable();
 	}
 	
 	public void disableNiakwork() {
 		if(niakwork != null) {
-			niakwork.disable();
+			niakwork.close();
 			niakwork = null;
+			notifyNiakwork(false);
 		}
 	}
 	
 	public boolean isNiakworkEnabled() {
-		return niakwork != null && niakwork.isEnabled();
+		return niakwork != null;
 	}
 	
 	
 	
 	
 	public Niakwork getNiakwork() {
+		if(niakwork == null) {
+			enableNiakwork();
+		}
+		
 		return niakwork;
 	}
 

@@ -15,4 +15,6 @@ public interface Observer {
 	
 	public void updateCurrentPlayer(Joueur joueur);
 	
+	public void updateNiakwork(boolean isEnabled);
+	
 }

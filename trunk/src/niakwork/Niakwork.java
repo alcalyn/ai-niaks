@@ -20,7 +20,6 @@ public class Niakwork {
 	
 	
 	private Niaks niaks;
-	private boolean enabled = false;
 	private NiakworkServer server = null;
 	
 	
@@ -78,38 +77,25 @@ public class Niakwork {
 	}
 	
 	
-	private void startServer() {
+	public void startServer() {
 		server = new NiakworkServer(this, port);
 	}
 	
-	private void stopServer() {
-		server.close();
-		server = null;
-	}
-	
-	public void enable() {
-		if(!enabled) {
-			startServer();
-			enabled = true;
-		}
-	}
-	
-	public void disable() {
-		if(enabled) {
-			stopServer();
+	public void stopServer() {
+		if(server != null) {
+			server.close();
 			server = null;
-			
-			enabled = false;
 		}
 	}
 	
 	
 	
-	
-	
-	public boolean isEnabled() {
-		return enabled;
+	public void close() {
+		stopServer();
 	}
+	
+	
+	
 
 
 	public static BufferedWriter getBW(Socket socket) throws IOException {

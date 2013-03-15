@@ -237,4 +237,11 @@ public class CardPrepare extends JPanel implements Observer {
 	public void updateProfil(String pseudo) {
 	}
 
+
+	@Override
+	public void updateNiakwork(boolean isEnabled) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
