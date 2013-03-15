@@ -15,5 +15,4 @@ public interface Observer {
 	
 	public void updateCurrentPlayer(Joueur joueur);
 	
-	
 }

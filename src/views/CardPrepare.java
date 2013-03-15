@@ -2,7 +2,6 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -51,7 +50,6 @@ public class CardPrepare extends JPanel implements Observer {
 		}
 		
 		grille_joueurs = new JPanel(new GridBagLayout());
-		grille_joueurs.setPreferredSize(new Dimension(400, 400));
 		grille_joueurs.setBackground(Color.WHITE);
 		
 		for(int i=0;i<6;i++) {

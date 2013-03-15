@@ -11,7 +11,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import model.Niaks;
-import model.Partie;
 
 public class Niakwork {
 	
