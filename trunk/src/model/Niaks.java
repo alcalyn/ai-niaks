@@ -82,8 +82,8 @@ public class Niaks extends Model {
 		return niakwork;
 	}
 	
-	public void niakworkClientFound(NiakworkPlayerSocket niakwork_player_socket) {
-		
+	public void niakworkClientFound(NiakworkPlayerSocket npsocket) {
+		notifyNiakworkClientFound(npsocket);
 	}
 
 

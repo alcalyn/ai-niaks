@@ -14,5 +14,10 @@ public class NiakworkPlayerSocket extends Socket {
 		this.niakwork = niakwork;
 		this.socket = socket;
 	}
+	
+	
+	public void requestPlay() {
+		
+	}
 
 }
