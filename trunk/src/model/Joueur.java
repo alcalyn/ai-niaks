@@ -7,7 +7,7 @@ public abstract class Joueur {
 	private String pseudo;
 	private Color couleur = null;
 	private Partie partie = null;
-	
+	private Coords coordBut = null;
 	
 	public Joueur(String pseudo) {
 		this.pseudo = pseudo;
@@ -52,6 +52,10 @@ public abstract class Joueur {
 				new Color(0xFFFFFF),
 				new Color(0x000000),
 		}[c];
+	}
+
+	public Coords getBut() {
+		return coordBut;
 	}
 	
 	
