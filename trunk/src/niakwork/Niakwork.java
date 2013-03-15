@@ -10,6 +10,13 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import javax.swing.JOptionPane;
+import javax.swing.event.EventListenerList;
+
+import exceptions.IllegalMoveNiaksException;
+
+import model.Coup;
+import model.CoupListener;
 import model.Niaks;
 
 public class Niakwork {
@@ -22,6 +29,8 @@ public class Niakwork {
 	private Niaks niaks;
 	private NiakworkServer server = null;
 	
+	private EventListenerList listeners = new EventListenerList();
+	
 	
 	public Niakwork(Niaks niaks) {
 		this.niaks = niaks;
@@ -31,10 +40,16 @@ public class Niakwork {
 	
 	public void notifyAuthentifiedClient(Socket socket) {
 		System.out.println("Client authentified : "+socket.getInetAddress());
+		for (NiakworkListener listener : listeners.getListeners(NiakworkListener.class)) {
+			listener.clientFound(new NiakworkPlayerSocket(this, socket));
+		}
 	}
 	
 	public void notifyAuthentifiedServer(Socket socket) {
 		System.out.println("Server authentified : "+socket.getInetAddress());
+		for (NiakworkListener listener : listeners.getListeners(NiakworkListener.class)) {
+			listener.hostFound(new NiakworkPlayerSocket(this, socket));
+		}
 	}
 	
 	
@@ -92,6 +107,10 @@ public class Niakwork {
 	
 	public void close() {
 		stopServer();
+	}
+	
+	public void addNiakworkListener(NiakworkListener listener) {
+		listeners.add(NiakworkListener.class, listener);
 	}
 	
 	
