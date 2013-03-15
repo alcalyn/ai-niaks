@@ -151,19 +151,19 @@ public class Plateau {
 		}
 	}
 	
-	private void placerCases() {
-		
-		for(int j = 1; j <= taille; j++) {
-			for(int i = j; i <= taille; i++) {
-				int x = i;
-				int y = taille + j - i;
-				
-				Coords c = new Coords(x, y);
-				Case ca = new Case(c);
-				ca.isEmpty();
-			}
-		}
-	}
+//	private void placerCases() {
+//		
+//		for(int j = 1; j <= taille; j++) {
+//			for(int i = j; i <= taille; i++) {
+//				int x = i;
+//				int y = taille + j - i;
+//				
+//				Coords c = new Coords(x, y);
+//				Case ca = new Case(c,true);
+//				ca.isEmpty();
+//			}
+//		}
+//	}
 	
 	public Pion getPion(char joueur, int i) {
 		return pions[joueur - 1][i];
@@ -175,11 +175,15 @@ public class Plateau {
 	public boolean isEmpty(Coords c){
 		return getCase(c)==null;
 	}
-	
+	public boolean isEmpty(int x , int y){
+		return getCase(x,y)==null;
+	}
 	public Pion getCase(Coords c) {
 		return cases[indexOf(c.x, c.y)];
 	}
-	
+	public Pion getCase(int x , int y) {
+		return cases[indexOf(x, y)];
+	}
 	public void movePion(Pion pion, Coords c) {
 		if(cases[indexOf(c)] == null) {
 			if(pion.getCoords() != null) {

@@ -3,74 +3,100 @@ package model;
 import exceptions.IllegalMoveNiaksException;
 
 public class Partie {
-	
+
 	private Niaks niaks;
-	
+
 	private Plateau plateau;
 	private int taille_plateau;
 	private Joueur[] joueurs;
-	
-	
-	
+
+
+
 	public Partie(Niaks niaks, Joueur[] joueurs, int taille_plateau) {
 		this.niaks = niaks;
 		this.joueurs = joueurs;
-		
+
 		for (Joueur joueur : joueurs) {
 			joueur.attachPartie(this);
 		}
-		
+
 		this.taille_plateau = taille_plateau;
 		this.plateau = new Plateau(taille_plateau, joueurs);
 		niaks.notifyPions(plateau.getPions());
-		
+
 		start();
 	}
-	
-	
+
+
 	/**
 	 * 
 	 * @return Coup g�n�r� avec le chemin interm�diaire si le pion passe par plusieurs cases
 	 * @throws IllegalMoveNiaksException si le coup est invalide
 	 */
 	public Coup coupValide(Coup coup) throws IllegalMoveNiaksException {
-		
-		if (coup.getCaseDepart().equals(coup.getCaseArrivee()))
-		throw new IllegalMoveNiaksException(coup, "Coup impossible,il faut déplacé le pion");
-		
-		//else if (plateau.isEmpty(coup.getCaseArrivee()))
-		else if (!coup.getCaseArrivee().isEmpty())
-		throw new IllegalMoveNiaksException(coup, "Coup impossible, la case n'est pas libre");
-		
-		//else if (plateau.getPions() == null)
-		else if( !( (coup.getCaseArrivee().getCoordCase().x - coup.getCaseDepart().getCoordCase().x <= 1) && 
-					(coup.getCaseDepart().getCoordCase().x  - coup.getCaseArrivee().getCoordCase().x  <= 1) &&
-					(coup.getCaseArrivee().getCoordCase().y - coup.getCaseDepart().getCoordCase().y <= 1) && 
-					(coup.getCaseDepart().getCoordCase().y  - coup.getCaseArrivee().getCoordCase().y  <= 1) ) )
-		throw new IllegalMoveNiaksException(coup, "Coup impossible, pour l'instant seul les saut simple sont valide");
+
+		int tailledusaut = 1;
+		int i = 0;
+
+		if (coup.getCaseDepart().equals(coup.getCaseArrivee()))	{
+			throw new IllegalMoveNiaksException(coup, "Coup impossible,il faut deplacer le pion");
+		}
+
+		//else if (!coup.getCaseArrivee().isEmpty())
+		else if (!plateau.isEmpty(coup.getCaseArrivee())){
+			throw new IllegalMoveNiaksException(coup, "Coup impossible, la case n'est pas libre");
+		}
+
+		else if( !( (coup.getCaseArrivee().x - coup.getCaseDepart().x <= 1) && (coup.getCaseDepart().x  - coup.getCaseArrivee().x  <= 1) &&	(coup.getCaseArrivee().y - coup.getCaseDepart().y <= 1) && 	(coup.getCaseDepart().y  - coup.getCaseArrivee().y  <= 1) ) ){
+			throw new IllegalMoveNiaksException(coup, "Coup impossible, pour l'instant seul les saut simple sont valide");
+		}
+
+		else if (coup.getCaseArrivee().x == coup.getCaseDepart().x) {
+			tailledusaut = coup.getCaseArrivee().y - coup.getCaseDepart().y;
+
+			if (plateau.isEmpty( ((coup.getCaseArrivee().y + coup.getCaseDepart().y)/2) , (coup.getCaseArrivee().x) ) ) {	
+				for(i=0 ; i < tailledusaut/2 ; i++) {			
+					if((!plateau.isEmpty( ((coup.getCaseDepart().y)+i) , coup.getCaseDepart().x ))){}
+					else if (!plateau.isEmpty( ((coup.getCaseArrivee().y)-i) , (coup.getCaseArrivee().x) )){}
+					else throw new IllegalMoveNiaksException(coup, "Coup impossible, un pion bloque ce coup long");
+				}
+			}
+			else {
+				throw new IllegalMoveNiaksException(coup, "Coup impossible, pas de pivot pour ce coup long");
+			}
+		}
+
+		else if (coup.getCaseArrivee().y == coup.getCaseDepart().y){
+			tailledusaut = coup.getCaseArrivee().x - coup.getCaseDepart().x;
+
+			if (plateau.isEmpty( ((coup.getCaseArrivee().x + coup.getCaseDepart().x)/2) , (coup.getCaseArrivee().y) ) )	{
+				for(i=0 ; i < tailledusaut/2 ; i++){			
+					if((!plateau.isEmpty( ((coup.getCaseDepart().x)+i) , coup.getCaseDepart().y ))){}
+					else if (!plateau.isEmpty( ((coup.getCaseArrivee().x)-i) , (coup.getCaseArrivee().y) )){}
+					else throw new IllegalMoveNiaksException(coup, "Coup impossible, un pion bloque ce coup long");
+				}
+			}
+			else {
+				throw new IllegalMoveNiaksException(coup, "Coup impossible, pas de pivot pour ce coup long");
+			}
+		}
+
+		return coup;
 		
 		//throw new IllegalMoveNiaksException(coup, "Coup impossible, ce coup succéssif n'est pas valide");
-		
-//		else if (coup.getPion().getJoueur().getBut().x - coup.getCaseArrivee().getCoordCase().x > coup.getPion().getJoueur().getBut().x - coup.getCaseDepart().getCoordCase().x && 
-//				 coup.getPion().getJoueur().getBut().y - coup.getCaseDepart().getCoordCase().y  > coup.getPion().getJoueur().getBut().y - coup.getCaseDepart().getCoordCase().y)
-//		throw new IllegalMoveNiaksException(coup, "Coup impossible, pas de retour en arrière possible");
-		
+
+		//		else if (coup.getPion().getJoueur().getBut().x - coup.getCaseArrivee().getCoordCase().x > coup.getPion().getJoueur().getBut().x - coup.getCaseDepart().getCoordCase().x && 
+		//				 coup.getPion().getJoueur().getBut().y - coup.getCaseDepart().getCoordCase().y  > coup.getPion().getJoueur().getBut().y - coup.getCaseDepart().getCoordCase().y)
+		//		throw new IllegalMoveNiaksException(coup, "Coup impossible, pas de retour en arrière possible");
+
 		//else if(coup.getCaseArrivee().appartienta(liste de case des triangles inerdits))
 		//throw new IllegalMoveNiaksException(coup, "Coup impossible, un pion ne peut pas etre arréter dans un des triangles externe");
-		
-		
-		//throw new IllegalMoveNiaksException(coup, "Coup impossible, il faut liberer le triangle de départ");
-		
-		
-		//throw new IllegalMoveNiaksException(coup, "Coup impossible, diagonale impossible");		
-		
-		//else if (plateau.isEmptyLis(coup.getChemin()))
-		//throw new IllegalMoveNiaksException(coup, "Coup impossible, une pèce bloque ce coup long");
-		//throw new IllegalMoveNiaksException(coup, "Coup impossible, un coup long doit etre symetrique");
-		else return coup;
+
+
+		//throw new IllegalMoveNiaksException(coup, "Coup impossible, il faut liberer le triangle de depart");
 	}
-	
-	
+
+
 	/**
 	 * 
 	 * @param coup � faire jouer tout de suite
@@ -78,12 +104,12 @@ public class Partie {
 	 */
 	public void jouerCoup(Coup coup) throws IllegalMoveNiaksException {
 		coup = coupValide(coup);
-		
-		plateau.movePionC(coup.getPion(), coup.getCaseArrivee());
+
+		plateau.movePion(coup.getPion(), coup.getCaseArrivee());
 		nextJoueur();
 	}
-	
-	
+
+
 	/**
 	 * 
 	 * @param joueur qui vient de jouer
@@ -92,7 +118,7 @@ public class Partie {
 	public void notifyCoupPlayed(CoupListener joueur) throws IllegalMoveNiaksException {
 		if(joueur == plateau.getJoueur()) {
 			Coup coup = plateau.getJoueur().jouerCoup();
-			
+
 			if(coup != null) {
 				jouerCoup(coup);
 				start();
@@ -103,9 +129,9 @@ public class Partie {
 			joueur.purge();
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Fait jouer tant que le joueur joue directement (ordi)
 	 * et s'arrete quand il doit attendre un coup (humain sur UI, joueur distant)
@@ -113,11 +139,11 @@ public class Partie {
 	public void start() {
 		while(plateau.getJoueur().playsInstantly()) {
 			Coup coup = plateau.getJoueur().jouerCoup();
-			
+
 			if(coup == null) {
 				System.out.println("Partie : Erreur, coup instantan� null");
 			}
-			
+
 			try {
 				jouerCoup(coup);
 			} catch(IllegalMoveNiaksException e) {
@@ -126,35 +152,35 @@ public class Partie {
 			}
 		}
 	}
-	
-	
-	
+
+
+
 
 
 	public int getTaillePlateau() {
 		return taille_plateau;
 	}
-	
+
 	public int getNbJoueur() {
 		return joueurs.length;
 	}
-	
+
 	public Joueur getJoueur() {
 		return plateau.getJoueur();
 	}
-	
+
 	public int getJoueurIndex() {
 		return plateau.getJoueurIndex();
 	}
-	
+
 	public Joueur[] getJoueurs() {
 		return joueurs;
 	}
-	
+
 	public Joueur getJoueur(int i) {
 		return joueurs[i];
 	}
-	
+
 	public int nextJoueur() {
 		plateau.nextJoueur();
 		niaks.notifyCurrentPlayer(plateau.getJoueur());
@@ -170,6 +196,6 @@ public class Partie {
 	}
 
 
-	
-	
+
+
 }
