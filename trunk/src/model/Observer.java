@@ -19,6 +19,6 @@ public interface Observer {
 	
 	public void updateNiakwork(boolean isEnabled);
 
-	public void updateNiakworkClientFound(NiakworkPlayerSocket npsocket);
+	public void updateNiakworkClientWantJoin(NiakworkPlayerSocket npsocket, String pseudo);
 	
 }

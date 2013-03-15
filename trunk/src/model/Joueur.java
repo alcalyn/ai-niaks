@@ -13,6 +13,12 @@ public abstract class Joueur {
 		this.pseudo = pseudo;
 	}
 	
+	public Joueur() {
+		this.pseudo = "???";
+	}
+	
+	
+	
 	public Color getCouleur() {
 		return couleur;
 	}

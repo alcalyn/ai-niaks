@@ -32,6 +32,7 @@ public class Niakwork {
 	
 	
 	private ArrayList<NiakworkHostSocket> hosts = new ArrayList<NiakworkHostSocket>();
+	private ArrayList<NiakworkPlayerSocket> clients = new ArrayList<NiakworkPlayerSocket>();
 	
 	
 	public Niakwork(Niaks niaks) {
@@ -41,7 +42,7 @@ public class Niakwork {
 	
 	
 	public void notifyAuthentifiedClient(Socket socket) {
-		niaks.niakworkClientFound(new NiakworkPlayerSocket(this, socket));
+		clients.add(new NiakworkPlayerSocket(this, socket));
 	}
 	
 	public void notifyAuthentifiedServer(Socket socket) {
@@ -112,6 +113,13 @@ public class Niakwork {
 	}
 	
 
+	
+	
+	public Niaks getNiaks() {
+		return niaks;
+	}
+	
+	
 
 	public static BufferedWriter getBW(Socket socket) throws IOException {
 		return new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));

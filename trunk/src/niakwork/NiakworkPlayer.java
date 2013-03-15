@@ -1,7 +1,5 @@
 package niakwork;
 
-import java.net.Socket;
-
 import model.Coup;
 import model.Joueur;
 
@@ -13,7 +11,7 @@ public class NiakworkPlayer extends Joueur {
 	
 	
 
-	public NiakworkPlayer(String pseudo, Socket socket) {
+	public NiakworkPlayer(String pseudo, NiakworkPlayerSocket npsocket) {
 		super(pseudo);
 	}
 

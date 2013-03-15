@@ -3,6 +3,7 @@ package model;
 import exceptions.PartieNotReadyToStartNiaksException;
 import exceptions.ProfilNotSetNiaksException;
 import niakwork.Niakwork;
+import niakwork.NiakworkPlayer;
 import niakwork.NiakworkPlayerSocket;
 
 public class Niaks extends Model {
@@ -16,12 +17,13 @@ public class Niaks extends Model {
 	private Niakwork niakwork = null;
 	
 	
-	
+	private int etat;
 	private PartiePreparator partie_preparator = null;
 	private Partie partie = null;
 	
 	
 	public Niaks() {
+		etat = PSEUDO;
 	}
 	
 	
@@ -29,6 +31,7 @@ public class Niaks extends Model {
 	public void startPreparation() throws ProfilNotSetNiaksException {
 		if(pseudo != null) {
 			partie_preparator = new PartiePreparator(this, new Humain(pseudo));
+			etat = PREPARATION;
 			notifyEtat(PREPARATION);
 		} else {
 			throw new ProfilNotSetNiaksException("Aucun profil n'est défini");
@@ -38,6 +41,7 @@ public class Niaks extends Model {
 	public void startPartie() throws PartieNotReadyToStartNiaksException {
 		partie = partie_preparator.createPartie();
 		partie_preparator = null;
+		etat = PARTIE;
 		notifyEtat(PARTIE);
 	}
 	
@@ -82,8 +86,21 @@ public class Niaks extends Model {
 		return niakwork;
 	}
 	
-	public void niakworkClientFound(NiakworkPlayerSocket npsocket) {
-		notifyNiakworkClientFound(npsocket);
+	public void niakworkClientWantJoin(NiakworkPlayerSocket npsocket, String pseudo) {
+		if(etat == PREPARATION) {
+			notifyNiakworkClientWantJoin(npsocket, pseudo);
+		} else {
+			npsocket.queryGameStarted();
+		}
+	}
+	
+	public void niakworkAcceptClient(NiakworkPlayerSocket npsocket, String pseudo) {
+		npsocket.queryAcceptJoin();
+		partie_preparator.addJoueur(new NiakworkPlayer(pseudo, npsocket));
+	}
+	
+	public void niakworkDenyClient(NiakworkPlayerSocket npsocket) {
+		npsocket.queryDenyJoin();
 	}
 
 
