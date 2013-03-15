@@ -2,6 +2,7 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 
+import exceptions.NiaksException;
 import exceptions.PartieNotReadyToStartNiaksException;
 
 import model.Niaks;
@@ -33,7 +34,11 @@ public class MenuButton extends ModelActionner {
 				break;
 				
 			case CONNECT:
-				niaks.getNiakwork().startServer();
+				try {
+					niaks.getNiakwork().startServer();
+				} catch (NiaksException e) {
+					catchException(e);
+				}
 				niaks.getNiakwork().searchHost();
 				break;
 				

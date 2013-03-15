@@ -87,6 +87,7 @@ public abstract class NiakworkSocket extends Socket {
 				}
 				
 				if(s != null) {
+					System.out.println("Requete recu : "+s.toString());
 					received(new NiakworkQuery(s));
 				}
 			}

@@ -63,7 +63,7 @@ public class NiakworkLogin extends Thread {
 			//System.out.println("Pas de route ici : "+endpoint.getAddress());
 			//e.printStackTrace();
 		} catch (SocketTimeoutException e) {
-			//System.out.println("Rien ici : "+endpoint.getAddress());
+			//System.out.println("Rien ici : "+endpoint.getAddress()+":"+endpoint.getPort());
 			//e.printStackTrace();
 		} catch (ConnectException e) {
 			//System.out.println("Connection refusee ici : "+endpoint.getAddress());
