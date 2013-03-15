@@ -1,8 +1,7 @@
 package model;
 
 public class Coup {
-	
-	
+
 	private Pion pion = null;
 	private Case case_depart = null;
 	private Case case_arrivee = null;

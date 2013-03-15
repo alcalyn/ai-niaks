@@ -39,14 +39,21 @@ public class Partie {
 		throw new IllegalMoveNiaksException(coup, "Coup impossible,il faut déplacé le pion");
 		
 		//else if (plateau.isEmpty(coup.getCaseArrivee()))
-		else if (coup.getCaseArrivee().isEmpty())
+		else if (!coup.getCaseArrivee().isEmpty())
 		throw new IllegalMoveNiaksException(coup, "Coup impossible, la case n'est pas libre");
 		
+		//else if (plateau.getPions() == null)
+		else if( !( (coup.getCaseArrivee().getCoordCase().x - coup.getCaseDepart().getCoordCase().x <= 1) && 
+					(coup.getCaseDepart().getCoordCase().x  - coup.getCaseArrivee().getCoordCase().x  <= 1) &&
+					(coup.getCaseArrivee().getCoordCase().y - coup.getCaseDepart().getCoordCase().y <= 1) && 
+					(coup.getCaseDepart().getCoordCase().y  - coup.getCaseArrivee().getCoordCase().y  <= 1) ) )
+		throw new IllegalMoveNiaksException(coup, "Coup impossible, pour l'instant seul les saut simple sont valide");
 		
 		//throw new IllegalMoveNiaksException(coup, "Coup impossible, ce coup succéssif n'est pas valide");
 		
-		
-		//throw new IllegalMoveNiaksException(coup, "Coup impossible, pas de retour en arrière possible");
+//		else if (coup.getPion().getJoueur().getBut().x - coup.getCaseArrivee().getCoordCase().x > coup.getPion().getJoueur().getBut().x - coup.getCaseDepart().getCoordCase().x && 
+//				 coup.getPion().getJoueur().getBut().y - coup.getCaseDepart().getCoordCase().y  > coup.getPion().getJoueur().getBut().y - coup.getCaseDepart().getCoordCase().y)
+//		throw new IllegalMoveNiaksException(coup, "Coup impossible, pas de retour en arrière possible");
 		
 		//else if(coup.getCaseArrivee().appartienta(liste de case des triangles inerdits))
 		//throw new IllegalMoveNiaksException(coup, "Coup impossible, un pion ne peut pas etre arréter dans un des triangles externe");
