@@ -20,6 +20,7 @@ import model.Ordinateur;
 import model.PartiePreparator;
 import model.Pion;
 import niakwork.NiakworkPlayer;
+import niakwork.NiakworkPlayerSocket;
 import controllers.TypeJoueurActionListener;
 
 public class CardPrepare extends JPanel implements Observer {
@@ -240,6 +241,13 @@ public class CardPrepare extends JPanel implements Observer {
 
 	@Override
 	public void updateNiakwork(boolean isEnabled) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void updateNiakworkClientFound(NiakworkPlayerSocket npsocket) {
 		// TODO Auto-generated method stub
 		
 	}

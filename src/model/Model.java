@@ -2,6 +2,8 @@ package model;
 
 import java.util.*;
 
+import niakwork.NiakworkPlayerSocket;
+
 public abstract class Model {
 	
 	
@@ -67,6 +69,13 @@ public abstract class Model {
 		for(int i=0;i<views.size();i++) {
 			Observer o = views.get(i);
 			o.updateNiakwork(isEnabled);
+		}
+	}
+	
+	protected void notifyNiakworkClientFound(NiakworkPlayerSocket npsocket) {
+		for(int i=0;i<views.size();i++) {
+			Observer o = views.get(i);
+			o.updateNiakworkClientFound(npsocket);
 		}
 	}
 	

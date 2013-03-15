@@ -4,6 +4,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import niakwork.NiakworkPlayerSocket;
+
 import model.Joueur;
 import model.Niaks;
 import model.Observer;
@@ -163,6 +165,14 @@ public class NiakMenu extends JMenuBar implements Observer {
 	public void updateNiakwork(boolean isEnabled) {
 		connect.setEnabled(!isEnabled);
 		disconnect.setEnabled(isEnabled);
+	}
+
+
+
+	@Override
+	public void updateNiakworkClientFound(NiakworkPlayerSocket npsocket) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

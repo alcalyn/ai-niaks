@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.EventListenerList;
 
+import niakwork.NiakworkPlayerSocket;
+
 import exceptions.IllegalMoveNiaksException;
 
 import model.Coords;
@@ -338,6 +340,12 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 
 	@Override
 	public void updateNiakwork(boolean isEnabled) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateNiakworkClientFound(NiakworkPlayerSocket npsocket) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import niakwork.NiakworkPlayerSocket;
+
 import model.CoupEmitter;
 import model.CoupListener;
 import model.Joueur;
@@ -94,6 +96,13 @@ public class CardGame extends JPanel implements Observer, CoupEmitter {
 
 	@Override
 	public void updateNiakwork(boolean isEnabled) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void updateNiakworkClientFound(NiakworkPlayerSocket npsocket) {
 		// TODO Auto-generated method stub
 		
 	}
