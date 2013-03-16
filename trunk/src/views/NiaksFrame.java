@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayerSocket;
 
 import model.Joueur;
@@ -197,6 +198,14 @@ public class NiaksFrame extends JFrame implements Observer, ExceptionCatcher {
 		} else {
 			niaks.niakworkDenyClient(npsocket);
 		}
+	}
+
+
+	@Override
+	public void updateNiakworkServerFound(NiakworkHostSocket nssocket,
+			String pseudo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

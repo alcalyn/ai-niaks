@@ -6,6 +6,7 @@ import java.awt.Insets;
 
 import javax.swing.JPanel;
 
+import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayerSocket;
 
 import model.Joueur;
@@ -89,6 +90,14 @@ public class JoueursPanel extends JPanel implements Observer {
 
 	@Override
 	public void updateNiakworkClientWantJoin(NiakworkPlayerSocket npsocket, String pseudo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void updateNiakworkServerFound(NiakworkHostSocket nssocket,
+			String pseudo) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -19,6 +19,7 @@ import model.Observer;
 import model.Ordinateur;
 import model.PartiePreparator;
 import model.Pion;
+import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayer;
 import niakwork.NiakworkPlayerSocket;
 import controllers.TypeJoueurActionListener;
@@ -117,7 +118,6 @@ public class CardPrepare extends JPanel implements Observer {
 		
 		combo.addItem("Vide");
 		combo.addItem("Joueur local");
-		combo.addItem("Joueur distant");
 		combo.addItem("Ordinateur");
 		
 		if(listening) combo.addActionListener(new TypeJoueurActionListener(partie_preparator, index));
@@ -129,8 +129,11 @@ public class CardPrepare extends JPanel implements Observer {
 		JComboBox combo = createComboBox(false, index);
 		
 		if(c instanceof Humain)			combo.setSelectedIndex(1);
-		if(c instanceof NiakworkPlayer) combo.setSelectedIndex(2);
-		if(c instanceof Ordinateur) 	combo.setSelectedIndex(3);
+		if(c instanceof Ordinateur) 	combo.setSelectedIndex(2);
+		if(c instanceof NiakworkPlayer) {
+			combo.addItem("Joueur distant");
+			combo.setSelectedIndex(3);
+		}
 		
 		if(c == partie_preparator.getHost()) {
 			combo.setEditable(false);
@@ -248,6 +251,14 @@ public class CardPrepare extends JPanel implements Observer {
 
 	@Override
 	public void updateNiakworkClientWantJoin(NiakworkPlayerSocket npsocket, String pseudo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void updateNiakworkServerFound(NiakworkHostSocket nssocket,
+			String pseudo) {
 		// TODO Auto-generated method stub
 		
 	}

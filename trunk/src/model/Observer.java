@@ -1,5 +1,6 @@
 package model;
 
+import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayerSocket;
 
 public interface Observer {
@@ -20,5 +21,7 @@ public interface Observer {
 	public void updateNiakwork(boolean isEnabled);
 
 	public void updateNiakworkClientWantJoin(NiakworkPlayerSocket npsocket, String pseudo);
+
+	public void updateNiakworkServerFound(NiakworkHostSocket nssocket, String pseudo);
 	
 }
