@@ -24,6 +24,10 @@ public class NiakworkPlayerSocket extends NiakworkSocket {
 		send(NiakworkQuery.DENY_JOIN_GAME_STARTED);
 	}
 	
+	public void queryStartGame() {
+		send(NiakworkQuery.GAME_STARTED);
+	}
+	
 	
 
 	@Override
