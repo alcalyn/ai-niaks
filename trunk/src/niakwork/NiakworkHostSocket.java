@@ -2,6 +2,8 @@ package niakwork;
 
 import java.net.Socket;
 
+import exceptions.PartieNotReadyToStartNiaksException;
+
 public class NiakworkHostSocket extends NiakworkSocket {
 
 	public NiakworkHostSocket(Niakwork niakwork, Socket socket) {
@@ -26,6 +28,14 @@ public class NiakworkHostSocket extends NiakworkSocket {
 		}
 		if(nquery.is(NiakworkQuery.DENY_JOIN_GAME_STARTED)) {
 			niakwork.getNiaks().niakworkHostDenied(this, "La partie que vous avez essayé de joindre est déjà commencée");
+		}
+		
+		if(nquery.is(NiakworkQuery.GAME_STARTED)) {
+			try {
+				niakwork.getNiaks().startPartie();
+			} catch (PartieNotReadyToStartNiaksException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

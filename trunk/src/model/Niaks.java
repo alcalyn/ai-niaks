@@ -6,7 +6,6 @@ import niakwork.Niakwork;
 import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayer;
 import niakwork.NiakworkPlayerSocket;
-import niakwork.NiakworkQuery;
 
 public class Niaks extends Model {
 	
@@ -23,6 +22,8 @@ public class Niaks extends Model {
 	private PartiePreparator partie_preparator = null;
 	private Partie partie = null;
 	
+	private boolean isHost = true;
+	
 	
 	public Niaks() {
 		etat = PSEUDO;
@@ -36,14 +37,23 @@ public class Niaks extends Model {
 			etat = PREPARATION;
 			notifyEtat(PREPARATION);
 		} else {
-			throw new ProfilNotSetNiaksException("Aucun profil n'est dÃ©fini");
+			throw new ProfilNotSetNiaksException("Aucun profil n'est défini");
 		}
 	}
 	
 	public void startPartie() throws PartieNotReadyToStartNiaksException {
+		if(isHost) {
+			for (Joueur j : partie_preparator.getJoueurs()) {
+				if(j instanceof NiakworkPlayer) {
+					((NiakworkPlayer) j).getNiakworkPlayerSocket().queryStartGame();
+				}
+			}
+		}
+		
 		partie = partie_preparator.createPartie();
 		partie_preparator = null;
 		etat = PARTIE;
+		
 		notifyEtat(PARTIE);
 	}
 	
@@ -111,6 +121,7 @@ public class Niaks extends Model {
 	}
 	
 	public void niakworkHostJoined(NiakworkHostSocket nssocket) {
+		isHost = false;
 		notifyNiakworkHostAccept(nssocket);
 	}
 	
