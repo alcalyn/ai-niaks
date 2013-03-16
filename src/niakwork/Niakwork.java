@@ -49,6 +49,11 @@ public class Niakwork {
 	public void connectTo(InetSocketAddress endpoint) {
 		new NiakworkLogin(this, endpoint);
 	}
+	public void connectTo(String ip) {
+		for (int p : ports) {
+			connectTo(new InetSocketAddress(ip, p));
+		}
+	}
 	
 	
 	public void searchHost() {

@@ -263,4 +263,19 @@ public class CardPrepare extends JPanel implements Observer {
 		
 	}
 
+
+	@Override
+	public void updateNiakworkHostDenied(NiakworkHostSocket nssocket,
+			String reason) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void updateNiakworkHostAccept(NiakworkHostSocket nssocket) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

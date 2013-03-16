@@ -6,6 +6,7 @@ import niakwork.Niakwork;
 import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayer;
 import niakwork.NiakworkPlayerSocket;
+import niakwork.NiakworkQuery;
 
 public class Niaks extends Model {
 	
@@ -96,7 +97,7 @@ public class Niaks extends Model {
 		if(etat == PREPARATION) {
 			notifyNiakworkClientWantJoin(npsocket, pseudo);
 		} else {
-			npsocket.queryGameStarted();
+			npsocket.queryGameAlreadyStarted();
 		}
 	}
 	
@@ -107,6 +108,14 @@ public class Niaks extends Model {
 	
 	public void niakworkDenyClient(NiakworkPlayerSocket npsocket) {
 		npsocket.queryDenyJoin();
+	}
+	
+	public void niakworkHostJoined(NiakworkHostSocket nssocket) {
+		notifyNiakworkHostAccept(nssocket);
+	}
+	
+	public void niakworkHostDenied(NiakworkHostSocket nssocket, String reason) {
+		notifyNiakworkHostDenied(nssocket, reason);
 	}
 
 

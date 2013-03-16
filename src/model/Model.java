@@ -87,6 +87,20 @@ public abstract class Model {
 		}
 	}
 	
+	protected void notifyNiakworkHostDenied(NiakworkHostSocket nssocket, String reason) {
+		for(int i=0;i<views.size();i++) {
+			Observer o = views.get(i);
+			o.updateNiakworkHostDenied(nssocket, reason);
+		}
+	}
+	
+	protected void notifyNiakworkHostAccept(NiakworkHostSocket nssocket) {
+		for(int i=0;i<views.size();i++) {
+			Observer o = views.get(i);
+			o.updateNiakworkHostAccept(nssocket);
+		}
+	}
+	
 	
 	
 }

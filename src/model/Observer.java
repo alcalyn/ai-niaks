@@ -23,5 +23,9 @@ public interface Observer {
 	public void updateNiakworkClientWantJoin(NiakworkPlayerSocket npsocket, String pseudo);
 
 	public void updateNiakworkServerFound(NiakworkHostSocket nssocket, String pseudo);
+
+	public void updateNiakworkHostDenied(NiakworkHostSocket nssocket, String reason);
+
+	public void updateNiakworkHostAccept(NiakworkHostSocket nssocket);
 	
 }

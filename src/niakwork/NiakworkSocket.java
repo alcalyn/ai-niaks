@@ -5,7 +5,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.net.Socket;
 
-public abstract class NiakworkSocket extends Socket {
+public abstract class NiakworkSocket {
 	
 	
 	
@@ -56,6 +56,13 @@ public abstract class NiakworkSocket extends Socket {
 	}
 	
 	
+	public Socket getSocket() {
+		return socket;
+	}
+	
+	
+	
+	
 	
 	public void close() {
 		try {
@@ -66,6 +73,11 @@ public abstract class NiakworkSocket extends Socket {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	public String getFullAdress() {
+		return socket.getInetAddress().getHostAddress()+":"+socket.getPort();
 	}
 	
 	
@@ -84,6 +96,8 @@ public abstract class NiakworkSocket extends Socket {
 					s = br.readLine();
 				} catch (IOException e) {
 					e.printStackTrace();
+					close();
+					break;
 				}
 				
 				if(s != null) {
