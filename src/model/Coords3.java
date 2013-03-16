@@ -22,7 +22,11 @@ public class Coords3 {
 	
 	public Coords3() {
 	}
-	
+	public Coords3(Coords3 copy) {
+		this.x = copy.x;
+		this.y = copy.y;
+		this.z = copy.z;
+	}
 	
 	public Coords toCoords() {
 		return new Coords(x - z, y + z);

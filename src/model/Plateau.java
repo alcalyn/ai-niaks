@@ -143,6 +143,7 @@ public class Plateau {
 			for(int i = j; i <= taille; i++) {
 				int x = i;
 				int y = taille + j - i;
+//				int z = i;
 				
 				Coords c = new Coords(x, y);
 				Pion pion = getPion(joueur, k++);
@@ -172,18 +173,27 @@ public class Plateau {
 	public Pion getCase(Coords3 c) {
 		return getCase(c.toCoords());
 	}
-	public boolean isEmpty(Coords c){
-		return getCase(c)==null;
+	
+	public boolean isEmpty3(Coords3 coords){
+		return getCase(coords.toCoords())==null;
 	}
+	
+	public boolean isEmpty(Coords coords){
+		return getCase(coords)==null;
+	}
+	
 	public boolean isEmpty(int x , int y){
 		return getCase(x,y)==null;
 	}
+	
 	public Pion getCase(Coords c) {
 		return cases[indexOf(c.x, c.y)];
 	}
+	
 	public Pion getCase(int x , int y) {
 		return cases[indexOf(x, y)];
 	}
+	
 	public void movePion(Pion pion, Coords c) {
 		if(cases[indexOf(c)] == null) {
 			if(pion.getCoords() != null) {
@@ -196,22 +206,22 @@ public class Plateau {
 		}
 	}
 	
-	public void movePionC(Pion pion, Case c) {
-		if(cases[indexOf(c.getCoordCase())] == null) {
-			if(pion.getCoords() != null) {
-				cases[indexOf(pion.getCoords())] = null;
-			}
-			
-			pion.setCoords(c.getCoordCase());
-			cases[indexOf(c.getCoordCase())] = pion;
-			
-		}
-	}
+//	public void movePionC(Pion pion, Case c) {
+//		if(cases[indexOf(c.getCoordCase())] == null) {
+//			if(pion.getCoords() != null) {
+//				cases[indexOf(pion.getCoords())] = null;
+//			}
+//			
+//			pion.setCoords3(c.getCoord3Case());
+//			cases[indexOf(c.getCoordCase())] = pion;
+//			
+//		}
+//	}
+//	
 	
-	
-	public boolean isset(Coords3 c) {
-		return isset(c.toCoords());
-	}
+//	public boolean isset(Coords3 c) {
+//		return isset(c.toCoords());
+//	}
 	
 	public boolean isset(Coords c) {
 		if (c.x < taille && c.y < taille && c.x>-taille && c.y>-taille)
@@ -226,14 +236,22 @@ public class Plateau {
 		return false;
 	}
 	
-	private int indexOf(int x, int y) {
+//	private int indexOf3(int x, int y, int z) {
+//		//return 4 * taille * (2 * taille + y + 1) + x + y;
+//		int _x = x + 2 * taille;
+//		int _y = y + 2 * taille;
+//		int _z = z + 2 * taille;
+//		int module = 4 * taille + 1;
+//		return _y * module + _x;
+//	}
+
+		private int indexOf(int x, int y) {
 		//return 4 * taille * (2 * taille + y + 1) + x + y;
 		int _x = x + 2 * taille;
 		int _y = y + 2 * taille;
 		int module = 4 * taille + 1;
 		return _y * module + _x;
 	}
-	
 	private int getCaseMatriceLength() {
 		 // crade...
 		int nb = taille * 4 + 1;
@@ -244,6 +262,10 @@ public class Plateau {
 		return indexOf(coords.x, coords.y);
 	}
 	
+//	private int indexOf3(Coords3 coords) {
+//		return indexOf3(coords.x, coords.y, coords.z);
+//	}
+//	
 	public Pion [][] getPions() {
 		return pions;
 	}
@@ -264,12 +286,12 @@ public class Plateau {
 		if(++joueur >= getNbJoueur()) joueur = 0;
 	}
 
-	public boolean isEmptyLis(Coords[] chemin) {
+//	public boolean isEmptyLis(Coords[] chemin) {
 //		for (Coords coords : chemin) {
 //			isEmpty(coords);
 //		}
-		return true;
-	}
+//		return true;
+//	}
 	public int getZone(Coords3 c){
 		int Z = 0;
 		

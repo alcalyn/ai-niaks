@@ -47,11 +47,6 @@ public class Pion {
 		this.coords = coords;
 	}
 	
-	public void setCoords(Coords3 coords) {
-		this.coords = coords.toCoords();
-	}
-	
-	
 	public String toString() {
 		return "Pion ["+joueur.getPseudo()+"] : "+coords.toString();
 	}
@@ -71,6 +66,10 @@ public class Pion {
 	public void setEndZone(int endZone) {
 		this.endZone = endZone;
 	}
+
+//	public Coords getCoords3() {
+//		return coords3;
+//	}
 
 //	public Case getCaseDuPion() {
 //		return caseDuPion;
