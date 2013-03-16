@@ -20,7 +20,7 @@ public class NiakworkPlayerSocket extends NiakworkSocket {
 		send(NiakworkQuery.DENY_JOIN);
 	}
 	
-	public void queryGameStarted() {
+	public void queryGameAlreadyStarted() {
 		send(NiakworkQuery.DENY_JOIN_GAME_STARTED);
 	}
 	

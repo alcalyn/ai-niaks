@@ -30,7 +30,10 @@ public class NiakMenu extends JMenuBar implements Observer {
 	private JMenu		niakwork;
 	private JMenuItem		connect;
 	private JMenuItem		disconnect;
+	private JMenuItem		search_local;
+	private JMenuItem		connect_to;
 	private JMenu			found_hosts;
+	private JMenuItem[]		hosts;
 	
 	private JMenu		projet;
 	
@@ -82,6 +85,16 @@ public class NiakMenu extends JMenuBar implements Observer {
 		
 		niakwork.addSeparator();
 		
+		search_local = new JMenuItem("Rechercher sur le réseau local");
+		search_local.addActionListener(new MenuButton(niaks, niaks_frame, MenuButton.SEARCH_LOCAL));
+		niakwork.add(search_local);
+		
+		connect_to = new JMenuItem("Se connecter à ...");
+		connect_to.addActionListener(new MenuButton(niaks, niaks_frame, MenuButton.CONNECT_TO));
+		niakwork.add(connect_to);
+		
+		niakwork.addSeparator();
+		
 		found_hosts = new JMenu("Hôtes trouvés");
 		niakwork.add(found_hosts);
 		
@@ -104,15 +117,26 @@ public class NiakMenu extends JMenuBar implements Observer {
 	
 	private void refreshHostCount() {
 		String s = "";
-		int n =  niaks.getNiakwork().getHostsFound().length;
+		NiakworkHostSocket [] hosts_socket = niaks.getNiakwork().getHostsFound();
+		int n = hosts_socket.length;
 		
 		if(n > 0) {
-			s = " ("+niaks.getNiakwork().getHostsFound().length+")";
+			s = " ("+n+")";
 		}
 		
 		niakwork.setText("Niakwork"+s);
 		found_hosts.setText("Hôtes trouvés"+s);
 		found_hosts.setEnabled(n > 0);
+		
+		hosts = new JMenuItem[n];
+		found_hosts.removeAll();
+		int i = 0;
+		for (NiakworkHostSocket host_socket : hosts_socket) {
+			JMenuItem menu_item = new JMenuItem(host_socket.getFullAdress());
+			hosts[i++] = menu_item;
+			menu_item.addActionListener(new MenuButton(niaks, niaks_frame, MenuButton.JOIN_HOST, new Object[]{host_socket}));
+			found_hosts.add(menu_item);
+		}
 		
 		validate();
 	}
@@ -189,6 +213,23 @@ public class NiakMenu extends JMenuBar implements Observer {
 	@Override
 	public void updateNiakworkServerFound(NiakworkHostSocket nssocket, String pseudo) {
 		refreshHostCount();
+	}
+
+
+
+	@Override
+	public void updateNiakworkHostDenied(NiakworkHostSocket nssocket,
+			String reason) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void updateNiakworkHostAccept(NiakworkHostSocket nssocket) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

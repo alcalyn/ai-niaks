@@ -101,6 +101,21 @@ public class JoueursPanel extends JPanel implements Observer {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	public void updateNiakworkHostDenied(NiakworkHostSocket nssocket,
+			String reason) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void updateNiakworkHostAccept(NiakworkHostSocket nssocket) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

@@ -209,6 +209,18 @@ public class NiaksFrame extends JFrame implements Observer, ExceptionCatcher {
 	}
 
 
+	@Override
+	public void updateNiakworkHostDenied(NiakworkHostSocket nssocket, String reason) {
+		JOptionPane.showMessageDialog(this, reason, "Niakwork", JOptionPane.ERROR_MESSAGE);
+	}
+
+
+	@Override
+	public void updateNiakworkHostAccept(NiakworkHostSocket nssocket) {
+		JOptionPane.showMessageDialog(this, "L'hôte vous a accépté", "Niakwork", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+
 	
 	
 }
