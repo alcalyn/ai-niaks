@@ -3,6 +3,7 @@ package model;
 import exceptions.PartieNotReadyToStartNiaksException;
 import exceptions.ProfilNotSetNiaksException;
 import niakwork.Niakwork;
+import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayer;
 import niakwork.NiakworkPlayerSocket;
 
@@ -84,6 +85,11 @@ public class Niaks extends Model {
 		}
 		
 		return niakwork;
+	}
+	
+	
+	public void niakworkServerFound(NiakworkHostSocket nssocket, String pseudo) {
+		notifyNiakworkServerFound(nssocket, pseudo);
 	}
 	
 	public void niakworkClientWantJoin(NiakworkPlayerSocket npsocket, String pseudo) {

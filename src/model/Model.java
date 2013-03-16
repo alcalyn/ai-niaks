@@ -2,6 +2,7 @@ package model;
 
 import java.util.*;
 
+import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayerSocket;
 
 public abstract class Model {
@@ -76,6 +77,13 @@ public abstract class Model {
 		for(int i=0;i<views.size();i++) {
 			Observer o = views.get(i);
 			o.updateNiakworkClientWantJoin(npsocket, pseudo);
+		}
+	}
+	
+	protected void notifyNiakworkServerFound(NiakworkHostSocket nssocket, String pseudo) {
+		for(int i=0;i<views.size();i++) {
+			Observer o = views.get(i);
+			o.updateNiakworkServerFound(nssocket, pseudo);
 		}
 	}
 	

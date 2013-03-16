@@ -34,7 +34,7 @@ public class TypeJoueurActionListener implements ActionListener {
 					partie_preparator.addJoueur(new Humain(""));
 					break;
 					
-				case 3:
+				case 2:
 					partie_preparator.addJoueur(new Ordinateur(0));
 					break;
 			}
@@ -49,7 +49,7 @@ public class TypeJoueurActionListener implements ActionListener {
 					partie_preparator.addJoueur(new Humain(""), index);
 					break;
 					
-				case 3:
+				case 2:
 					partie_preparator.removeJoueur(index);
 					partie_preparator.addJoueur(new Ordinateur(0), index);
 					break;

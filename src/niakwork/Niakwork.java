@@ -40,7 +40,9 @@ public class Niakwork {
 	}
 	
 	public void notifyAuthentifiedServer(Socket socket) {
-		hosts.add(new NiakworkHostSocket(this, socket));
+		NiakworkHostSocket nssocket = new NiakworkHostSocket(this, socket);
+		hosts.add(nssocket);
+		niaks.niakworkServerFound(nssocket, "...");
 	}
 	
 	

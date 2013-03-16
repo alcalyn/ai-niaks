@@ -4,6 +4,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayerSocket;
 
 import model.Joueur;
@@ -30,11 +31,11 @@ public class NiakMenu extends JMenuBar implements Observer {
 	private JMenuItem		connect;
 	private JMenuItem		disconnect;
 	private JMenu			found_hosts;
-	private JMenuItem			no_host_found;
 	
 	private JMenu		projet;
 	
 	private JMenu		about;
+	
 	
 	
 	public NiakMenu(Niaks niaks, NiaksFrame niaks_frame) {
@@ -75,18 +76,15 @@ public class NiakMenu extends JMenuBar implements Observer {
 		connect.addActionListener(new MenuButton(niaks, niaks_frame, MenuButton.CONNECT));
 		niakwork.add(connect);
 		
-		disconnect = new JMenuItem("Se dÃ©connecter");
+		disconnect = new JMenuItem("Se déconnecter");
 		disconnect.addActionListener(new MenuButton(niaks, niaks_frame, MenuButton.DISCONNECT));
 		niakwork.add(disconnect);
 		
 		niakwork.addSeparator();
 		
-		found_hosts = new JMenu("HÃ´tes trouvÃ©s");
+		found_hosts = new JMenu("Hôtes trouvés");
 		niakwork.add(found_hosts);
 		
-		no_host_found = new JMenuItem("aucun hÃ´te trouvÃ©...");
-		no_host_found.setEnabled(false);
-		found_hosts.add(no_host_found);
 		
 		return niakwork;
 	}
@@ -104,7 +102,20 @@ public class NiakMenu extends JMenuBar implements Observer {
 	}
 
 	
-	
+	private void refreshHostCount() {
+		String s = "";
+		int n =  niaks.getNiakwork().getHostsFound().length;
+		
+		if(n > 0) {
+			s = " ("+niaks.getNiakwork().getHostsFound().length+")";
+		}
+		
+		niakwork.setText("Niakwork"+s);
+		found_hosts.setText("Hôtes trouvés"+s);
+		found_hosts.setEnabled(n > 0);
+		
+		validate();
+	}
 	
 
 
@@ -171,9 +182,16 @@ public class NiakMenu extends JMenuBar implements Observer {
 
 	@Override
 	public void updateNiakworkClientWantJoin(NiakworkPlayerSocket npsocket, String pseudo) {
-		// TODO Auto-generated method stub
-		
 	}
+
+
+
+	@Override
+	public void updateNiakworkServerFound(NiakworkHostSocket nssocket, String pseudo) {
+		refreshHostCount();
+	}
+	
+	
 
 	
 	

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayerSocket;
 
 import model.CoupEmitter;
@@ -103,6 +104,14 @@ public class CardGame extends JPanel implements Observer, CoupEmitter {
 
 	@Override
 	public void updateNiakworkClientWantJoin(NiakworkPlayerSocket npsocket, String pseudo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void updateNiakworkServerFound(NiakworkHostSocket nssocket,
+			String pseudo) {
 		// TODO Auto-generated method stub
 		
 	}
