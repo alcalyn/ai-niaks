@@ -37,6 +37,14 @@ public class Coup {
 	public Coords getCaseArrivee() {
 		return case_arrivee;
 	}
+	
+//	public Coords3 getCaseDepart3() {
+//		return case_depart;
+//	}
+//
+//	public Coords3 getCaseArrivee3() {
+//		return case_arrivee;
+//	}
 
 	public Joueur getJoueur() {
 		return pion.getJoueur();
