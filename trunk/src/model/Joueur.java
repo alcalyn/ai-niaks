@@ -1,8 +1,13 @@
 package model;
 
 import java.awt.Color;
+import java.io.Serializable;
 
-public abstract class Joueur {
+public abstract class Joueur implements Serializable {
+	
+	private static final long serialVersionUID = 7182986241819893533L;
+	
+	
 	
 	private String pseudo;
 	private Color couleur = null;
@@ -16,8 +21,6 @@ public abstract class Joueur {
 	public Joueur() {
 		this.pseudo = "???";
 	}
-	
-	
 	
 	public Color getCouleur() {
 		return couleur;
@@ -66,5 +69,7 @@ public abstract class Joueur {
 	
 	public void setBut(Coords c) {
 		this.coordBut=c;
-	}	
+	}
+	
+	
 }

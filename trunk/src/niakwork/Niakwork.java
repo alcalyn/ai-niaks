@@ -16,6 +16,7 @@ import exceptions.NiaksException;
 
 public class Niakwork {
 	
+	
 	public static final String niawkwork_version = "NIAKWORK/1.0";
 	public static int login_timeout = 650;
 	public static int [] ports = new int[] {23456, 23457};
@@ -26,7 +27,6 @@ public class Niakwork {
 	
 	
 	private ArrayList<NiakworkHostSocket> hosts = new ArrayList<NiakworkHostSocket>();
-	private ArrayList<NiakworkPlayerSocket> clients = new ArrayList<NiakworkPlayerSocket>();
 	
 	
 	public Niakwork(Niaks niaks) {
@@ -36,10 +36,12 @@ public class Niakwork {
 	
 	
 	public void notifyAuthentifiedClient(Socket socket) {
-		clients.add(new NiakworkPlayerSocket(this, socket));
+		System.out.println("Niakwork > client found");
+		new NiakworkPlayerSocket(this, socket);
 	}
 	
 	public void notifyAuthentifiedServer(Socket socket) {
+		System.out.println("Niakwork > server found. Notifying model");
 		NiakworkHostSocket nssocket = new NiakworkHostSocket(this, socket);
 		hosts.add(nssocket);
 		niaks.niakworkServerFound(nssocket, "...");
@@ -57,6 +59,8 @@ public class Niakwork {
 	
 	
 	public void searchHost() {
+		hosts = new ArrayList<NiakworkHostSocket>();
+		
 		String host_adress = null;
 		int host_port = -1;
 		String network_prefix = null;

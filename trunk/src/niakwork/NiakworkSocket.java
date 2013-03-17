@@ -1,22 +1,18 @@
 package niakwork;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public abstract class NiakworkSocket {
 	
 	
-	
-	
-	
-	
 	protected Niakwork niakwork;
 	private Socket socket;
 	
-	private BufferedReader br;
-	private BufferedWriter bw;
+	private ObjectInputStream ois;
+	private ObjectOutputStream oos;
 	
 	private Thread thread;
 	
@@ -27,8 +23,9 @@ public abstract class NiakworkSocket {
 		this.socket = socket;
 		
 		try {
-			br = Niakwork.getBR(socket);
-			bw = Niakwork.getBW(socket);
+			oos = new ObjectOutputStream(socket.getOutputStream());
+			oos.flush();
+			ois = new ObjectInputStream(socket.getInputStream());
 			
 			thread = new Thread(new ReaderThread());
 			thread.start();
@@ -40,9 +37,8 @@ public abstract class NiakworkSocket {
 	
 	public void send(NiakworkQuery s) {
 		try {
-			bw.write(s.toString());
-			bw.newLine();
-			bw.flush();
+			oos.writeObject(s);
+			oos.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -53,6 +49,12 @@ public abstract class NiakworkSocket {
 	}
 	public void send(String opcode, String arg1) {
 		send(new NiakworkQuery(opcode, arg1));
+	}
+	public void send(String opcode, Object o) {
+		send(new NiakworkQuery(opcode, o));
+	}
+	public void send(String opcode, Object o, Object o2) {
+		send(new NiakworkQuery(opcode, o, o2));
 	}
 	
 	
@@ -68,8 +70,8 @@ public abstract class NiakworkSocket {
 		try {
 			thread.interrupt();
 			socket.close();
-			br.close();
-			bw.close();
+			ois.close();
+			oos.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -90,19 +92,21 @@ public abstract class NiakworkSocket {
 		@Override
 		public void run() {
 			while(true) {
-				String s = null;
+				NiakworkQuery query = null;
 				
 				try {
-					s = br.readLine();
+					query = (NiakworkQuery) ois.readObject();
 				} catch (IOException e) {
 					e.printStackTrace();
 					close();
 					break;
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
 				}
 				
-				if(s != null) {
-					System.out.println("Requete recu : "+s.toString());
-					received(new NiakworkQuery(s));
+				if(query != null) {
+					System.out.println("Requete recu : "+query.toString());
+					received(query);
 				}
 			}
 		}

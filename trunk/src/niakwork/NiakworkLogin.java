@@ -44,6 +44,7 @@ public class NiakworkLogin extends Thread {
 			
 			while(true) {
 				read = br.readLine();
+				System.out.println("Client > read : "+read);
 				
 				if(read != null) {
 					if(read.equalsIgnoreCase(Niakwork.niawkwork_version+" OK")) {
