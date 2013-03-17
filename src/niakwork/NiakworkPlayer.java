@@ -7,6 +7,8 @@ import model.Joueur;
 
 public class NiakworkPlayer extends Joueur {
 	
+	private static final long serialVersionUID = -2703369154033979320L;
+	
 	
 	private NiakworkPlayerSocket npsocket;
 	

@@ -1,14 +1,15 @@
 package model;
 
-import exceptions.PartieNotReadyToStartNiaksException;
-import exceptions.ProfilNotSetNiaksException;
 import niakwork.Niakwork;
 import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayer;
 import niakwork.NiakworkPlayerSocket;
+import exceptions.PartieNotReadyToStartNiaksException;
+import exceptions.ProfilNotSetNiaksException;
 
 public class Niaks extends Model {
 	
+
 	public static final int
 		PSEUDO = 2,
 		PREPARATION = 3,
@@ -100,6 +101,7 @@ public class Niaks extends Model {
 	
 	
 	public void niakworkServerFound(NiakworkHostSocket nssocket, String pseudo) {
+		System.out.println("Model > server found : "+pseudo);
 		notifyNiakworkServerFound(nssocket, pseudo);
 	}
 	
@@ -127,6 +129,26 @@ public class Niaks extends Model {
 	
 	public void niakworkHostDenied(NiakworkHostSocket nssocket, String reason) {
 		notifyNiakworkHostDenied(nssocket, reason);
+	}
+	
+	public void niakworkUpdatePartiePreparator(NiakworkHostSocket nssocket, String[] joueurs, int taille_plateau) {
+		partie_preparator.removeJoueurs();
+		
+		for (String joueur : joueurs) {
+			if(joueur.equals(pseudo)) {
+				partie_preparator.addJoueur(new Humain(pseudo));
+			} else {
+				partie_preparator.addJoueur(new NiakworkPlayer(joueur, null));
+			}
+		}
+		
+		
+		Joueur [] joueursArray = new Joueur[partie_preparator.getNbJoueur()];
+		partie_preparator.getJoueurs().toArray(joueursArray);
+		this.notifyJoueurs(joueursArray);
+		
+		partie_preparator.setPlateauSize(taille_plateau);
+		this.notifyTaillePlateau(partie_preparator.getPlateauSize());
 	}
 
 

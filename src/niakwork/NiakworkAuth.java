@@ -37,10 +37,12 @@ public class NiakworkAuth extends Thread {
 				if(read != null) {
 					if(read.equalsIgnoreCase(Niakwork.niawkwork_version)) {
 						System.out.println("ServerAuth > protocol header received");
-						niakwork.notifyAuthentifiedClient(socket);
+						System.out.println("ServerAuth > sending OK to client");
 						bw.write(Niakwork.niawkwork_version+" OK");
 						bw.newLine();
 						bw.flush();
+						System.out.println("ServerAuth > notify niakwork and break");
+						niakwork.notifyAuthentifiedClient(socket);
 						break;
 					} else {
 						System.out.println("ServerAuth > bad protocol header received, abort");

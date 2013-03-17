@@ -1,11 +1,16 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import exceptions.PartieNotReadyToStartNiaksException;
 
-public class PartiePreparator {
+public class PartiePreparator implements Serializable {
 	
+	private static final long serialVersionUID = 6254308576682141259L;
+	
+	
+
 	private Niaks niaks;
 	
 	private Humain host = null;
@@ -39,6 +44,10 @@ public class PartiePreparator {
 		if(taille > 0) {
 			this.taille_plateau = taille;
 		}
+	}
+	
+	public int getPlateauSize() {
+		return this.taille_plateau;
 	}
 	
 	public Humain getHost() {
@@ -95,6 +104,10 @@ public class PartiePreparator {
 	
 	public Niaks getNiaks() {
 		return niaks;
+	}
+
+	public void removeJoueurs() {
+		joueurs = new ArrayList<Joueur>();
 	}
 	
 	
