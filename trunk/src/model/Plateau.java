@@ -202,7 +202,6 @@ public class Plateau {
 			
 			pion.setCoords(c);
 			cases[indexOf(c)] = pion;
-			
 		}
 	}
 	
@@ -284,6 +283,18 @@ public class Plateau {
 
 	public void nextJoueur() {
 		if(++joueur >= getNbJoueur()) joueur = 0;
+	}
+	
+	public void setJoueur(Joueur joueur) {
+		int i = 0;
+		for (Joueur j : joueurs) {
+			if(j == joueur) {
+				this.joueur = i;
+				break;
+			}
+			
+			i++;
+		}
 	}
 
 //	public boolean isEmptyLis(Coords[] chemin) {

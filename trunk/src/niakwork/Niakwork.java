@@ -19,7 +19,7 @@ public class Niakwork {
 	
 	public static final String niawkwork_version = "NIAKWORK/1.0";
 	public static int login_timeout = 650;
-	public static int [] ports = new int[] {23456, 23457};
+	public static int [] ports = new int[] {23456, 23457, 23458};
 	
 	
 	private Niaks niaks;
@@ -27,6 +27,7 @@ public class Niakwork {
 	
 	
 	private ArrayList<NiakworkHostSocket> hosts = new ArrayList<NiakworkHostSocket>();
+	private ArrayList<NiakworkPlayerSocket> clients = new ArrayList<NiakworkPlayerSocket>();
 	
 	
 	public Niakwork(Niaks niaks) {
@@ -37,7 +38,8 @@ public class Niakwork {
 	
 	public void notifyAuthentifiedClient(Socket socket) {
 		System.out.println("Niakwork > client found");
-		new NiakworkPlayerSocket(this, socket);
+		NiakworkPlayerSocket npsocket = new NiakworkPlayerSocket(this, socket);
+		clients.add(npsocket);
 	}
 	
 	public void notifyAuthentifiedServer(Socket socket) {
@@ -107,6 +109,16 @@ public class Niakwork {
 			server.close();
 			server = null;
 		}
+		
+		for (NiakworkHostSocket host : hosts) {
+			host.close();
+		}
+		for (NiakworkPlayerSocket client : clients) {
+			client.close();
+		}
+		
+		hosts = new ArrayList<NiakworkHostSocket>();
+		clients = new ArrayList<NiakworkPlayerSocket>();
 	}
 	
 	

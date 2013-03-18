@@ -136,13 +136,28 @@ public class Partie {
 		coup = coupValide(coup);
 
 		plateau.movePion(coup.getPion(), coup.getCaseArrivee());
+		niaks.notifyPions(plateau.getPions());
 		nextJoueur();
+		
+		
+		if(!niaks.isHost()) {
+			Pion [][] pions = plateau.getPions();
+			Coords [][] coords = new Coords[pions.length][pions[0].length];
+			for(int i=0;i<pions.length;i++) {
+				for(int j=0;j<pions[i].length;j++) {
+					coords[i][j] = pions[i][j].getCoords();
+				}
+			}
+			niaks.getHost().queryUpdatePions(coords);
+			
+			niaks.getHost().queryUpdateCurrentPlayer(plateau.getJoueur().getPseudo());
+		}
 	}
 
 
 	/**
 	 * 
-	 * @param joueur qui vient de jouer
+	 * @param joueur qui vient de jouer sur un autre thread (humain sur l'UI ou joueur distant)
 	 * @throws IllegalMoveNiaksException
 	 */
 	public void notifyCoupPlayed(CoupListener joueur) throws IllegalMoveNiaksException {
@@ -171,7 +186,7 @@ public class Partie {
 			Coup coup = plateau.getJoueur().jouerCoup();
 
 			if(coup == null) {
-				System.out.println("Partie : Erreur, coup instantanï¿½ null");
+				System.out.println("Partie : Erreur, coup instantané null");
 			}
 
 			try {
@@ -213,6 +228,12 @@ public class Partie {
 
 	public int nextJoueur() {
 		plateau.nextJoueur();
+		niaks.notifyCurrentPlayer(plateau.getJoueur());
+		return plateau.getJoueurIndex();
+	}
+	
+	public int setJoueur(Joueur joueur) {
+		plateau.setJoueur(joueur);
 		niaks.notifyCurrentPlayer(plateau.getJoueur());
 		return plateau.getJoueurIndex();
 	}
