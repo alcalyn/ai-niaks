@@ -24,6 +24,7 @@ public class Niaks extends Model {
 	private Partie partie = null;
 	
 	private boolean isHost = true;
+	private NiakworkHostSocket host = null;
 	
 	
 	public Niaks() {
@@ -47,6 +48,7 @@ public class Niaks extends Model {
 			for (Joueur j : partie_preparator.getJoueurs()) {
 				if(j instanceof NiakworkPlayer) {
 					((NiakworkPlayer) j).getNiakworkPlayerSocket().queryStartGame();
+					addObserver((NiakworkPlayer) j);
 				}
 			}
 		}
@@ -124,6 +126,7 @@ public class Niaks extends Model {
 	
 	public void niakworkHostJoined(NiakworkHostSocket nssocket) {
 		isHost = false;
+		host = nssocket;
 		notifyNiakworkHostAccept(nssocket);
 	}
 	
@@ -158,6 +161,41 @@ public class Niaks extends Model {
 	
 	public Partie getPartie() {
 		return partie;
+	}
+	
+	public boolean isHost() {
+		return isHost;
+	}
+	
+	public NiakworkHostSocket getHost() {
+		return host;
+	}
+
+
+
+	public void niakworkUpdateCurrentPlayer(String pseudo) {
+		for (Joueur j : partie.getJoueurs()) {
+			if(j.getPseudo().equals(pseudo)) {
+				partie.setJoueur(j);
+				break;
+			}
+		}
+		
+	}
+
+
+
+	public void niakworkUpdatePions(Coords [][] coords) {
+		Pion [][] pions = partie.getPlateau().getPions();
+		
+		for(int i=0;i<pions.length;i++) {
+			for(int j=0;j<pions[i].length;j++) {
+				System.out.println("UP PION : "+pions[i][j].getCoords()+" > "+coords[i][j]+(coords[i][j].equals(pions[i][j].getCoords()) ? "" : " CHANGED !"));
+				pions[i][j].setCoords(coords[i][j]);
+			}
+		}
+		
+		notifyPions(pions);
 	}
 
 }

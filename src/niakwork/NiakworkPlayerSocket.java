@@ -3,6 +3,7 @@ package niakwork;
 
 import java.net.Socket;
 
+import model.Coords;
 import model.Joueur;
 
 public class NiakworkPlayerSocket extends NiakworkSocket {
@@ -47,6 +48,16 @@ public class NiakworkPlayerSocket extends NiakworkSocket {
 		send(NiakworkQuery.GAME_STARTED);
 	}
 	
+
+	public void queryUpdateCurrentPlayer(String pseudo) {
+		System.out.println("Envoi update current player");
+		send(NiakworkQuery.UPDATE_CURRENT_PLAYER, pseudo);
+	}
+	
+	public void queryUpdatePions(Coords[][] coords) {
+		System.out.println("Envoi update pions coords");
+		send(NiakworkQuery.UPDATE_PIONS, coords);
+	}
 	
 
 	@Override
@@ -55,6 +66,17 @@ public class NiakworkPlayerSocket extends NiakworkSocket {
 		
 		if(nquery.is(NiakworkQuery.I_WANT_TO_JOIN)) {
 			niakwork.getNiaks().niakworkClientWantJoin(this, nquery.arg(0).toString());
+		}
+		
+		
+		if(nquery.is(NiakworkQuery.UPDATE_CURRENT_PLAYER)) {
+			System.out.println("reception update current player");
+			niakwork.getNiaks().niakworkUpdateCurrentPlayer((String) nquery.arg(0));
+		}
+		
+		if(nquery.is(NiakworkQuery.UPDATE_PIONS)) {
+			System.out.println("reception update pions coords");
+			niakwork.getNiaks().niakworkUpdatePions((Coords[][]) nquery.arg(0));
 		}
 	}
 

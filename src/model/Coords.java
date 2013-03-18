@@ -2,9 +2,14 @@ package model;
 
 import java.awt.Point;
 import java.awt.geom.AffineTransform;
+import java.io.Serializable;
 
-public class Coords {
+public class Coords implements Serializable {
 	
+	private static final long serialVersionUID = 3943681853101140385L;
+
+
+
 	public static final Coords
 		EAST		= new Coords(1, 0),
 		NORTH_EAST	= new Coords(0, 1),
