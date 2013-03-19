@@ -49,5 +49,13 @@ public class Coords3 {
 		return new Coords3(x * c, y * c, z * c);
 	}
 
+	public int distance() {
+		return Math.abs(x) + Math.abs(y) + Math.abs(z);
+	}
+	
+	public String toString() {
+		return "Coords3 ( "+x+" ; "+y+" ; "+z+" )";
+	}
+
 	
 }

@@ -21,6 +21,10 @@ public class Coup {
 		this.chemin = chemin;
 	}
 	
+	public void setSimpleChemin() {
+		this.chemin = new Coords [] {case_depart, case_arrivee};
+	}
+	
 	public Coords[] getChemin() {
 		return chemin;
 	}

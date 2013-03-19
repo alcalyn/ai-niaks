@@ -18,6 +18,9 @@ public class Coords implements Serializable {
 		SOUTH_WEST	= new Coords(0, -1), // comme au subway !!!
 		SOUTH_EAST	= new Coords(1, -1);
 	
+	private static final Coords[] tableau_sens = new Coords [] {
+		EAST, NORTH_EAST, NORTH_WEST, WEST, SOUTH_WEST, SOUTH_EAST
+	};
 	
 	
 	public int x, y;
@@ -77,6 +80,38 @@ public class Coords implements Serializable {
 	
 	public boolean equals(Coords other) {
 		return other.x == x && other.y == y ;
+	}
+	
+	public static Coords sens(int s) {
+		return tableau_sens[s];
+	}
+	
+	public static Coords sens(int s, int distance) {
+		return tableau_sens[s].mul(distance);
+	}
+	
+	public int distance() {
+		return toCoords3().distance();
+	}
+	
+	public Coords3 toCoords3() {
+		if(x < 0 && y > 0) {
+			Coords3 ret = new Coords3();
+			ret.z = Math.min(Math.abs(x), Math.abs(y));
+			ret.x = x + ret.z;
+			ret.y = y - ret.z;
+			return ret;
+		}
+		
+		if(x > 0 && y < 0) {
+			Coords3 ret = new Coords3();
+			ret.z = - Math.min(Math.abs(x), Math.abs(y));
+			ret.x = x + ret.z;
+			ret.y = y - ret.z;
+			return ret;
+		}
+		
+		return new Coords3(x, y, 0);
 	}
 	
 	
