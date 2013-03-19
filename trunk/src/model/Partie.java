@@ -82,7 +82,6 @@ public class Partie {
 	
 	
 	private Coords [] testSautMultiple(Coords [] chemin, Coords cible) {
-		Coords case_last = chemin.length >= 2 ? chemin[chemin.length - 2] : null ;
 		Coords case_actual = chemin[chemin.length - 1];
 		
 		if(case_actual.equals(cible)) return chemin;
@@ -91,7 +90,16 @@ public class Partie {
 			Coords case_sautee = case_actual.add(Coords.sens(i));
 			Coords case_next = case_actual.add(Coords.sens(i, 2));
 			
-			if((case_last == null) || (!case_next.equals(case_last))) {
+			boolean come_back = false;
+			
+			for(int j=0;j<chemin.length-1;j++) {
+				if(case_next.equals(chemin[j])) {
+					come_back = true;
+					break;
+				}
+			}
+			
+			if(!come_back) {
 				if((plateau.getZone(case_next) >= 0) && (plateau.getZone(case_sautee) >= 0)) {
 					if(!plateau.isEmpty(case_sautee) && plateau.isEmpty(case_next)) {
 						Coords [] new_chemin = new Coords[chemin.length + 1];
