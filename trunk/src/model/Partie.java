@@ -82,8 +82,6 @@ public class Partie {
 	
 	
 	private Coords [] testSautMultiple(Coords [] chemin, Coords cible) {
-		traceChemin(chemin, cible);
-		
 		Coords case_last = chemin.length >= 2 ? chemin[chemin.length - 2] : null ;
 		Coords case_actual = chemin[chemin.length - 1];
 		
@@ -112,17 +110,6 @@ public class Partie {
 		return null;
 	}
 	
-	private void traceChemin(Coords [] chemin, Coords cible) {
-		String s = "";
-		
-		for (Coords coords : chemin) {
-			s += coords.toString() + " > ";
-		}
-		
-		s += "... > "+cible;
-		
-		System.out.println("testing "+s);
-	}
 	
 	private void impossible(Coup coup, String cause) throws IllegalMoveNiaksException {
 		throw new IllegalMoveNiaksException(coup, cause);
