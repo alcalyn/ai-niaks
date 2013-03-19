@@ -190,8 +190,9 @@ public class Niaks extends Model {
 		
 		for(int i=0;i<pions.length;i++) {
 			for(int j=0;j<pions[i].length;j++) {
-				System.out.println("UP PION : "+pions[i][j].getCoords()+" > "+coords[i][j]+(coords[i][j].equals(pions[i][j].getCoords()) ? "" : " CHANGED !"));
-				pions[i][j].setCoords(coords[i][j]);
+				if(!pions[i][j].getCoords().equals(coords[i][j])) {
+					partie.getPlateau().movePion(pions[i][j], coords[i][j]);
+				}
 			}
 		}
 		

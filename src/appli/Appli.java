@@ -26,7 +26,7 @@ public class Appli {
 		NiaksFrame niaks_frame = new NiaksFrame(niaks);
 		
 		
-		boolean lancer_direct = true;
+		boolean lancer_direct = false;
 		
 		if(lancer_direct) {
 			try {
