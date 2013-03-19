@@ -11,11 +11,9 @@ public class Pion {
 		BLANC	= 5,	NOIR	= 6,
 		VIDE = 0;
 	
-	private int  startZone;
-	private int endZone;
+	
 	private Joueur joueur;
 	private Coords coords;
-//	private Case caseDuPion;
 
 
 	public Pion(Joueur joueur) {
@@ -25,8 +23,6 @@ public class Pion {
 	public Pion(Pion copy) {
 		this.joueur = copy.joueur;
 		this.coords = new Coords(copy.coords);
-		this.startZone = copy.startZone;
-		this.endZone = copy.getEndZone();
 	}
 
 
@@ -51,21 +47,6 @@ public class Pion {
 		return "Pion ["+joueur.getPseudo()+"] : "+coords.toString();
 	}
 
-	public int getStartZone() {
-		return startZone;
-	}
-
-	public void setStartZone(int startZone) {
-		this.startZone = startZone;
-	}
-
-	public int getEndZone() {
-		return endZone;
-	}
-
-	public void setEndZone(int endZone) {
-		this.endZone = endZone;
-	}
 
 //	public Coords getCoords3() {
 //		return coords3;

@@ -52,19 +52,6 @@ public class Plateau {
 		}
 	}
 	
-	//initialise la matrice des objets cases 
-//	private void initCasesObjet() {
-//		int nb_case = (taille * (taille + 1)) / 2;
-//		
-//		Case[][] tabCase = new Case[nb_case][nb_case];
-//		for(int i = 0;i<nb_case;i++) {
-//			for(int j = 0 ; j<nb_case ; j++) {
-//				tabCase[i][j] = new Case(new Coords (i,j));
-//			}
-//		}
-//		
-//	}
-	
 	private void initCases() {
 		cases = new Pion[getCaseMatriceLength()];
 	}
@@ -73,17 +60,23 @@ public class Plateau {
 		switch(getNbJoueur()) {
 			case 1:
 				placerPions(1, 1);
+				joueurs[0].setStartZone(1);
 				break;
 			
 			case 2:
 				placerPions(1, 1);
 				placerPions(2, 4);
+				joueurs[0].setStartZone(1);
+				joueurs[1].setStartZone(4);
 				break;
 				
 			case 3:
 				placerPions(1, 1);
 				placerPions(2, 3);
 				placerPions(3, 5);
+				joueurs[0].setStartZone(1);
+				joueurs[1].setStartZone(3);
+				joueurs[2].setStartZone(5);
 				break;
 			
 			case 4:
@@ -91,15 +84,17 @@ public class Plateau {
 				placerPions(2, 2);
 				placerPions(3, 4);
 				placerPions(4, 5);
+				joueurs[0].setStartZone(1);
+				joueurs[1].setStartZone(2);
+				joueurs[2].setStartZone(4);
+				joueurs[3].setStartZone(5);
 				break;
 			
 			case 6:
-				placerPions(1, 1);
-				placerPions(2, 2);
-				placerPions(3, 3);
-				placerPions(4, 4);
-				placerPions(5, 5);
-				placerPions(6, 6);
+				for(int i=0;i<6;i++) {
+					placerPions(i+1, i+1);
+					joueurs[i].setStartZone(i+1);
+				}
 				break;
 		}
 	}
@@ -143,7 +138,6 @@ public class Plateau {
 			for(int i = j; i <= taille; i++) {
 				int x = i;
 				int y = taille + j - i;
-//				int z = i;
 				
 				Coords c = new Coords(x, y);
 				Pion pion = getPion(joueur, k++);
@@ -151,20 +145,6 @@ public class Plateau {
 			}
 		}
 	}
-	
-//	private void placerCases() {
-//		
-//		for(int j = 1; j <= taille; j++) {
-//			for(int i = j; i <= taille; i++) {
-//				int x = i;
-//				int y = taille + j - i;
-//				
-//				Coords c = new Coords(x, y);
-//				Case ca = new Case(c,true);
-//				ca.isEmpty();
-//			}
-//		}
-//	}
 	
 	public Pion getPion(char joueur, int i) {
 		return pions[joueur - 1][i];
@@ -205,52 +185,22 @@ public class Plateau {
 		}
 	}
 	
-//	public void movePionC(Pion pion, Case c) {
-//		if(cases[indexOf(c.getCoordCase())] == null) {
-//			if(pion.getCoords() != null) {
-//				cases[indexOf(pion.getCoords())] = null;
-//			}
-//			
-//			pion.setCoords3(c.getCoord3Case());
-//			cases[indexOf(c.getCoordCase())] = pion;
-//			
-//		}
-//	}
-//	
-	
-//	public boolean isset(Coords3 c) {
-//		return isset(c.toCoords());
-//	}
-	
-	public boolean isset(Coords c) {
-		if (c.x < taille && c.y < taille && c.x>-taille && c.y>-taille)
-		 return true;
-		else
-		for ( int i=0 ; i< taille; i++){
-			for ( int j=0 ; j< taille; j++){
-		if(c.x == taille+i && c.y == taille+j)
-			return true;
-			}
-		}
-		return false;
+	public boolean isset(Coords3 c) {
+		return isset(c.toCoords());
 	}
 	
-//	private int indexOf3(int x, int y, int z) {
-//		//return 4 * taille * (2 * taille + y + 1) + x + y;
-//		int _x = x + 2 * taille;
-//		int _y = y + 2 * taille;
-//		int _z = z + 2 * taille;
-//		int module = 4 * taille + 1;
-//		return _y * module + _x;
-//	}
+	public boolean isset(Coords c) {
+		return getZone(c) >= 0;
+	}
 
-		private int indexOf(int x, int y) {
+	private int indexOf(int x, int y) {
 		//return 4 * taille * (2 * taille + y + 1) + x + y;
 		int _x = x + 2 * taille;
 		int _y = y + 2 * taille;
 		int module = 4 * taille + 1;
 		return _y * module + _x;
 	}
+	
 	private int getCaseMatriceLength() {
 		 // crade...
 		int nb = taille * 4 + 1;
@@ -261,10 +211,6 @@ public class Plateau {
 		return indexOf(coords.x, coords.y);
 	}
 	
-//	private int indexOf3(Coords3 coords) {
-//		return indexOf3(coords.x, coords.y, coords.z);
-//	}
-//	
 	public Pion [][] getPions() {
 		return pions;
 	}
@@ -296,19 +242,36 @@ public class Plateau {
 			i++;
 		}
 	}
-
-//	public boolean isEmptyLis(Coords[] chemin) {
-//		for (Coords coords : chemin) {
-//			isEmpty(coords);
-//		}
-//		return true;
-//	}
-	public int getZone(Coords3 c){
-		int Z = 0;
+	
+	
+	/**
+	 * 
+	 * @param c Coords de la case à tester
+	 * @return int :	0 si c est dans l'hexagone central,
+	 * 					1-6 si dans une branche,
+	 * 					-1 si en dehors du plateau
+	 */
+	public int getZone(Coords c){
+		Coords3 c3 = c.toCoords3();
+		int distance = c3.distance();
 		
-		return Z;
-
+		if(distance <= taille) {
+			return 0;
 		}
+		
+		if(distance <= taille * 2) {
+			if((Math.abs(c3.x) <= taille) && (Math.abs(c3.y) <= taille) && (Math.abs(c3.z) <= taille)) {
+				if((c3.x > 0) && (c3.y > 0)) return 1;
+				if((c3.y > 0) && (c3.z > 0)) return 2;
+				if((c3.x < 0) && (c3.z > 0)) return 3;
+				if((c3.x < 0) && (c3.y < 0)) return 4;
+				if((c3.y < 0) && (c3.z < 0)) return 5;
+				if((c3.x > 0) && (c3.z < 0)) return 6;
+			}
+		}
+		
+		return -1;
+	}
 	
 	
 }

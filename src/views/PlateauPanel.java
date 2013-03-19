@@ -59,6 +59,7 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 	
 	private PionPanel pion_over = null;
 	private boolean dragging = false;
+	private Chemin chemin = null;
 	
 	private Coords mouse_coords = new Coords();
 	
@@ -125,7 +126,9 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 				
 				
 				if(dragging) {
-					pion_over.drag(new Coords(e.getX() - origin.x, e.getY() - origin.y));
+					Coords cursor_coords = new Coords(e.getX() - origin.x, e.getY() - origin.y);
+					pion_over.drag(cursor_coords);
+					pionDragged(pion_over.getPionModel(), mouse_coords);
 					cursorHand();
 				} else {
 					setCursor(new Cursor(over ? Cursor.HAND_CURSOR : Cursor.DEFAULT_CURSOR));
@@ -223,6 +226,8 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 		paintTriangle(g, taille, new Coords3(0, -taille, 0), new Coords3(-1, 0, 0), new Coords3(0, 0, 1));
 		paintTriangle(g, taille, new Coords3(-taille, 0, 0), new Coords3(0, 0, 1), new Coords3(0, 1, 0));
 		paintTriangle(g, taille, new Coords3(0, 0, taille), new Coords3(0, 1, 0), new Coords3(1, 0, 0));
+		
+		if(chemin != null) chemin.drawChemin(g);
 	}
 	
 	
@@ -261,21 +266,40 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 		);
 	}
 	
+	
 	private void setForeground(PionPanel pion_over) {
 		remove(pion_over);
 		add(pion_over, 0);
 	}
 	
+	private void pionDragged(Pion pion, Coords coords) {
+		try {
+			Coup coup = partie.coupValide(new Coup(pion, coords));
+			setChemin(coup.getChemin());
+		} catch (IllegalMoveNiaksException e) {
+			removeChemin();
+		}
+	}
+	
+	private void setChemin(Coords[] chemin) {
+		removeChemin();
+		this.chemin = new Chemin(this, chemin);
+	}
+	
+	private void removeChemin() {
+		if(this.chemin != null) {
+			this.chemin = null;
+		}
+	}
+
 	private void pionMoved(Pion pion, Coords coords) {
 		System.out.println("Pion moved : "+pion+" to "+coords);
 		
-		if(pion.getJoueur() == partie.getJoueur()) {
-			for (CoupListener coup_listener : coup_listeners.getListeners(CoupListener.class)) {
-				try {
-					coup_listener.coupPlayed(new Coup(pion, coords));
-				} catch (IllegalMoveNiaksException e) {
-					JOptionPane.showMessageDialog(this, e.getMessage(), "Coup invalide", JOptionPane.ERROR_MESSAGE);
-				}
+		for (CoupListener coup_listener : coup_listeners.getListeners(CoupListener.class)) {
+			try {
+				coup_listener.coupPlayed(new Coup(pion, coords));
+			} catch (IllegalMoveNiaksException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Coup invalide", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
@@ -341,34 +365,24 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 
 	@Override
 	public void updateNiakwork(boolean isEnabled) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void updateNiakworkClientWantJoin(NiakworkPlayerSocket npsocket, String pseudo) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void updateNiakworkServerFound(NiakworkHostSocket nssocket,
 			String pseudo) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void updateNiakworkHostDenied(NiakworkHostSocket nssocket,
 			String reason) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void updateNiakworkHostAccept(NiakworkHostSocket nssocket) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	

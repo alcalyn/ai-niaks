@@ -12,7 +12,8 @@ public abstract class Joueur implements Serializable {
 	private String pseudo;
 	private Color couleur = null;
 	private Partie partie = null;
-	private Coords coordBut = null;
+	private int startZone;
+	private int endZone;
 	
 	public Joueur(String pseudo) {
 		this.pseudo = pseudo;
@@ -42,6 +43,19 @@ public abstract class Joueur implements Serializable {
 		this.partie = partie;
 	}
 	
+	public int getStartZone() {
+		return startZone;
+	}
+	
+	public int getEndZone() {
+		return endZone;
+	}
+	
+	public void setStartZone(int startZone) {
+		this.startZone = startZone;
+		this.endZone = (startZone + 3) % 6;
+	}
+	
 	
 	
 	public abstract Coup jouerCoup();
@@ -62,14 +76,4 @@ public abstract class Joueur implements Serializable {
 				new Color(0x000000),
 		}[c];
 	}
-
-	public Coords getBut() {
-		return coordBut;
-	}
-	
-	public void setBut(Coords c) {
-		this.coordBut=c;
-	}
-	
-	
 }
