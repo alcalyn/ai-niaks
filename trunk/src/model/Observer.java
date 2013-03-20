@@ -18,6 +18,8 @@ public interface Observer {
 	
 	public void updateCurrentPlayer(Joueur joueur);
 	
+	public void updateJoueurWon(Joueur joueur);
+	
 	public void updateNiakwork(boolean isEnabled);
 
 	public void updateNiakworkClientWantJoin(NiakworkPlayerSocket npsocket, String pseudo);
@@ -27,5 +29,6 @@ public interface Observer {
 	public void updateNiakworkHostDenied(NiakworkHostSocket nssocket, String reason);
 
 	public void updateNiakworkHostAccept(NiakworkHostSocket nssocket);
+	
 	
 }

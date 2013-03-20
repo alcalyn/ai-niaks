@@ -66,6 +66,13 @@ public abstract class Model {
 		}
 	}
 	
+	protected void notifyJoueurWon(Joueur joueur) {
+		for(int i=0;i<views.size();i++) {
+			Observer o = views.get(i);
+			o.updateJoueurWon(joueur);
+		}
+	}
+	
 	protected void notifyNiakwork(boolean isEnabled) {
 		for(int i=0;i<views.size();i++) {
 			Observer o = views.get(i);

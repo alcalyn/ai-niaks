@@ -384,6 +384,12 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 	@Override
 	public void updateNiakworkHostAccept(NiakworkHostSocket nssocket) {
 	}
+
+	@Override
+	public void updateJoueurWon(Joueur joueur) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

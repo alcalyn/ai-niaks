@@ -103,4 +103,10 @@ public class NiakworkPlayer extends Joueur implements Observer {
 	public void updateNiakworkHostAccept(NiakworkHostSocket nssocket) {
 	}
 
+	@Override
+	public void updateJoueurWon(Joueur joueur) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

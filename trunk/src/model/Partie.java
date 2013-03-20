@@ -179,7 +179,7 @@ public class Partie {
 	 * et s'arrete quand il doit attendre un coup (humain sur UI, joueur distant)
 	 */
 	public void start() {
-		while(plateau.getJoueur().playsInstantly()) {
+		while(plateau.getJoueur().playsInstantly() && !gameFinished()) {
 			Coup coup = plateau.getJoueur().jouerCoup();
 
 			if(coup == null) {
@@ -196,7 +196,27 @@ public class Partie {
 	}
 
 
-
+	public boolean hasWon(Joueur joueur) {
+		Pion [] pions = plateau.getPions(joueur);
+		
+		for (Pion pion : pions) {
+			if(plateau.getZone(pion.getCoords()) != joueur.getEndZone()) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	public boolean gameFinished() {
+		for (Joueur joueur : joueurs) {
+			if(!joueur.hasWon()) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
 
 
 	public int getTaillePlateau() {
@@ -224,7 +244,17 @@ public class Partie {
 	}
 
 	public int nextJoueur() {
-		plateau.nextJoueur();
+		if(!getJoueur().hasWon()) {
+			if(hasWon(getJoueur())) {
+				getJoueur().setWon(true);
+				getNiaks().notifyJoueurWon(getJoueur());
+			}
+		}
+		
+		do {
+			plateau.nextJoueur();
+		} while(getJoueur().hasWon() && !gameFinished());
+		
 		niaks.notifyCurrentPlayer(plateau.getJoueur());
 		return plateau.getJoueurIndex();
 	}

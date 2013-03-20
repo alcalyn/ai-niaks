@@ -278,4 +278,11 @@ public class CardPrepare extends JPanel implements Observer {
 		
 	}
 
+
+	@Override
+	public void updateJoueurWon(Joueur joueur) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

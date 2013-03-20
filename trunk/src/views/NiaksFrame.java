@@ -221,6 +221,17 @@ public class NiaksFrame extends JFrame implements Observer, ExceptionCatcher {
 	}
 
 
+	@Override
+	public void updateJoueurWon(Joueur joueur) {
+		JOptionPane.showMessageDialog(
+				this,
+				joueur.getPseudo()+" a gagné",
+				"Partie",
+				JOptionPane.INFORMATION_MESSAGE
+		);
+	}
+
+
 	
 	
 }

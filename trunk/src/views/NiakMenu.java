@@ -230,6 +230,14 @@ public class NiakMenu extends JMenuBar implements Observer {
 	public void updateNiakworkHostAccept(NiakworkHostSocket nssocket) {
 		lancer_partie.setEnabled(false);
 	}
+
+
+
+	@Override
+	public void updateJoueurWon(Joueur joueur) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 
