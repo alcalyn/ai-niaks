@@ -38,28 +38,28 @@ public class Partie {
 		Coords arrivee = coup.getCaseArrivee();
 		Joueur joueur = coup.getPion().getJoueur();
 		int zone = plateau.getZone(arrivee);
-		
-		
+
+
 		if(joueur != getJoueur()) {
 			impossible(coup, "Ce n'est pas votre pion");
 		}
-		
+
 		if(depart.equals(arrivee)) {
 			impossible(coup, "Aucun déplacement n'a été enregistré");
 		}
-		
+
 		if(!plateau.isset(arrivee)) {
 			impossible(coup, "Vous sortez du plateau");
 		}
-		
+
 		if(!plateau.isEmpty(arrivee)) {
 			impossible(coup, "La case est déjà occupée");
 		}
-		
+
 		if((zone != 0) && (zone != joueur.getStartZone()) && (zone != joueur.getEndZone())) {
 			impossible(coup, "Vous ne pouvez pas aller sur les autres branches");
 		}
-		
+
 		for(int i=0;i<6;i++) {
 			if(depart.add(Coords.sens(i)).equals(arrivee)) {
 				// coup simple
@@ -67,58 +67,124 @@ public class Partie {
 				return coup;
 			}
 		}
-		
+
 		// saut multiple
 		Coords [] chemin = testSautMultiple(new Coords[] {depart}, arrivee);
 		if(chemin != null) {
 			coup.setChemin(chemin);
 			return coup;
 		}
-		
-		
+
+		//rajout pour les saut long
+
+		if (coup.getCaseDepart().equals(coup.getCaseArrivee()))	{
+			throw new IllegalMoveNiaksException(coup, "Coup impossible,il faut deplacer le pion");
+		}
+
+		else if (!plateau.isEmpty(coup.getCaseArrivee())){
+			throw new IllegalMoveNiaksException(coup, "Coup impossible, la case n'est pas libre");
+		}
+
+		else if (plateau.isEmpty(coup.getCaseArrivee()) ){
+			for (int tailledusaut = 2; tailledusaut < plateau.getTaille(); tailledusaut++) {
+
+
+				if ( ( coup.getCaseArrivee().x - coup.getCaseDepart().x == tailledusaut) && (coup.getCaseDepart().y == coup.getCaseArrivee().y)  && !plateau.isEmpty(coup.getCaseDepart().x + (tailledusaut/2) , coup.getCaseDepart().y) ) {
+					if( (coup.getCaseDepart().x + (tailledusaut/2)) == (coup.getCaseArrivee().x - (tailledusaut/2)) ) {return coup;} 
+					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
+				}
+
+				else if ( (coup.getCaseArrivee().x - coup.getCaseDepart().x == -tailledusaut)  && (coup.getCaseDepart().y == coup.getCaseArrivee().y) && !plateau.isEmpty(coup.getCaseDepart().x - (tailledusaut/2) , coup.getCaseDepart().y) ) {
+					if( (coup.getCaseDepart().x - (tailledusaut/2)) == (coup.getCaseArrivee().x + (tailledusaut/2)) ) {return coup;} 
+					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
+				}
+
+
+
+				else if ( (coup.getCaseArrivee().y - coup.getCaseDepart().y == tailledusaut)   && (coup.getCaseDepart().x == coup.getCaseArrivee().x) && !plateau.isEmpty(coup.getCaseDepart().x , coup.getCaseDepart().y + (tailledusaut/2)) ) {
+					if( (coup.getCaseDepart().y + (tailledusaut/2)) == (coup.getCaseArrivee().y - (tailledusaut/2)) ) {return coup;} 
+					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
+				}
+
+				else if ( (coup.getCaseArrivee().y - coup.getCaseDepart().y == -tailledusaut)  && (coup.getCaseDepart().x == coup.getCaseArrivee().x) && !plateau.isEmpty(coup.getCaseDepart().x , (coup.getCaseDepart().y) - (tailledusaut/2)) ) {
+					if( (coup.getCaseDepart().y - (tailledusaut/2)) == (coup.getCaseArrivee().y + (tailledusaut/2)) ) {return coup;} 
+					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
+				}
+
+
+
+				else if ( (coup.getCaseArrivee().x == coup.getCaseDepart().x + tailledusaut)   && (coup.getCaseArrivee().y == (coup.getCaseDepart().y) - tailledusaut) && !plateau.isEmpty(coup.getCaseDepart().x + (tailledusaut/2) , (coup.getCaseDepart().y) - (tailledusaut/2)) ) {
+					if( (coup.getCaseDepart().x + (tailledusaut/2)) == (coup.getCaseArrivee().x - (tailledusaut/2)) && (coup.getCaseDepart().y - (tailledusaut/2)) == (coup.getCaseArrivee().y + (tailledusaut/2)) ) {return coup;}  
+					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
+				}
+
+				else if ( (coup.getCaseArrivee().x == coup.getCaseDepart().x - tailledusaut)   && (coup.getCaseArrivee().y == (coup.getCaseDepart().y) + tailledusaut) && !plateau.isEmpty(coup.getCaseDepart().x - (tailledusaut/2) , (coup.getCaseDepart().y) + (tailledusaut/2)) ) {
+					if( (coup.getCaseDepart().x - (tailledusaut/2)) == (coup.getCaseArrivee().x + (tailledusaut/2)) && (coup.getCaseDepart().y + (tailledusaut/2)) == (coup.getCaseArrivee().y - (tailledusaut/2)) ) {return coup;}  
+					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
+				}
+
+
+
+				if( !( (coup.getCaseArrivee().x - coup.getCaseDepart().x <= (tailledusaut/2)) && (coup.getCaseDepart().x  - coup.getCaseArrivee().x  <= (tailledusaut/2)) &&
+						(coup.getCaseArrivee().y - coup.getCaseDepart().y <= (tailledusaut/2)) && 	(coup.getCaseDepart().y  - coup.getCaseArrivee().y  <= (tailledusaut/2)) ) ){
+					throw new IllegalMoveNiaksException(coup, "Coup impossible, pour l'instant seul les saut simple sont valide");
+				}
+
+				else if( !( (coup.getCaseArrivee().x - coup.getCaseDepart().x <= (tailledusaut/2)) && (coup.getCaseDepart().x  - coup.getCaseArrivee().x  <= (tailledusaut/2)) &&
+						(coup.getCaseArrivee().y - coup.getCaseDepart().y <= (tailledusaut/2)) && 	(coup.getCaseDepart().y  - coup.getCaseArrivee().y  <= (tailledusaut/2)) ) ){
+					throw new IllegalMoveNiaksException(coup, "Coup impossible, pour l'instant seul les saut simple sont valide");
+				}
+
+
+				tailledusaut++;
+			}
+		}
+
+		//fin du rajout
+
 		impossible(coup, "Coup inattendu");
 		return null;
 	}
-	
-	
+
+
 	private Coords [] testSautMultiple(Coords [] chemin, Coords cible) {
 		Coords case_actual = chemin[chemin.length - 1];
-		
+
 		if(case_actual.equals(cible)) return chemin;
-		
+
 		for(int i=0;i<6;i++) {
 			Coords case_sautee = case_actual.add(Coords.sens(i));
 			Coords case_next = case_actual.add(Coords.sens(i, 2));
-			
+
 			boolean come_back = false;
-			
+
 			for(int j=0;j<chemin.length-1;j++) {
 				if(case_next.equals(chemin[j])) {
 					come_back = true;
 					break;
 				}
 			}
-			
+
 			if(!come_back) {
 				if((plateau.getZone(case_next) >= 0) && (plateau.getZone(case_sautee) >= 0)) {
 					if(!plateau.isEmpty(case_sautee) && plateau.isEmpty(case_next)) {
 						Coords [] new_chemin = new Coords[chemin.length + 1];
-						
+
 						for(int j=0;j<chemin.length;j++) new_chemin[j] = chemin[j];
-						
+
 						new_chemin[new_chemin.length - 1] = case_next;
-						
+
 						Coords [] recursion = testSautMultiple(new_chemin, cible);
 						if(recursion != null) return recursion;
 					}
 				}
 			}
 		}
-		
+
 		return null;
 	}
-	
-	
+
+
 	private void impossible(Coup coup, String cause) throws IllegalMoveNiaksException {
 		throw new IllegalMoveNiaksException(coup, cause);
 	}
@@ -135,8 +201,8 @@ public class Partie {
 		plateau.movePion(coup.getPion(), coup.getCaseArrivee());
 		niaks.notifyPions(plateau.getPions());
 		nextJoueur();
-		
-		
+
+
 		if(!niaks.isHost()) {
 			Pion [][] pions = plateau.getPions();
 			Coords [][] coords = new Coords[pions.length][pions[0].length];
@@ -146,7 +212,7 @@ public class Partie {
 				}
 			}
 			niaks.getHost().queryUpdatePions(coords);
-			
+
 			niaks.getHost().queryUpdateCurrentPlayer(plateau.getJoueur().getPseudo());
 		}
 	}
@@ -198,23 +264,23 @@ public class Partie {
 
 	public boolean hasWon(Joueur joueur) {
 		Pion [] pions = plateau.getPions(joueur);
-		
+
 		for (Pion pion : pions) {
 			if(plateau.getZone(pion.getCoords()) != joueur.getEndZone()) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
-	
+
 	public boolean gameFinished() {
 		for (Joueur joueur : joueurs) {
 			if(!joueur.hasWon()) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -250,15 +316,15 @@ public class Partie {
 				getNiaks().notifyJoueurWon(getJoueur());
 			}
 		}
-		
+
 		do {
 			plateau.nextJoueur();
 		} while(getJoueur().hasWon() && !gameFinished());
-		
+
 		niaks.notifyCurrentPlayer(plateau.getJoueur());
 		return plateau.getJoueurIndex();
 	}
-	
+
 	public int setJoueur(Joueur joueur) {
 		plateau.setJoueur(joueur);
 		niaks.notifyCurrentPlayer(plateau.getJoueur());

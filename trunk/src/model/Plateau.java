@@ -282,6 +282,10 @@ public class Plateau {
 		
 		return -1;
 	}
+
+	public  int getTaille() {
+		return taille;
+	}
 	
 	
 }
