@@ -9,7 +9,7 @@ public class Partie {
 	private Plateau plateau;
 	private int taille_plateau;
 	private Joueur[] joueurs;
-	
+
 	private boolean isFinished = false;
 
 
@@ -336,7 +336,7 @@ public class Partie {
 				checkGameFinished();
 			}
 		}
-		
+
 		plateau.setJoueur(joueur);
 		niaks.notifyCurrentPlayer(plateau.getJoueur());
 		return plateau.getJoueurIndex();
