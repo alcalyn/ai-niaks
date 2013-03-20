@@ -1,5 +1,7 @@
 package views;
 
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JComboBox;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -18,14 +20,18 @@ public class NiakMenu extends JMenuBar implements Observer {
 	private static final long serialVersionUID = 775631860645850544L;
 	
 	
+	private static final int taille_plateau_min = 1;
+	private static final int taille_plateau_max = 6;
+	
+	
 	private Niaks niaks;
 	private NiaksFrame niaks_frame;
 	
 	
 	private JMenu		partie;
 	private JMenuItem		lancer_partie;
-	
-	private JMenu		joueurs;
+	private JMenu			taille_plateau;
+	private JCheckBoxMenuItem []	tailles = null;
 	
 	private JMenu		niakwork;
 	private JMenuItem		connect;
@@ -46,11 +52,11 @@ public class NiakMenu extends JMenuBar implements Observer {
 		this.niaks_frame = niaks_frame;
 		
 		add(menuPartie());
-		add(menuJoueurs());
 		add(menuNiakwork());
 		add(menuProjet());
 		add(menuAbout());
 		
+		updateEtat(niaks.getEtat());
 		updateNiakwork(niaks.isNiakworkEnabled());
 	}
 	
@@ -63,13 +69,12 @@ public class NiakMenu extends JMenuBar implements Observer {
 		lancer_partie.addActionListener(new MenuButton(niaks, niaks_frame, MenuButton.LANCER_PARTIE));
 		partie.add(lancer_partie);
 		
-		return partie;
-	}
-	
-	private JMenu menuJoueurs() {
-		joueurs = new JMenu("Joueurs");
+		partie.addSeparator();
 		
-		return joueurs;
+		taille_plateau = new JMenu("Taille du plateau");
+		partie.add(taille_plateau);
+		
+		return partie;
 	}
 	
 	private JMenu menuNiakwork() {
@@ -113,6 +118,31 @@ public class NiakMenu extends JMenuBar implements Observer {
 		
 		return about;
 	}
+	
+	
+	private void refreshTaillePlateau() {
+		if(niaks.getEtat() == Niaks.PREPARATION) {
+			if(tailles == null) {
+				tailles = new JCheckBoxMenuItem[taille_plateau_max - taille_plateau_min + 1];
+				
+				int k = 0;
+				for(int i=taille_plateau_min;i<=taille_plateau_max;i++) {
+					JCheckBoxMenuItem taille = new JCheckBoxMenuItem(Integer.toString(i));
+					taille.addActionListener(new MenuButton(niaks, niaks_frame, MenuButton.SELECT_TAILLE_PLATEAU, new Object[] {i}));
+					taille_plateau.add(taille);
+					tailles[k++] = taille;
+				}
+			}
+			
+			for(int i=taille_plateau_min;i<=taille_plateau_max;i++) {
+				tailles[i - taille_plateau_min].setSelected(niaks.getPartiePreparator().getPlateauSize() == i);
+			}
+			
+			taille_plateau.setEnabled(true);
+		} else {
+			taille_plateau.setEnabled(false);
+		}
+	}
 
 	
 	private void refreshHostCount() {
@@ -151,7 +181,9 @@ public class NiakMenu extends JMenuBar implements Observer {
 
 	@Override
 	public void updateEtat(int etat_partie) {
+		partie.setEnabled(etat_partie == Niaks.PREPARATION);
 		lancer_partie.setEnabled(etat_partie == Niaks.PREPARATION);
+		refreshTaillePlateau();
 		
 		/*
 		switch (etat_partie) {
@@ -174,6 +206,8 @@ public class NiakMenu extends JMenuBar implements Observer {
 
 	@Override
 	public void updateTaillePlateau(int taille) {
+		System.out.println("up taille : "+taille);
+		refreshTaillePlateau();
 	}
 
 

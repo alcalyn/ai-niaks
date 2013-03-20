@@ -43,6 +43,7 @@ public class PartiePreparator implements Serializable {
 	public void setPlateauSize(int taille) {
 		if(taille > 0) {
 			this.taille_plateau = taille;
+			niaks.notifyTaillePlateau(taille);
 		}
 	}
 	

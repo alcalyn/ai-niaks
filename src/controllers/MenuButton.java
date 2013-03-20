@@ -21,7 +21,10 @@ public class MenuButton extends ModelActionner {
 		DISCONNECT = 6,
 		SEARCH_LOCAL = 7,
 		CONNECT_TO = 8,
-		JOIN_HOST = 9;
+		JOIN_HOST = 9,
+		SELECT_TAILLE_PLATEAU = 10;
+	
+	
 	
 	private int action;
 	private NiaksFrame frame;
@@ -44,6 +47,10 @@ public class MenuButton extends ModelActionner {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		switch(action) {
+			case SELECT_TAILLE_PLATEAU:
+				niaks.getPartiePreparator().setPlateauSize((Integer) args[0]);
+				break;
+				
 			case LANCER_PARTIE:
 				try {
 					niaks.startPartie();
