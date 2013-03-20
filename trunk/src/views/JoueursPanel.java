@@ -123,6 +123,13 @@ public class JoueursPanel extends JPanel implements Observer {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	public void updateGameFinished() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

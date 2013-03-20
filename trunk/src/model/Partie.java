@@ -9,7 +9,8 @@ public class Partie {
 	private Plateau plateau;
 	private int taille_plateau;
 	private Joueur[] joueurs;
-
+	
+	private boolean isFinished = false;
 
 
 	public Partie(Niaks niaks, Joueur[] joueurs, int taille_plateau) {
@@ -245,7 +246,7 @@ public class Partie {
 	 * et s'arrete quand il doit attendre un coup (humain sur UI, joueur distant)
 	 */
 	public void start() {
-		while(plateau.getJoueur().playsInstantly() && !gameFinished()) {
+		while(plateau.getJoueur().playsInstantly()) {
 			Coup coup = plateau.getJoueur().jouerCoup();
 
 			if(coup == null) {
@@ -274,14 +275,15 @@ public class Partie {
 		return true;
 	}
 
-	public boolean gameFinished() {
+	public void checkGameFinished() {
 		for (Joueur joueur : joueurs) {
 			if(!joueur.hasWon()) {
-				return false;
+				return;
 			}
 		}
 
-		return true;
+		isFinished = true;
+		niaks.gameFinished();
 	}
 
 
@@ -313,19 +315,28 @@ public class Partie {
 		if(!getJoueur().hasWon()) {
 			if(hasWon(getJoueur())) {
 				getJoueur().setWon(true);
-				getNiaks().notifyJoueurWon(getJoueur());
+				niaks.notifyJoueurWon(getJoueur());
+				checkGameFinished();
 			}
 		}
 
 		do {
 			plateau.nextJoueur();
-		} while(getJoueur().hasWon() && !gameFinished());
+		} while(getJoueur().hasWon() && !isFinished);
 
 		niaks.notifyCurrentPlayer(plateau.getJoueur());
 		return plateau.getJoueurIndex();
 	}
 
 	public int setJoueur(Joueur joueur) {
+		if(!getJoueur().hasWon()) {
+			if(hasWon(getJoueur())) {
+				getJoueur().setWon(true);
+				niaks.notifyJoueurWon(getJoueur());
+				checkGameFinished();
+			}
+		}
+		
 		plateau.setJoueur(joueur);
 		niaks.notifyCurrentPlayer(plateau.getJoueur());
 		return plateau.getJoueurIndex();

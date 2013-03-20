@@ -108,6 +108,14 @@ public abstract class Model {
 		}
 	}
 	
+	protected void notifyGameFinished() {
+		for(int i=0;i<views.size();i++) {
+			Observer o = views.get(i);
+			o.updateGameFinished();
+		}
+	}
+	
+	
 	
 	
 }

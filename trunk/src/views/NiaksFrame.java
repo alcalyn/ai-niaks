@@ -232,6 +232,17 @@ public class NiaksFrame extends JFrame implements Observer, ExceptionCatcher {
 	}
 
 
+	@Override
+	public void updateGameFinished() {
+		JOptionPane.showMessageDialog(
+				this,
+				"La partie est terminée",
+				"Partie",
+				JOptionPane.INFORMATION_MESSAGE
+		);
+	}
+
+
 	
 	
 }
