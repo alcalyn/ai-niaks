@@ -17,8 +17,8 @@ public class Niaks extends Model {
 	
 	private String pseudo = null;
 	private Niakwork niakwork = null;
-	
-	
+
+
 	private int etat;
 	private PartiePreparator partie_preparator = null;
 	private Partie partie = null;
@@ -165,6 +165,10 @@ public class Niaks extends Model {
 	
 	public boolean isHost() {
 		return isHost;
+	}
+	
+	public int getEtat() {
+		return etat;
 	}
 	
 	public NiakworkHostSocket getHost() {
