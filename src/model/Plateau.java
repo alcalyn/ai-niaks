@@ -150,6 +150,16 @@ public class Plateau {
 		return pions[joueur - 1][i];
 	}
 	
+	public Pion [] getPions(Joueur joueur) {
+		for(int i=0;i<getNbJoueur();i++) {
+			if(joueur == joueurs[i]) {
+				return pions[i];
+			}
+		}
+		
+		return null;
+	}
+	
 	public Pion getCase(Coords3 c) {
 		return getCase(c.toCoords());
 	}

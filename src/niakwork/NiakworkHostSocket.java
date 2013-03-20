@@ -142,6 +142,13 @@ public class NiakworkHostSocket extends NiakworkSocket implements Observer {
 	@Override
 	public void updateNiakworkHostAccept(NiakworkHostSocket nssocket) {
 	}
+
+
+	@Override
+	public void updateJoueurWon(Joueur joueur) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

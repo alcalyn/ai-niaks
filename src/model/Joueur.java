@@ -14,7 +14,10 @@ public abstract class Joueur implements Serializable {
 	private Partie partie = null;
 	private int startZone;
 	private int endZone;
+	private boolean won = false;
 	
+	
+
 	public Joueur(String pseudo) {
 		this.pseudo = pseudo;
 	}
@@ -54,6 +57,15 @@ public abstract class Joueur implements Serializable {
 	public void setStartZone(int startZone) {
 		this.startZone = startZone;
 		this.endZone = (startZone + 3) % 6;
+	}
+	
+	
+	public boolean hasWon() {
+		return won;
+	}
+
+	public void setWon(boolean won) {
+		this.won = won;
 	}
 	
 	
