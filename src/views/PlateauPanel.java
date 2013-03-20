@@ -390,6 +390,12 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void updateGameFinished() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

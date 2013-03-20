@@ -272,6 +272,14 @@ public class NiakMenu extends JMenuBar implements Observer {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+
+	@Override
+	public void updateGameFinished() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

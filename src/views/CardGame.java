@@ -138,4 +138,11 @@ public class CardGame extends JPanel implements Observer, CoupEmitter {
 		
 	}
 
+
+	@Override
+	public void updateGameFinished() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -35,6 +35,10 @@ public class NiakworkHostSocket extends NiakworkSocket implements Observer {
 		System.out.println("Envoi update pions coords");
 		send(NiakworkQuery.UPDATE_PIONS, coords);
 	}
+	
+	public void queryUpdateJoueurWon(Joueur joueur) {
+		send(NiakworkQuery.UPDATE_JOUEUR_WON, joueur);
+	}
 
 
 	@Override
@@ -71,6 +75,11 @@ public class NiakworkHostSocket extends NiakworkSocket implements Observer {
 		if(nquery.is(NiakworkQuery.UPDATE_PIONS)) {
 			System.out.println("reception update pions coords");
 			niakwork.getNiaks().niakworkUpdatePions((Coords[][]) nquery.arg(0));
+		}
+		
+		if(nquery.is(NiakworkQuery.UPDATE_JOUEUR_WON)) {
+			System.out.println("reception update joueur won");
+			niakwork.getNiaks().niakworkUpdateWinner((Joueur) nquery.arg(0));
 		}
 		
 	}
@@ -146,9 +155,16 @@ public class NiakworkHostSocket extends NiakworkSocket implements Observer {
 
 	@Override
 	public void updateJoueurWon(Joueur joueur) {
+		queryUpdateJoueurWon(joueur);
+	}
+
+
+	@Override
+	public void updateGameFinished() {
 		// TODO Auto-generated method stub
 		
 	}
 	
 
 }
+

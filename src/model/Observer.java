@@ -29,6 +29,8 @@ public interface Observer {
 	public void updateNiakworkHostDenied(NiakworkHostSocket nssocket, String reason);
 
 	public void updateNiakworkHostAccept(NiakworkHostSocket nssocket);
+
+	public void updateGameFinished();
 	
 	
 }

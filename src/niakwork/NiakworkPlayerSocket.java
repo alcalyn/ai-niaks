@@ -59,6 +59,10 @@ public class NiakworkPlayerSocket extends NiakworkSocket {
 		send(NiakworkQuery.UPDATE_PIONS, coords);
 	}
 	
+	public void queryUpdateJoueurWon(Joueur joueur) {
+		send(NiakworkQuery.UPDATE_JOUEUR_WON, joueur);
+	}
+	
 
 	@Override
 	public void received(NiakworkQuery nquery) {
@@ -77,6 +81,11 @@ public class NiakworkPlayerSocket extends NiakworkSocket {
 		if(nquery.is(NiakworkQuery.UPDATE_PIONS)) {
 			System.out.println("reception update pions coords");
 			niakwork.getNiaks().niakworkUpdatePions((Coords[][]) nquery.arg(0));
+		}
+		
+		if(nquery.is(NiakworkQuery.UPDATE_JOUEUR_WON)) {
+			System.out.println("reception update pions coords");
+			niakwork.getNiaks().niakworkUpdateWinner((Joueur) nquery.arg(0));
 		}
 	}
 

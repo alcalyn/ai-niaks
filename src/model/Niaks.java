@@ -21,6 +21,7 @@ public class Niaks extends Model {
 
 	private int etat;
 	private PartiePreparator partie_preparator = null;
+	private PartiePreparator partie_preparator_last = null;
 	private Partie partie = null;
 	
 	private boolean isHost = true;
@@ -35,7 +36,13 @@ public class Niaks extends Model {
 	
 	public void startPreparation() throws ProfilNotSetNiaksException {
 		if(pseudo != null) {
-			partie_preparator = new PartiePreparator(this, new Humain(pseudo));
+			if(partie_preparator_last == null) {
+				partie_preparator = new PartiePreparator(this, new Humain(pseudo));
+			} else {
+				partie_preparator = partie_preparator_last;
+				partie_preparator_last = null;
+			}
+			
 			etat = PREPARATION;
 			notifyEtat(PREPARATION);
 		} else {
@@ -54,6 +61,7 @@ public class Niaks extends Model {
 		}
 		
 		partie = partie_preparator.createPartie();
+		partie_preparator_last = partie_preparator;
 		partie_preparator = null;
 		etat = PARTIE;
 		
@@ -201,6 +209,24 @@ public class Niaks extends Model {
 		}
 		
 		notifyPions(pions);
+	}
+	
+	
+	public void niakworkUpdateWinner(Joueur joueur) {
+		joueur.setWon(true);
+		notifyJoueurWon(joueur);
+	}
+
+
+
+	public void gameFinished() {
+		notifyGameFinished();
+		
+		try {
+			startPreparation();
+		} catch (ProfilNotSetNiaksException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

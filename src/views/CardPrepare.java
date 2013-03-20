@@ -285,4 +285,11 @@ public class CardPrepare extends JPanel implements Observer {
 		
 	}
 
+
+	@Override
+	public void updateGameFinished() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -109,4 +109,10 @@ public class NiakworkPlayer extends Joueur implements Observer {
 		
 	}
 
+	@Override
+	public void updateGameFinished() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
