@@ -22,10 +22,19 @@ public class Coords3 {
 	
 	public Coords3() {
 	}
+	
 	public Coords3(Coords3 copy) {
 		this.x = copy.x;
 		this.y = copy.y;
 		this.z = copy.z;
+	}
+	
+	public Coords3 unify() {
+		Coords3 u = this.toCoords().toCoords3();
+		x = u.x;
+		y = u.y;
+		z = u.z;
+		return this;
 	}
 	
 	public Coords toCoords() {

@@ -61,9 +61,9 @@ public class Partie {
 			impossible(coup, "Vous ne pouvez pas aller sur les autres branches");
 		}
 
+		// coup simple
 		for(int i=0;i<6;i++) {
 			if(depart.add(Coords.sens(i)).equals(arrivee)) {
-				// coup simple
 				coup.setSimpleChemin();
 				return coup;
 			}
@@ -75,99 +75,26 @@ public class Partie {
 			coup.setChemin(chemin);
 			return coup;
 		}
-
-		//rajout pour les saut long
-
-		if (coup.getCaseDepart().equals(coup.getCaseArrivee()))	{
-			throw new IllegalMoveNiaksException(coup, "Coup impossible,il faut deplacer le pion");
-		}
-
-		else if (!plateau.isEmpty(coup.getCaseArrivee())){
-			throw new IllegalMoveNiaksException(coup, "Coup impossible, la case n'est pas libre");
-		}
-
-		else if (!plateau.isEmpty(coup.getCaseArrivee()) ){
-			
-			for (int tailledusaut = 2; tailledusaut < plateau.getTaille(); tailledusaut++) {
-
-
-				if ( ( coup.getCaseArrivee().x - coup.getCaseDepart().x == tailledusaut) &&
-									(coup.getCaseDepart().y == coup.getCaseArrivee().y)  &&
-									!plateau.isEmpty(coup.getCaseDepart().x + (tailledusaut/2) , coup.getCaseDepart().y) ) {
-					if( (coup.getCaseDepart().x + (tailledusaut/2)) == (coup.getCaseArrivee().x - (tailledusaut/2)) ) 
-					{return coup;} 
-					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
+		
+		// saut long
+		for(int sens=0;sens<6;sens++) {
+			for(int taille=4;taille<plateau.getTaille()*4;taille+=2) {
+				if(depart.add(Coords.sens(sens, taille)).equals(arrivee)) {
+					Coords middle = depart.add(Coords.sens(sens, taille / 2));
+					
+					for(int i=1;i<taille-1;i++) {
+						Coords c = depart.add(Coords.sens(sens, i));
+						
+						if(c.equals(middle) == plateau.isEmpty(c)) {
+							impossible(coup, "Coup long invalide");
+						}
+					}
+					
+					coup.setSimpleChemin();
+					return coup;
 				}
-
-				else if ( (coup.getCaseArrivee().x - coup.getCaseDepart().x == -tailledusaut)  &&
-									(coup.getCaseDepart().y == coup.getCaseArrivee().y) &&
-									!plateau.isEmpty(coup.getCaseDepart().x - (tailledusaut/2) , coup.getCaseDepart().y) ) {
-					if( (coup.getCaseDepart().x - (tailledusaut/2)) == (coup.getCaseArrivee().x + (tailledusaut/2)) ) 
-					{return coup;} 
-					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
-				}
-
-
-
-				else if ( (coup.getCaseArrivee().y - coup.getCaseDepart().y == tailledusaut)   &&
-									(coup.getCaseDepart().x == coup.getCaseArrivee().x) &&
-									!plateau.isEmpty(coup.getCaseDepart().x , coup.getCaseDepart().y + (tailledusaut/2)) ) {
-					if( (coup.getCaseDepart().y + (tailledusaut/2)) == (coup.getCaseArrivee().y - (tailledusaut/2)) ) 
-					{return coup;} 
-					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
-				}
-
-				else if ( (coup.getCaseArrivee().y - coup.getCaseDepart().y == -tailledusaut)  &&
-									(coup.getCaseDepart().x == coup.getCaseArrivee().x) &&
-									!plateau.isEmpty(coup.getCaseDepart().x , (coup.getCaseDepart().y) - (tailledusaut/2)) ) {
-					if( (coup.getCaseDepart().y - (tailledusaut/2)) == (coup.getCaseArrivee().y + (tailledusaut/2)) ) 
-					{return coup;} 
-					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
-				}
-
-
-
-				else if ( (coup.getCaseArrivee().x == coup.getCaseDepart().x + tailledusaut)   &&
-									(coup.getCaseArrivee().y == (coup.getCaseDepart().y) - tailledusaut) &&
-									!plateau.isEmpty(coup.getCaseDepart().x + (tailledusaut/2) , (coup.getCaseDepart().y) - (tailledusaut/2)) ) {
-					if( (coup.getCaseDepart().x + (tailledusaut/2)) == (coup.getCaseArrivee().x - (tailledusaut/2)) &&
-									(coup.getCaseDepart().y - (tailledusaut/2)) == (coup.getCaseArrivee().y + (tailledusaut/2)) ) 
-					{return coup;}  
-					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
-				}
-
-				else if ( (coup.getCaseArrivee().x == coup.getCaseDepart().x - tailledusaut)   &&
-									(coup.getCaseArrivee().y == (coup.getCaseDepart().y) + tailledusaut) &&
-									!plateau.isEmpty(coup.getCaseDepart().x - (tailledusaut/2) , (coup.getCaseDepart().y) + (tailledusaut/2)) ) {
-					if( (coup.getCaseDepart().x - (tailledusaut/2)) == (coup.getCaseArrivee().x + (tailledusaut/2)) &&
-									(coup.getCaseDepart().y + (tailledusaut/2)) == (coup.getCaseArrivee().y - (tailledusaut/2)) ) 
-					{return coup;}  
-					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
-				}
-
-
-
-				if( !( (coup.getCaseArrivee().x - coup.getCaseDepart().x <= (tailledusaut/2)) &&
-									(coup.getCaseDepart().x  - coup.getCaseArrivee().x  <= (tailledusaut/2)) &&
-									(coup.getCaseArrivee().y - coup.getCaseDepart().y <= (tailledusaut/2)) &&
-									(coup.getCaseDepart().y  - coup.getCaseArrivee().y  <= (tailledusaut/2)) ) ){
-					throw new IllegalMoveNiaksException(coup, "Coup impossible, pour l'instant seul les saut simple sont valide");
-				}
-
-				else if( !( (coup.getCaseArrivee().x - coup.getCaseDepart().x <= (tailledusaut/2)) &&
-									(coup.getCaseDepart().x  - coup.getCaseArrivee().x  <= (tailledusaut/2)) &&
-									(coup.getCaseArrivee().y - coup.getCaseDepart().y <= (tailledusaut/2)) &&
-									(coup.getCaseDepart().y  - coup.getCaseArrivee().y  <= (tailledusaut/2)) ) ){
-					throw new IllegalMoveNiaksException(coup, "Coup impossible, pour l'instant seul les saut simple sont valide");
-				}
-
-
-				tailledusaut++;
-				
 			}
 		}
-
-		//fin du rajout
 
 		impossible(coup, "Coup inattendu");
 		return null;
