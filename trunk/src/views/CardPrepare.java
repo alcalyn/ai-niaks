@@ -12,6 +12,9 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
 
 import model.Humain;
 import model.Joueur;
@@ -22,6 +25,8 @@ import model.Pion;
 import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayer;
 import niakwork.NiakworkPlayerSocket;
+import controllers.TFListener;
+import controllers.TFPseudoListener;
 import controllers.TypeJoueurActionListener;
 
 public class CardPrepare extends JPanel implements Observer {
@@ -159,6 +164,8 @@ public class CardPrepare extends JPanel implements Observer {
 		JTextField tf = new JTextField(16);
 		
 		tf.setText(j.getPseudo());
+		tf.getDocument().addDocumentListener(new TFPseudoListener(tf, j));
+		
 		
 		if(j instanceof Humain)	{
 			if(j == partie_preparator.getHost()) {
