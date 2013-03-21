@@ -86,7 +86,7 @@ public class Partie {
 			throw new IllegalMoveNiaksException(coup, "Coup impossible, la case n'est pas libre");
 		}
 
-		else if (plateau.isEmpty(coup.getCaseArrivee()) ){
+		else if (!plateau.isEmpty(coup.getCaseArrivee()) ){
 			for (int tailledusaut = 2; tailledusaut < plateau.getTaille(); tailledusaut++) {
 
 
