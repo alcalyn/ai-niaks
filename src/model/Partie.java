@@ -90,13 +90,17 @@ public class Partie {
 			for (int tailledusaut = 2; tailledusaut < plateau.getTaille(); tailledusaut++) {
 
 
-				if ( ( coup.getCaseArrivee().x - coup.getCaseDepart().x == tailledusaut) && (coup.getCaseDepart().y == coup.getCaseArrivee().y)  && !plateau.isEmpty(coup.getCaseDepart().x + (tailledusaut/2) , coup.getCaseDepart().y) ) {
+				if ( ( coup.getCaseArrivee().x - coup.getCaseDepart().x == tailledusaut) &&
+									(coup.getCaseDepart().y == coup.getCaseArrivee().y)  &&
+									!plateau.isEmpty(coup.getCaseDepart().x + (tailledusaut/2) , coup.getCaseDepart().y) ) {
 					if( (coup.getCaseDepart().x + (tailledusaut/2)) == (coup.getCaseArrivee().x - (tailledusaut/2)) ) 
 					{return coup;} 
 					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
 				}
 
-				else if ( (coup.getCaseArrivee().x - coup.getCaseDepart().x == -tailledusaut)  && (coup.getCaseDepart().y == coup.getCaseArrivee().y) && !plateau.isEmpty(coup.getCaseDepart().x - (tailledusaut/2) , coup.getCaseDepart().y) ) {
+				else if ( (coup.getCaseArrivee().x - coup.getCaseDepart().x == -tailledusaut)  &&
+									(coup.getCaseDepart().y == coup.getCaseArrivee().y) &&
+									!plateau.isEmpty(coup.getCaseDepart().x - (tailledusaut/2) , coup.getCaseDepart().y) ) {
 					if( (coup.getCaseDepart().x - (tailledusaut/2)) == (coup.getCaseArrivee().x + (tailledusaut/2)) ) 
 					{return coup;} 
 					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
@@ -104,13 +108,17 @@ public class Partie {
 
 
 
-				else if ( (coup.getCaseArrivee().y - coup.getCaseDepart().y == tailledusaut)   && (coup.getCaseDepart().x == coup.getCaseArrivee().x) && !plateau.isEmpty(coup.getCaseDepart().x , coup.getCaseDepart().y + (tailledusaut/2)) ) {
+				else if ( (coup.getCaseArrivee().y - coup.getCaseDepart().y == tailledusaut)   &&
+									(coup.getCaseDepart().x == coup.getCaseArrivee().x) &&
+									!plateau.isEmpty(coup.getCaseDepart().x , coup.getCaseDepart().y + (tailledusaut/2)) ) {
 					if( (coup.getCaseDepart().y + (tailledusaut/2)) == (coup.getCaseArrivee().y - (tailledusaut/2)) ) 
 					{return coup;} 
 					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
 				}
 
-				else if ( (coup.getCaseArrivee().y - coup.getCaseDepart().y == -tailledusaut)  && (coup.getCaseDepart().x == coup.getCaseArrivee().x) && !plateau.isEmpty(coup.getCaseDepart().x , (coup.getCaseDepart().y) - (tailledusaut/2)) ) {
+				else if ( (coup.getCaseArrivee().y - coup.getCaseDepart().y == -tailledusaut)  &&
+									(coup.getCaseDepart().x == coup.getCaseArrivee().x) &&
+									!plateau.isEmpty(coup.getCaseDepart().x , (coup.getCaseDepart().y) - (tailledusaut/2)) ) {
 					if( (coup.getCaseDepart().y - (tailledusaut/2)) == (coup.getCaseArrivee().y + (tailledusaut/2)) ) 
 					{return coup;} 
 					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
@@ -118,29 +126,37 @@ public class Partie {
 
 
 
-				else if ( (coup.getCaseArrivee().x == coup.getCaseDepart().x + tailledusaut)   && (coup.getCaseArrivee().y == (coup.getCaseDepart().y) - tailledusaut) &&
-						!plateau.isEmpty(coup.getCaseDepart().x + (tailledusaut/2) , (coup.getCaseDepart().y) - (tailledusaut/2)) ) {
-					if( (coup.getCaseDepart().x + (tailledusaut/2)) == (coup.getCaseArrivee().x - (tailledusaut/2)) && (coup.getCaseDepart().y - (tailledusaut/2)) == (coup.getCaseArrivee().y + (tailledusaut/2)) ) 
+				else if ( (coup.getCaseArrivee().x == coup.getCaseDepart().x + tailledusaut)   &&
+									(coup.getCaseArrivee().y == (coup.getCaseDepart().y) - tailledusaut) &&
+									!plateau.isEmpty(coup.getCaseDepart().x + (tailledusaut/2) , (coup.getCaseDepart().y) - (tailledusaut/2)) ) {
+					if( (coup.getCaseDepart().x + (tailledusaut/2)) == (coup.getCaseArrivee().x - (tailledusaut/2)) &&
+									(coup.getCaseDepart().y - (tailledusaut/2)) == (coup.getCaseArrivee().y + (tailledusaut/2)) ) 
 					{return coup;}  
 					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
 				}
 
-				else if ( (coup.getCaseArrivee().x == coup.getCaseDepart().x - tailledusaut)   && (coup.getCaseArrivee().y == (coup.getCaseDepart().y) + tailledusaut) &&
-						!plateau.isEmpty(coup.getCaseDepart().x - (tailledusaut/2) , (coup.getCaseDepart().y) + (tailledusaut/2)) ) {
-					if( (coup.getCaseDepart().x - (tailledusaut/2)) == (coup.getCaseArrivee().x + (tailledusaut/2)) && (coup.getCaseDepart().y + (tailledusaut/2)) == (coup.getCaseArrivee().y - (tailledusaut/2)) ) 
+				else if ( (coup.getCaseArrivee().x == coup.getCaseDepart().x - tailledusaut)   &&
+									(coup.getCaseArrivee().y == (coup.getCaseDepart().y) + tailledusaut) &&
+									!plateau.isEmpty(coup.getCaseDepart().x - (tailledusaut/2) , (coup.getCaseDepart().y) + (tailledusaut/2)) ) {
+					if( (coup.getCaseDepart().x - (tailledusaut/2)) == (coup.getCaseArrivee().x + (tailledusaut/2)) &&
+									(coup.getCaseDepart().y + (tailledusaut/2)) == (coup.getCaseArrivee().y - (tailledusaut/2)) ) 
 					{return coup;}  
 					else {throw new IllegalMoveNiaksException(coup, "ce coup long n'est pas valide");}
 				}
 
 
 
-				if( !( (coup.getCaseArrivee().x - coup.getCaseDepart().x <= (tailledusaut/2)) && (coup.getCaseDepart().x  - coup.getCaseArrivee().x  <= (tailledusaut/2)) &&
-						(coup.getCaseArrivee().y - coup.getCaseDepart().y <= (tailledusaut/2)) && 	(coup.getCaseDepart().y  - coup.getCaseArrivee().y  <= (tailledusaut/2)) ) ){
+				if( !( (coup.getCaseArrivee().x - coup.getCaseDepart().x <= (tailledusaut/2)) &&
+									(coup.getCaseDepart().x  - coup.getCaseArrivee().x  <= (tailledusaut/2)) &&
+									(coup.getCaseArrivee().y - coup.getCaseDepart().y <= (tailledusaut/2)) &&
+									(coup.getCaseDepart().y  - coup.getCaseArrivee().y  <= (tailledusaut/2)) ) ){
 					throw new IllegalMoveNiaksException(coup, "Coup impossible, pour l'instant seul les saut simple sont valide");
 				}
 
-				else if( !( (coup.getCaseArrivee().x - coup.getCaseDepart().x <= (tailledusaut/2)) && (coup.getCaseDepart().x  - coup.getCaseArrivee().x  <= (tailledusaut/2)) &&
-						(coup.getCaseArrivee().y - coup.getCaseDepart().y <= (tailledusaut/2)) && 	(coup.getCaseDepart().y  - coup.getCaseArrivee().y  <= (tailledusaut/2)) ) ){
+				else if( !( (coup.getCaseArrivee().x - coup.getCaseDepart().x <= (tailledusaut/2)) &&
+									(coup.getCaseDepart().x  - coup.getCaseArrivee().x  <= (tailledusaut/2)) &&
+									(coup.getCaseArrivee().y - coup.getCaseDepart().y <= (tailledusaut/2)) &&
+									(coup.getCaseDepart().y  - coup.getCaseArrivee().y  <= (tailledusaut/2)) ) ){
 					throw new IllegalMoveNiaksException(coup, "Coup impossible, pour l'instant seul les saut simple sont valide");
 				}
 
