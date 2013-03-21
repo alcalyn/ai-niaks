@@ -38,6 +38,10 @@ public abstract class Joueur implements Serializable {
 		return pseudo;
 	}
 	
+	public void setPseudo(String s) {
+		this.pseudo = s;
+	}
+	
 	public Partie getPartie() {
 		return partie;
 	}
@@ -88,4 +92,6 @@ public abstract class Joueur implements Serializable {
 				new Color(0x000000),
 		}[c];
 	}
+
+	
 }
