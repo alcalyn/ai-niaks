@@ -87,6 +87,7 @@ public class Partie {
 		}
 
 		else if (!plateau.isEmpty(coup.getCaseArrivee()) ){
+			
 			for (int tailledusaut = 2; tailledusaut < plateau.getTaille(); tailledusaut++) {
 
 
@@ -162,6 +163,7 @@ public class Partie {
 
 
 				tailledusaut++;
+				
 			}
 		}
 
