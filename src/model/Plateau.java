@@ -164,8 +164,8 @@ public class Plateau {
 		return getCase(c.toCoords());
 	}
 	
-	public boolean isEmpty3(Coords3 coords){
-		return getCase(coords.toCoords())==null;
+	public boolean isEmpty(Coords3 coords){
+		return getCase(coords.toCoords()) == null;
 	}
 	
 	public boolean isEmpty(Coords coords){
