@@ -47,17 +47,18 @@ public class Pion {
 		return "Pion ["+joueur.getPseudo()+"] : "+coords.toString();
 	}
 
-
-//	public Coords getCoords3() {
-//		return coords3;
-//	}
-
-//	public Case getCaseDuPion() {
-//		return caseDuPion;
-//	}
-//
-//	public void setCaseDuPion(Case caseDuPion) {
-//		this.caseDuPion = caseDuPion;
-//	}
+	@Override
+	public boolean equals(Object o) {
+		if(o instanceof Pion) {
+			Pion other = (Pion) o;
+			
+			return (
+					joueur == other.joueur &&
+					coords.equals(other.coords)
+			);
+		} else {
+			return false;
+		}
+	}
 	
 }

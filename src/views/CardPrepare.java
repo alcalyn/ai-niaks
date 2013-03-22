@@ -16,6 +16,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 
+import model.Coup;
 import model.Humain;
 import model.Joueur;
 import model.Observer;
@@ -235,7 +236,7 @@ public class CardPrepare extends JPanel implements Observer {
 
 
 	@Override
-	public void updatePions(Pion[][] pions) {
+	public void updatePions(Pion[][] pions, Coup coup) {
 	}
 
 

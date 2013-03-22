@@ -42,16 +42,23 @@ public class Coup {
 		return case_arrivee;
 	}
 	
-//	public Coords3 getCaseDepart3() {
-//		return case_depart;
-//	}
-//
-//	public Coords3 getCaseArrivee3() {
-//		return case_arrivee;
-//	}
-
 	public Joueur getJoueur() {
 		return pion.getJoueur();
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o instanceof Coup) {
+			Coup other = (Coup) o;
+			
+			return (
+					pion.equals(other.pion) &&
+					case_depart.equals(other.case_depart) &&
+					case_arrivee.equals(other.case_arrivee)
+			);
+		} else {
+			return false;
+		}
 	}
 	
 }

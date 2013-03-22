@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayerSocket;
 
+import model.Coup;
 import model.Joueur;
 import model.Niaks;
 import model.Observer;
@@ -122,7 +123,7 @@ public class NiaksFrame extends JFrame implements Observer, ExceptionCatcher {
 	
 	
 	@Override
-	public void updatePions(Pion[][] pions) {
+	public void updatePions(Pion[][] pions, Coup coup) {
 	}
 
 	@Override

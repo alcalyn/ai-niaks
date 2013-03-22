@@ -23,7 +23,7 @@ public class Partie {
 
 		this.taille_plateau = taille_plateau;
 		this.plateau = new Plateau(taille_plateau, joueurs);
-		niaks.notifyPions(plateau.getPions());
+		niaks.notifyPions(plateau.getPions(), null);
 
 		start();
 	}
@@ -35,6 +35,7 @@ public class Partie {
 	 * @throws IllegalMoveNiaksException si le coup est invalide
 	 */
 	public Coup coupValide(Coup coup) throws IllegalMoveNiaksException {
+		System.out.println("coupValide");
 		Coords depart = coup.getCaseDepart();
 		Coords arrivee = coup.getCaseArrivee();
 		Joueur joueur = coup.getPion().getJoueur();
@@ -46,11 +47,11 @@ public class Partie {
 		}
 
 		if(depart.equals(arrivee)) {
-			impossible(coup, "Aucun déplacement n'a été enregistré");
+			impossible(coup, "Aucun déplacement n'a été enregistré", false);
 		}
 
 		if(!plateau.isset(arrivee)) {
-			impossible(coup, "Vous sortez du plateau");
+			impossible(coup, "Vous sortez du plateau", false);
 		}
 
 		if(!plateau.isEmpty(arrivee)) {
@@ -96,7 +97,7 @@ public class Partie {
 			}
 		}
 
-		impossible(coup, "Coup inattendu");
+		impossible(coup, "Coup invalide");
 		return null;
 	}
 
@@ -139,6 +140,9 @@ public class Partie {
 	}
 
 
+	private void impossible(Coup coup, String cause, boolean important) throws IllegalMoveNiaksException {
+		throw new IllegalMoveNiaksException(coup, cause, important);
+	}
 	private void impossible(Coup coup, String cause) throws IllegalMoveNiaksException {
 		throw new IllegalMoveNiaksException(coup, cause);
 	}
@@ -153,7 +157,7 @@ public class Partie {
 		coup = coupValide(coup);
 
 		plateau.movePion(coup.getPion(), coup.getCaseArrivee());
-		niaks.notifyPions(plateau.getPions());
+		niaks.notifyPions(plateau.getPions(), coup);
 		nextJoueur();
 
 

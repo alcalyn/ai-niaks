@@ -108,7 +108,7 @@ public class NiakworkHostSocket extends NiakworkSocket implements Observer {
 	
 
 	@Override
-	public void updatePions(Pion[][] pions) {
+	public void updatePions(Pion[][] pions, Coup coup) {
 		Coords [][] coords = new Coords[pions.length][pions[0].length];
 		
 		for(int i=0;i<pions.length;i++) {

@@ -4,6 +4,7 @@ import niakwork.Niakwork;
 import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayer;
 import niakwork.NiakworkPlayerSocket;
+import exceptions.IllegalMoveNiaksException;
 import exceptions.PartieNotReadyToStartNiaksException;
 import exceptions.ProfilNotSetNiaksException;
 
@@ -199,16 +200,24 @@ public class Niaks extends Model {
 
 	public void niakworkUpdatePions(Coords [][] coords) {
 		Pion [][] pions = partie.getPlateau().getPions();
+		Coup coup = null;
 		
 		for(int i=0;i<pions.length;i++) {
 			for(int j=0;j<pions[i].length;j++) {
 				if(!pions[i][j].getCoords().equals(coords[i][j])) {
+					try {
+						coup = partie.coupValide(new Coup(pions[i][j], coords[i][j]));
+					} catch (IllegalMoveNiaksException e) {
+						System.out.println("Coup invalide recu... Bizarre");
+						e.printStackTrace();
+					}
+					
 					partie.getPlateau().movePion(pions[i][j], coords[i][j]);
 				}
 			}
 		}
 		
-		notifyPions(pions);
+		notifyPions(pions, coup);
 	}
 	
 	

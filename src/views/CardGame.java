@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayerSocket;
 
+import model.Coup;
 import model.CoupEmitter;
 import model.CoupListener;
 import model.Joueur;
@@ -64,7 +65,7 @@ public class CardGame extends JPanel implements Observer, CoupEmitter {
 
 
 	@Override
-	public void updatePions(Pion[][] pions) {
+	public void updatePions(Pion[][] pions, Coup coup) {
 		repaint();
 	}
 
