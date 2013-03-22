@@ -10,6 +10,7 @@ public class NiakworkQuery implements Serializable {
 
 	public static final String
 		I_WANT_TO_JOIN = "JOIN",
+		MY_NAME_IS = "MY_NAME_IS",
 		OK_COME_ON = "OK_JOIN",
 		DENY_JOIN = "DENY_JOIN",
 		DENY_JOIN_GAME_STARTED = "DENY_JOIN_GAME_STARTED",

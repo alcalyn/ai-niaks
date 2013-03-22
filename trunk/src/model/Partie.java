@@ -35,7 +35,6 @@ public class Partie {
 	 * @throws IllegalMoveNiaksException si le coup est invalide
 	 */
 	public Coup coupValide(Coup coup) throws IllegalMoveNiaksException {
-		System.out.println("coupValide");
 		Coords depart = coup.getCaseDepart();
 		Coords arrivee = coup.getCaseArrivee();
 		Joueur joueur = coup.getPion().getJoueur();

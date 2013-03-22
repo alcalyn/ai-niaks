@@ -113,7 +113,7 @@ public class Niaks extends Model {
 	
 	public void niakworkServerFound(NiakworkHostSocket nssocket, String pseudo) {
 		System.out.println("Model > server found : "+pseudo);
-		notifyNiakworkServerFound(nssocket, pseudo);
+		notifyNiakworkServerFound(nssocket, nssocket.getPseudo());
 	}
 	
 	public void niakworkClientWantJoin(NiakworkPlayerSocket npsocket, String pseudo) {

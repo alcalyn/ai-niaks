@@ -12,9 +12,6 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.BadLocationException;
 
 import model.Coup;
 import model.Humain;
@@ -26,7 +23,6 @@ import model.Pion;
 import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayer;
 import niakwork.NiakworkPlayerSocket;
-import controllers.TFListener;
 import controllers.TFPseudoListener;
 import controllers.TypeJoueurActionListener;
 

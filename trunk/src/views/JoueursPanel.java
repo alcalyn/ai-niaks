@@ -1,19 +1,19 @@
 package views;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.JPanel;
 
-import niakwork.NiakworkHostSocket;
-import niakwork.NiakworkPlayerSocket;
-
 import model.Coup;
 import model.Joueur;
 import model.Observer;
 import model.Partie;
 import model.Pion;
+import niakwork.NiakworkHostSocket;
+import niakwork.NiakworkPlayerSocket;
 
 public class JoueursPanel extends JPanel implements Observer {
 	
@@ -47,6 +47,7 @@ public class JoueursPanel extends JPanel implements Observer {
 	
 	private void initPanel() {
 		setLayout(new GridBagLayout());
+		setBackground(new Color(0xF6F6F6));
 	}
 	
 	

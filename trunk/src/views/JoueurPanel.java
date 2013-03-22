@@ -28,8 +28,8 @@ public class JoueurPanel extends JPanel{
 		
 		label_pseudo = new JLabel(joueur.getPseudo());
 		label_pseudo.setOpaque(true);
-		label_pseudo.setBackground(Color.WHITE);
 		label_pseudo.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
+		label_pseudo.setBackground(Color.WHITE);
 		add(label_pseudo, BorderLayout.NORTH);
 	}
 
@@ -45,8 +45,18 @@ public class JoueurPanel extends JPanel{
 
 	public void updateCurrentPlayer(Joueur joueur) {
 		isCurrent = joueur == this.joueur;
-		
+
+		setBorder(isCurrent ?
+				BorderFactory.createRaisedSoftBevelBorder() :
+				BorderFactory.createEmptyBorder(2, 4, 2, 4)
+		);
+		setBackground(isCurrent ?
+				this.joueur.getCouleur() :
+				new Color(this.joueur.getCouleur().getRGB() + 0x66000000, true)
+		);
+		label_pseudo.setBackground(isCurrent ? Color.WHITE : new Color(0xF8F8F8));
 		label_pseudo.setFont(new Font("Comic sans ms", isCurrent ? Font.BOLD : Font.PLAIN, 14));
+		label_pseudo.setForeground(isCurrent ? Color.BLACK : Color.GRAY);
 	}
 
 }

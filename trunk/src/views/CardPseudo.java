@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import model.Niaks;
+import controllers.EnterListener;
 import controllers.PseudoSubmit;
 
 public class CardPseudo extends JPanel {
@@ -24,6 +26,9 @@ public class CardPseudo extends JPanel {
 	private JLabel label;
 	private JTextField pseudo;
 	private JButton button;
+	
+	private PseudoSubmit pseudo_submit;
+	
 	
 	
 	public CardPseudo(Niaks niaks) {
@@ -38,7 +43,8 @@ public class CardPseudo extends JPanel {
 		pseudo = new JTextField(16);
 		pseudo.setFont(new Font("Comic sans MS", Font.PLAIN, 16));
 		button = new JButton("Valider");
-		button.addActionListener(new PseudoSubmit(niaks, pseudo));
+		pseudo_submit = new PseudoSubmit(this.niaks, pseudo);
+		button.addActionListener(pseudo_submit);
 		
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(2, 4, 2, 4);
@@ -54,6 +60,14 @@ public class CardPseudo extends JPanel {
 		c.gridy = 1;
 		c.gridwidth = 2;
 		add(button, c);
+		
+		pseudo.addKeyListener(new EnterListener() {
+			
+			@Override
+			public void enterReleased(KeyEvent e) {
+				pseudo_submit.actionPerformed(null);
+			}
+		});
 	}
 
 }

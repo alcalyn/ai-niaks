@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.EventListenerList;
@@ -46,6 +47,7 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 	public static final int cell_size = 16;
 	public static final int cell_spacing = 32;
 	public static final int panel_padding = 24;
+	public static final Color activity_color = new Color(0xFFAA44);
 	
 	
 	
@@ -333,6 +335,8 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 	}
 	
 	
+	
+	
 	public void addCoupListener(CoupListener coupListener) {
 		coup_listeners.add(CoupListener.class, coupListener);
 	}
@@ -379,6 +383,9 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 	public void updateCurrentPlayer(Joueur joueur) {
 		if(joueur instanceof Humain) {
 			setBottomBranch(joueur.getStartZone() - 1);
+			setBorder(BorderFactory.createLineBorder(activity_color, 4));
+		} else {
+			setBorder(BorderFactory.createLineBorder(bg_color, 4));
 		}
 	}
 

@@ -12,6 +12,9 @@ import model.Pion;
 import exceptions.PartieNotReadyToStartNiaksException;
 
 public class NiakworkHostSocket extends NiakworkSocket implements Observer {
+	
+	
+	private String pseudo = "...";
 
 	public NiakworkHostSocket(Niakwork niakwork, Socket socket) {
 		super(niakwork, socket);
@@ -47,6 +50,11 @@ public class NiakworkHostSocket extends NiakworkSocket implements Observer {
 		
 		if(nquery.is(NiakworkQuery.OK_COME_ON)) {
 			niakwork.getNiaks().niakworkHostJoined(this);
+		}
+		if(nquery.is(NiakworkQuery.MY_NAME_IS)) {
+			System.out.println("reception pseudo "+(String) nquery.arg(0));
+			pseudo = (String) nquery.arg(0);
+			niakwork.getNiaks().niakworkServerFound(this, pseudo);
 		}
 		if(nquery.is(NiakworkQuery.DENY_JOIN)) {
 			niakwork.getNiaks().niakworkHostDenied(this, "L'hôte a refusé");
@@ -163,6 +171,11 @@ public class NiakworkHostSocket extends NiakworkSocket implements Observer {
 	public void updateGameFinished() {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	public String getPseudo() {
+		return pseudo;
 	}
 	
 

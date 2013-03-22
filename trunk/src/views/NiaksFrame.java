@@ -10,6 +10,7 @@ import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayerSocket;
 
 import model.Coup;
+import model.Humain;
 import model.Joueur;
 import model.Niaks;
 import model.Observer;
@@ -128,6 +129,12 @@ public class NiaksFrame extends JFrame implements Observer, ExceptionCatcher {
 
 	@Override
 	public void updateCurrentPlayer(Joueur joueur) {
+		if(joueur instanceof Humain) {
+			// permet de faire clignoter l'icone dans
+			// la barre windows quand c'est à nous de jouer.
+			// déprécié, tampis.
+			show();
+		}
 	}
 
 
@@ -212,7 +219,7 @@ public class NiaksFrame extends JFrame implements Observer, ExceptionCatcher {
 
 	@Override
 	public void updateNiakworkHostDenied(NiakworkHostSocket nssocket, String reason) {
-		JOptionPane.showMessageDialog(this, reason, "Niakwork", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(this, "L'hôte vous a refusé", "Niakwork", JOptionPane.ERROR_MESSAGE);
 	}
 
 
