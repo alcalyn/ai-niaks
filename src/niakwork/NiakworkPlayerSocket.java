@@ -15,6 +15,11 @@ public class NiakworkPlayerSocket extends NiakworkSocket {
 	}
 	
 	
+	
+	public void querySendPseudo() {
+		send(NiakworkQuery.MY_NAME_IS, niakwork.getNiaks().getProfil());
+	}
+	
 	public void queryAcceptJoin() {
 		send(NiakworkQuery.OK_COME_ON);
 		queryUpdatePlayers();

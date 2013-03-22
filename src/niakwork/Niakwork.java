@@ -39,6 +39,7 @@ public class Niakwork {
 	public void notifyAuthentifiedClient(Socket socket) {
 		System.out.println("Niakwork > client found");
 		NiakworkPlayerSocket npsocket = new NiakworkPlayerSocket(this, socket);
+		npsocket.querySendPseudo();
 		clients.add(npsocket);
 	}
 	
@@ -46,7 +47,7 @@ public class Niakwork {
 		System.out.println("Niakwork > server found. Notifying model");
 		NiakworkHostSocket nssocket = new NiakworkHostSocket(this, socket);
 		hosts.add(nssocket);
-		niaks.niakworkServerFound(nssocket, "...");
+		niaks.niakworkServerFound(nssocket, nssocket.getPseudo());
 	}
 	
 	

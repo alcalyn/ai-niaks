@@ -1,19 +1,17 @@
 package views;
 
 import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JComboBox;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-
-import niakwork.NiakworkHostSocket;
-import niakwork.NiakworkPlayerSocket;
 
 import model.Coup;
 import model.Joueur;
 import model.Niaks;
 import model.Observer;
 import model.Pion;
+import niakwork.NiakworkHostSocket;
+import niakwork.NiakworkPlayerSocket;
 import controllers.MenuButton;
 
 public class NiakMenu extends JMenuBar implements Observer {
@@ -163,7 +161,7 @@ public class NiakMenu extends JMenuBar implements Observer {
 		found_hosts.removeAll();
 		int i = 0;
 		for (NiakworkHostSocket host_socket : hosts_socket) {
-			JMenuItem menu_item = new JMenuItem(host_socket.getFullAdress());
+			JMenuItem menu_item = new JMenuItem(host_socket.getPseudo()+" @ "+host_socket.getFullAdress());
 			hosts[i++] = menu_item;
 			menu_item.addActionListener(new MenuButton(niaks, niaks_frame, MenuButton.JOIN_HOST, new Object[]{host_socket}));
 			found_hosts.add(menu_item);
