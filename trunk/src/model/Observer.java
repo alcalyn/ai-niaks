@@ -14,7 +14,7 @@ public interface Observer {
 	
 	public void updateJoueurs(Joueur joueurs[]);
 	
-	public void updatePions(Pion[][] pions);
+	public void updatePions(Pion[][] pions, Coup coup);
 	
 	public void updateCurrentPlayer(Joueur joueur);
 	

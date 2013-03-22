@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayerSocket;
 
+import model.Coup;
 import model.Joueur;
 import model.Observer;
 import model.Partie;
@@ -50,7 +51,7 @@ public class JoueursPanel extends JPanel implements Observer {
 	
 	
 	@Override
-	public void updatePions(Pion[][] pions) {
+	public void updatePions(Pion[][] pions, Coup coup) {
 	}
 
 	@Override

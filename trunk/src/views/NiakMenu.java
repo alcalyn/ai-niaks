@@ -9,6 +9,7 @@ import javax.swing.JMenuItem;
 import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayerSocket;
 
+import model.Coup;
 import model.Joueur;
 import model.Niaks;
 import model.Observer;
@@ -219,7 +220,7 @@ public class NiakMenu extends JMenuBar implements Observer {
 
 
 	@Override
-	public void updatePions(Pion[][] pions) {
+	public void updatePions(Pion[][] pions, Coup coup) {
 	}
 
 

@@ -83,8 +83,26 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 		origin = new Point(diametre/2, diametre/2);
 		
 		initPions();
+		updateCurrentPlayer(partie.getJoueur());
+		setTheOneHumainAtBottom();
 	}
 	
+	private void setTheOneHumainAtBottom() {
+		Humain h = null;
+		
+		for (Joueur joueur : partie.getJoueurs()) {
+			if(joueur instanceof Humain) {
+				if(h == null) {
+					h = (Humain) joueur;
+				} else {
+					return;
+				}
+			}
+		}
+		
+		setBottomBranch(h.getStartZone() - 1);
+	}
+
 	private void addMouseListeners() {
 		addMouseMotionListener(new MouseMotionListener() {
 			
@@ -272,12 +290,20 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 		add(pion_over, 0);
 	}
 	
+	
+	private Coup last = null;
 	private void pionDragged(Pion pion, Coords coords) {
-		try {
-			Coup coup = partie.coupValide(new Coup(pion, coords));
-			setChemin(coup.getChemin());
-		} catch (IllegalMoveNiaksException e) {
-			removeChemin();
+		Coup c = new Coup(pion, coords);
+		
+		if(last == null || !c.equals(last)) {
+			try {
+				Coup coup = partie.coupValide(c);
+				setChemin(coup.getChemin());
+			} catch (IllegalMoveNiaksException e) {
+				removeChemin();
+			}
+			
+			last = c;
 		}
 	}
 	
@@ -299,7 +325,9 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 			try {
 				coup_listener.coupPlayed(new Coup(pion, coords));
 			} catch (IllegalMoveNiaksException e) {
-				JOptionPane.showMessageDialog(this, e.getMessage(), "Coup invalide", JOptionPane.ERROR_MESSAGE);
+				if(e.isImportant()) {
+					JOptionPane.showMessageDialog(this, e.getMessage(), "Coup invalide", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		}
 	}
@@ -340,11 +368,18 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 	}
 	
 	@Override
-	public void updatePions(Pion[][] pions) {
+	public void updatePions(Pion[][] pions, Coup coup) {
+		if((coup != null) && (coup.getChemin() != null)) {
+			chemin = new Chemin(this, coup.getChemin());
+			repaint();
+		}
 	}
 	
 	@Override
 	public void updateCurrentPlayer(Joueur joueur) {
+		if(joueur instanceof Humain) {
+			setBottomBranch(joueur.getStartZone() - 1);
+		}
 	}
 
 	@Override

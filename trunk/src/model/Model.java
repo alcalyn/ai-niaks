@@ -52,10 +52,10 @@ public abstract class Model {
 		}
 	}
 	
-	protected void notifyPions(Pion [][] pions) {
+	protected void notifyPions(Pion [][] pions, Coup coup) {
 		for(int i=0;i<views.size();i++) {
 			Observer o = views.get(i);
-			o.updatePions(pions);
+			o.updatePions(pions, coup);
 		}
 	}
 	
