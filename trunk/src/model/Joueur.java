@@ -60,7 +60,8 @@ public abstract class Joueur implements Serializable {
 	
 	public void setStartZone(int startZone) {
 		this.startZone = startZone;
-		this.endZone = (startZone + 3) % 6;
+		this.endZone = startZone + 3;
+		if(this.endZone > 6) endZone -= 6;
 	}
 	
 	
