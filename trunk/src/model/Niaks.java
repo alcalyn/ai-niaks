@@ -52,6 +52,10 @@ public class Niaks extends Model {
 	}
 	
 	public void startPartie() throws PartieNotReadyToStartNiaksException {
+		for (Joueur j : partie_preparator.getJoueurs()) {
+			j.setWon(false);
+		}
+		
 		if(isHost) {
 			for (Joueur j : partie_preparator.getJoueurs()) {
 				if(j instanceof NiakworkPlayer) {
