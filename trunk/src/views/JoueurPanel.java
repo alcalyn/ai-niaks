@@ -47,7 +47,7 @@ public class JoueurPanel extends JPanel{
 		isCurrent = joueur == this.joueur;
 
 		setBorder(isCurrent ?
-				BorderFactory.createRaisedSoftBevelBorder() :
+				BorderFactory.createRaisedBevelBorder() :
 				BorderFactory.createEmptyBorder(2, 4, 2, 4)
 		);
 		setBackground(isCurrent ?
