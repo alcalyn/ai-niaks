@@ -12,6 +12,7 @@ public class Plateau extends MinimaxNode {
 	private Pion[][] pions;
 	private int joueur;
 	private Pion[] cases;
+	private Coup last_coup = null;
 	
 	
 	public Plateau(int taille, Joueur[] joueurs) {
@@ -196,7 +197,13 @@ public class Plateau extends MinimaxNode {
 			
 			pion.setCoords(c);
 			cases[indexOf(c)] = pion;
+			
+			last_coup = new Coup(pion, c);
 		}
+	}
+	
+	public Coup getLastCoup() {
+		return last_coup;
 	}
 	
 	public boolean isset(Coords3 c) {
@@ -257,6 +264,10 @@ public class Plateau extends MinimaxNode {
 		}
 	}
 	
+	public Partie getPartie() {
+		return getJoueur().getPartie();
+	}
+	
 	
 	/**
 	 * 
@@ -293,8 +304,22 @@ public class Plateau extends MinimaxNode {
 
 	@Override
 	protected ArrayList<MinimaxNode> getChilds() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<MinimaxNode> childs = new ArrayList<MinimaxNode>();
+		
+		for (Pion p : getPions(getJoueur())) {
+			for (Pion cp : cases) if(cp != null) {
+				Coords c = cp.getCoords();
+				
+				Coup coup = new Coup(p, c);
+				if(getPartie().isCoupValide(coup)) {
+					Plateau next = new Plateau(this);
+					next.movePion(p, c);
+					childs.add(next);
+				}
+			}
+		}
+		
+		return childs;
 	}
 
 	@Override
@@ -310,8 +335,19 @@ public class Plateau extends MinimaxNode {
 
 	@Override
 	public boolean equals(MinimaxNode other) {
-		// TODO Auto-generated method stub
-		return false;
+		Plateau o = (Plateau) other;
+		
+		if(o.joueur != this.joueur) {
+			return false;
+		}
+		
+		for(int i=0;i<pions.length;i++) {
+			for(int j=0;j<pions[i].length;j++) {
+				if(!pions[i][j].getCoords().equals(o.pions[i][j].getCoords())) return false;
+			}
+		}
+		
+		return true;
 	}
 
 	@Override

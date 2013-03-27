@@ -20,8 +20,8 @@ public class Ordinateur extends Joueur {
 
 	@Override
 	public Coup jouerCoup() {
-		// TODO Implementer minimax
-		return null;
+		Coup coup = getPartie().autoPlay().getLastCoup();
+		return coup;
 	}
 
 
