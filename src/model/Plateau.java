@@ -1,6 +1,10 @@
 package model;
 
-public class Plateau {
+import java.util.ArrayList;
+
+import minimax.MinimaxNode;
+
+public class Plateau extends MinimaxNode {
 	
 	private Joueur[] joueurs;
 	
@@ -285,6 +289,34 @@ public class Plateau {
 
 	public  int getTaille() {
 		return taille;
+	}
+
+	@Override
+	protected ArrayList<MinimaxNode> getChilds() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected double getEval() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected boolean getPlayer() {
+		return (getJoueur() instanceof Ordinateur);
+	}
+
+	@Override
+	public boolean equals(MinimaxNode other) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public MinimaxNode clone() {
+		return new Plateau(this);
 	}
 	
 	
