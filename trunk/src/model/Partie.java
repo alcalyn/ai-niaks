@@ -32,7 +32,7 @@ public class Partie {
 			
 			@Override
 			public boolean elage(MinimaxNode node, int depth) {
-				return depth > 3;
+				return depth > 0;
 			}
 		});
 		
@@ -50,7 +50,7 @@ public class Partie {
 	public boolean isCoupValide(Coup coup) {
 		try {
 			coup = coupValide(coup);
-			return coup != null;
+			return true;
 		} catch (IllegalMoveNiaksException e) {
 			return false;
 		}
