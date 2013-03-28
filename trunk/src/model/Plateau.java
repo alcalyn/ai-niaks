@@ -503,7 +503,27 @@ public class Plateau extends MinimaxNode {
 		return new Plateau(this);
 	}
 	
-	
+	protected double getEval() {
+		int res=0;
+
+		for (int i = 1; i< taille ; i++){
+			res = i* ((taille * 4)+(2-i));
+		}
+
+		return res;
+	}
+
+	private double getEvalsJoueurs(Joueur joueur){
+		int nbpion= (taille * (taille+ 1)) /2;
+		double res = 0;
+		for (Pion pion : getPions(joueur)) {
+			double evaluni=0;
+			evaluni = pion.getEval();			
+			res += evaluni;
+		}
+		return res;
+	}
+
 	
 	
 }
