@@ -35,13 +35,13 @@ public class Plateau extends MinimaxNode {
 		int nb_joueur = copy.getNbJoueur();
 		int nb_pion = (copy.taille * (copy.taille + 1)) / 2;
 		
-		pions = new Pion[nb_joueur][nb_pion];
+		this.pions = new Pion[nb_joueur][nb_pion];
 		
 		for(int i = 0;i<nb_joueur;i++) {
 			for(int j = 0;j<nb_pion;j++) {
-				pions[i][j] = new Pion(copy.pions[i][j]);
-				Coords c = copy.pions[i][j].getCoords();
-				cases[indexOf(c.x, c.y)] = pions[i][j];
+				this.pions[i][j] = new Pion(copy.pions[i][j]);
+				Coords c = this.pions[i][j].getCoords();
+				this.cases[indexOf(c.x, c.y)] = this.pions[i][j];
 			}
 		}
 	}
@@ -155,7 +155,7 @@ public class Plateau extends MinimaxNode {
 	
 	public boolean isCoupValide(Coup coup) {
 		try {
-			coup = coupValide(coup);
+			coupValide(coup);
 			return true;
 		} catch (IllegalMoveNiaksException e) {
 			return false;
@@ -176,7 +176,7 @@ public class Plateau extends MinimaxNode {
 
 
 		if(joueur != getJoueur()) {
-			impossible(coup, "Ce n'est pas votre pion");
+			impossible(coup, "Ce n'est pas votre pion", false);
 		}
 
 		if(depart.equals(arrivee)) {
@@ -188,10 +188,10 @@ public class Plateau extends MinimaxNode {
 		}
 
 		if(!isEmpty(arrivee)) {
-			impossible(coup, "La case est déjà occupée");
+			impossible(coup, "La case est déjà occupée", false);
 		}
 
-		if((zone != 0) && (zone != joueur.getStartZone()) && (zone != joueur.getEndZone())) {
+		if(!joueurPeutAller(joueur, zone)) {
 			impossible(coup, "Vous ne pouvez pas aller sur les autres branches");
 		}
 
@@ -426,6 +426,10 @@ public class Plateau extends MinimaxNode {
 		
 		return -1;
 	}
+	
+	public boolean joueurPeutAller(Joueur j, int zone) {
+		return (zone == 0) || (zone == j.getStartZone()) || zone == j.getEndZone();
+	}
 
 	public  int getTaille() {
 		return taille;
@@ -435,16 +439,20 @@ public class Plateau extends MinimaxNode {
 	protected ArrayList<MinimaxNode> getChilds() {
 		ArrayList<MinimaxNode> childs = new ArrayList<MinimaxNode>();
 		
-		for(int i=-taille*2;i<=taille*2;i++) for(int j=-taille*2;j<=taille*2;j++) if(isset(new Coords(i, j))) {
+		for(int i=-taille*2;i<=taille*2;i++) for(int j=-taille*2;j<=taille*2;j++) {
 			Coords c = new Coords(i, j);
-			for(Pion p : getPions(getJoueur())) {
-				Coup coup = new Coup(p, c);
-				
-				if(isCoupValide(coup)) {
-					Plateau next = new Plateau(this);
-					next.nextJoueur();
-					next.movePion(p, c);
-					childs.add(next);
+			
+			if(isset(c) && isEmpty(c) && joueurPeutAller(getJoueur(), getZone(c))) {
+				for(Pion p : getPions(getJoueur())) {
+					Coup coup = new Coup(p, c);
+					
+					if(isCoupValide(coup)) {
+						Plateau next = new Plateau(this);
+						System.out.println(next.getPion((char) 2, 0) == this.getPion((char) 2, 0));
+						next.movePion(p, c);
+						next.nextJoueur();
+						childs.add(next);
+					}
 				}
 			}
 		}
