@@ -210,7 +210,7 @@ public class Niaks extends Model {
 			for(int j=0;j<pions[i].length;j++) {
 				if(!pions[i][j].getCoords().equals(coords[i][j])) {
 					try {
-						coup = partie.coupValide(new Coup(pions[i][j], coords[i][j]));
+						coup = partie.getPlateau().coupValide(new Coup(pions[i][j], coords[i][j]));
 					} catch (IllegalMoveNiaksException e) {
 						System.out.println("Coup invalide recu... Bizarre");
 						e.printStackTrace();
