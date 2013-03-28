@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import minimax.MinimaxNode;
 
-public class Plateau extends MinimaxNode {
+public class Plateau implements MinimaxNode {
 	
 	private Joueur[] joueurs;
 	
@@ -303,7 +303,7 @@ public class Plateau extends MinimaxNode {
 	}
 
 	@Override
-	protected ArrayList<MinimaxNode> getChilds() {
+	public ArrayList<MinimaxNode> getChilds() {
 		ArrayList<MinimaxNode> childs = new ArrayList<MinimaxNode>();
 		
 		for (Pion p : getPions(getJoueur())) {
@@ -323,13 +323,13 @@ public class Plateau extends MinimaxNode {
 	}
 
 	@Override
-	protected double getEval() {
+	public double getEval() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	protected boolean getPlayer() {
+	public boolean getPlayer() {
 		return (getJoueur() instanceof Ordinateur);
 	}
 
