@@ -8,16 +8,7 @@ public class Minimax {
 	
 	public static final boolean MAX = true, MIN = false;
 	
-	private MinimaxNode current = null;
 	
-	private int default_depth = -1;
-	private double default_borne_min = -999999.0;
-	private double default_borne_max = +999999.0;
-	
-	
-	public Minimax(MinimaxNode root) {
-		this.current = root.clone();
-	}
 	
 	
 	public static boolean stats = false;
@@ -25,10 +16,12 @@ public class Minimax {
 	public static int start_depth;
 	public static int max_depth;
 	
-	public final MinimaxNode getNext(int depth, double borne_min, double borne_max) {
+	private MinimaxElagator defaultElagator = null;
+	
+	public final MinimaxNode getNext(MinimaxNode current, MinimaxElagator elagator) {
 		if(Minimax.stats) node_count = 0;
-		if(Minimax.stats) start_depth = depth;
-		current.minimax(depth, borne_min, borne_max);
+		if(Minimax.stats) start_depth = 0;
+		current.minimax(0, elagator);
 		if(Minimax.stats) System.out.println(node_count+" noeuds explorés.");
 		if(Minimax.stats) System.out.println("max depth = "+max_depth);
 		
@@ -42,43 +35,19 @@ public class Minimax {
 		
 		Collections.shuffle(coups);
 		
-		current = coups.get(0);
-		
-		return getCurrent();
+		return coups.get(0);
+	}
+
+	
+	
+	
+	
+	public MinimaxElagator getDefaultElagator() {
+		return defaultElagator;
 	}
 	
-	public final MinimaxNode getNext() {
-		return getNext(default_depth, default_borne_min, default_borne_max);
+	public void setDefaultElagator(MinimaxElagator defaultElagator) {
+		this.defaultElagator = defaultElagator;
 	}
-	
-	public final MinimaxNode setNext(MinimaxNode node) {
-		for (MinimaxNode child : current.childs()) {
-			if(child.equals(node)) {
-				current = child;
-			}
-		}
-		
-		return getCurrent();
-	}
-	
-	public MinimaxNode getCurrent() {
-		return current.clone();
-	}
-	
-	
-	public int default_depth(int depth) {
-		return default_depth = depth;
-	}
-	
-	public int default_depth() {
-		return default_depth;
-	}
-	
-	
-	public void default_bornes(double borne_min, double borne_max) {
-		default_borne_min = borne_min;
-		default_borne_max = borne_max;
-	}
-	
 	
 }

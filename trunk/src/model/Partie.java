@@ -1,6 +1,8 @@
 package model;
 
 import minimax.Minimax;
+import minimax.MinimaxElagator;
+import minimax.MinimaxNode;
 import exceptions.IllegalMoveNiaksException;
 
 public class Partie {
@@ -25,8 +27,15 @@ public class Partie {
 
 		this.taille_plateau = taille_plateau;
 		this.plateau = new Plateau(taille_plateau, joueurs);
-		this.minimax = new Minimax(this.plateau);
-		this.minimax.default_depth(2);
+		this.minimax = new Minimax();
+		this.minimax.setDefaultElagator(new MinimaxElagator() {
+			
+			@Override
+			public boolean elage(MinimaxNode node, int depth) {
+				return depth > 3;
+			}
+		});
+		
 		niaks.notifyPions(plateau.getPions(), null);
 
 		start();
@@ -34,7 +43,7 @@ public class Partie {
 	
 	
 	public Plateau autoPlay() {
-		return (Plateau) minimax.getNext();
+		return (Plateau) minimax.getNext(plateau, minimax.getDefaultElagator());
 	}
 	
 	
@@ -175,7 +184,6 @@ public class Partie {
 		coup = coupValide(coup);
 
 		plateau.movePion(coup.getPion(), coup.getCaseArrivee());
-		minimax.setNext(plateau);
 		niaks.notifyPions(plateau.getPions(), coup);
 		nextJoueur();
 
