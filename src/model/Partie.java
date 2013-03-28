@@ -1,6 +1,5 @@
 package model;
 
-import minimax.Minimax;
 import exceptions.IllegalMoveNiaksException;
 
 public class Partie {
@@ -10,7 +9,6 @@ public class Partie {
 	private Plateau plateau;
 	private int taille_plateau;
 	private Joueur[] joueurs;
-	private Minimax minimax;
 
 	private boolean isFinished = false;
 
@@ -25,17 +23,11 @@ public class Partie {
 
 		this.taille_plateau = taille_plateau;
 		this.plateau = new Plateau(taille_plateau, joueurs);
-		this.minimax = new Minimax(this.plateau);
-		this.minimax.default_depth(2);
 		niaks.notifyPions(plateau.getPions(), null);
 
 		start();
 	}
 	
-	
-	public Plateau autoPlay() {
-		return (Plateau) minimax.getNext();
-	}
 	
 	
 	public boolean isCoupValide(Coup coup) {
@@ -175,7 +167,6 @@ public class Partie {
 		coup = coupValide(coup);
 
 		plateau.movePion(coup.getPion(), coup.getCaseArrivee());
-		minimax.setNext(plateau);
 		niaks.notifyPions(plateau.getPions(), coup);
 		nextJoueur();
 

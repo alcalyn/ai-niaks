@@ -20,8 +20,7 @@ public class Ordinateur extends Joueur {
 
 	@Override
 	public Coup jouerCoup() {
-		Coup coup = getPartie().autoPlay().getLastCoup();
-		return coup;
+		return null;
 	}
 
 
