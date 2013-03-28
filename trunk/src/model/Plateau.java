@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import exceptions.IllegalMoveNiaksException;
+
 import minimax.MinimaxNode;
 
 public class Plateau extends MinimaxNode {
@@ -149,6 +151,133 @@ public class Plateau extends MinimaxNode {
 				movePion(pion, branche.mul(c).toCoords() );			
 			}
 		}
+	}
+	
+	public boolean isCoupValide(Coup coup) {
+		try {
+			coup = coupValide(coup);
+			return true;
+		} catch (IllegalMoveNiaksException e) {
+			return false;
+		}
+		
+	}
+
+	/**
+	 * 
+	 * @return Coup gï¿½nï¿½rï¿½ avec le chemin intermï¿½diaire si le pion passe par plusieurs cases
+	 * @throws IllegalMoveNiaksException si le coup est invalide
+	 */
+	public Coup coupValide(Coup coup) throws IllegalMoveNiaksException {
+		Coords depart = coup.getCaseDepart();
+		Coords arrivee = coup.getCaseArrivee();
+		Joueur joueur = coup.getPion().getJoueur();
+		int zone = getZone(arrivee);
+
+
+		if(joueur != getJoueur()) {
+			impossible(coup, "Ce n'est pas votre pion");
+		}
+
+		if(depart.equals(arrivee)) {
+			impossible(coup, "Aucun déplacement n'a été enregistré", false);
+		}
+
+		if(!isset(arrivee)) {
+			impossible(coup, "Vous sortez du plateau", false);
+		}
+
+		if(!isEmpty(arrivee)) {
+			impossible(coup, "La case est déjà occupée");
+		}
+
+		if((zone != 0) && (zone != joueur.getStartZone()) && (zone != joueur.getEndZone())) {
+			impossible(coup, "Vous ne pouvez pas aller sur les autres branches");
+		}
+
+		// coup simple
+		for(int i=0;i<6;i++) {
+			if(depart.add(Coords.sens(i)).equals(arrivee)) {
+				coup.setSimpleChemin();
+				return coup;
+			}
+		}
+
+		// saut multiple
+		Coords [] chemin = testSautMultiple(new Coords[] {depart}, arrivee);
+		if(chemin != null) {
+			coup.setChemin(chemin);
+			return coup;
+		}
+		
+		// saut long
+		for(int sens=0;sens<6;sens++) {
+			for(int taille=4;taille<getTaille()*4;taille+=2) {
+				if(depart.add(Coords.sens(sens, taille)).equals(arrivee)) {
+					Coords middle = depart.add(Coords.sens(sens, taille / 2));
+					
+					for(int i=1;i<taille-1;i++) {
+						Coords c = depart.add(Coords.sens(sens, i));
+						
+						if(c.equals(middle) == isEmpty(c)) {
+							impossible(coup, "Coup long invalide");
+						}
+					}
+					
+					coup.setSimpleChemin();
+					return coup;
+				}
+			}
+		}
+
+		impossible(coup, "Coup invalide");
+		return null;
+	}
+
+
+	private Coords [] testSautMultiple(Coords [] chemin, Coords cible) {
+		Coords case_actual = chemin[chemin.length - 1];
+
+		if(case_actual.equals(cible)) return chemin;
+
+		for(int i=0;i<6;i++) {
+			Coords case_sautee = case_actual.add(Coords.sens(i));
+			Coords case_next = case_actual.add(Coords.sens(i, 2));
+
+			boolean come_back = false;
+
+			for(int j=0;j<chemin.length-1;j++) {
+				if(case_next.equals(chemin[j])) {
+					come_back = true;
+					break;
+				}
+			}
+
+			if(!come_back) {
+				if((getZone(case_next) >= 0) && (getZone(case_sautee) >= 0)) {
+					if(!isEmpty(case_sautee) && isEmpty(case_next)) {
+						Coords [] new_chemin = new Coords[chemin.length + 1];
+
+						for(int j=0;j<chemin.length;j++) new_chemin[j] = chemin[j];
+
+						new_chemin[new_chemin.length - 1] = case_next;
+
+						Coords [] recursion = testSautMultiple(new_chemin, cible);
+						if(recursion != null) return recursion;
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+
+
+	private void impossible(Coup coup, String cause, boolean important) throws IllegalMoveNiaksException {
+		throw new IllegalMoveNiaksException(coup, cause, important);
+	}
+	private void impossible(Coup coup, String cause) throws IllegalMoveNiaksException {
+		throw new IllegalMoveNiaksException(coup, cause);
 	}
 	
 	public Pion getPion(char joueur, int i) {
@@ -311,23 +440,36 @@ public class Plateau extends MinimaxNode {
 			for(Pion p : getPions(getJoueur())) {
 				Coup coup = new Coup(p, c);
 				
-				System.out.println("test "+i+" "+j);
-				
-				if(getPartie().isCoupValide(coup)) {
+				if(isCoupValide(coup)) {
 					Plateau next = new Plateau(this);
+					next.nextJoueur();
 					next.movePion(p, c);
 					childs.add(next);
 				}
 			}
 		}
 		
-		return childs;
+		// TODO
+		System.out.println(childs.size());
+		for (MinimaxNode p : childs) {
+			System.out.println(((Plateau) p).getLastCoup());
+		}
+		
+		while(true)
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		//return childs;
 	}
 
 	@Override
 	protected double getEval() {
 		// TODO Auto-generated method stub
-		return 0;
+		return Math.random() - 0.5;
 	}
 
 	@Override

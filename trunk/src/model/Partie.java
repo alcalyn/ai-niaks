@@ -31,9 +31,15 @@ public class Partie {
 		this.minimax.setDefaultElagator(new MinimaxElagator() {
 			
 			@Override
-			public boolean elage(MinimaxNode node, int depth) {
-				return depth > 0;
+			public boolean horizon(MinimaxNode node, int depth) {
+				return depth == 0;
 			}
+			
+			@Override
+			public boolean elage(MinimaxNode node, int depth) {
+				return false;
+			}
+
 		});
 		
 		niaks.notifyPions(plateau.getPions(), null);
@@ -47,132 +53,6 @@ public class Partie {
 	}
 	
 	
-	public boolean isCoupValide(Coup coup) {
-		try {
-			coup = coupValide(coup);
-			return true;
-		} catch (IllegalMoveNiaksException e) {
-			return false;
-		}
-		
-	}
-
-	/**
-	 * 
-	 * @return Coup gï¿½nï¿½rï¿½ avec le chemin intermï¿½diaire si le pion passe par plusieurs cases
-	 * @throws IllegalMoveNiaksException si le coup est invalide
-	 */
-	public Coup coupValide(Coup coup) throws IllegalMoveNiaksException {
-		Coords depart = coup.getCaseDepart();
-		Coords arrivee = coup.getCaseArrivee();
-		Joueur joueur = coup.getPion().getJoueur();
-		int zone = plateau.getZone(arrivee);
-
-
-		if(joueur != getJoueur()) {
-			impossible(coup, "Ce n'est pas votre pion");
-		}
-
-		if(depart.equals(arrivee)) {
-			impossible(coup, "Aucun déplacement n'a été enregistré", false);
-		}
-
-		if(!plateau.isset(arrivee)) {
-			impossible(coup, "Vous sortez du plateau", false);
-		}
-
-		if(!plateau.isEmpty(arrivee)) {
-			impossible(coup, "La case est déjà occupée");
-		}
-
-		if((zone != 0) && (zone != joueur.getStartZone()) && (zone != joueur.getEndZone())) {
-			impossible(coup, "Vous ne pouvez pas aller sur les autres branches");
-		}
-
-		// coup simple
-		for(int i=0;i<6;i++) {
-			if(depart.add(Coords.sens(i)).equals(arrivee)) {
-				coup.setSimpleChemin();
-				return coup;
-			}
-		}
-
-		// saut multiple
-		Coords [] chemin = testSautMultiple(new Coords[] {depart}, arrivee);
-		if(chemin != null) {
-			coup.setChemin(chemin);
-			return coup;
-		}
-		
-		// saut long
-		for(int sens=0;sens<6;sens++) {
-			for(int taille=4;taille<plateau.getTaille()*4;taille+=2) {
-				if(depart.add(Coords.sens(sens, taille)).equals(arrivee)) {
-					Coords middle = depart.add(Coords.sens(sens, taille / 2));
-					
-					for(int i=1;i<taille-1;i++) {
-						Coords c = depart.add(Coords.sens(sens, i));
-						
-						if(c.equals(middle) == plateau.isEmpty(c)) {
-							impossible(coup, "Coup long invalide");
-						}
-					}
-					
-					coup.setSimpleChemin();
-					return coup;
-				}
-			}
-		}
-
-		impossible(coup, "Coup invalide");
-		return null;
-	}
-
-
-	private Coords [] testSautMultiple(Coords [] chemin, Coords cible) {
-		Coords case_actual = chemin[chemin.length - 1];
-
-		if(case_actual.equals(cible)) return chemin;
-
-		for(int i=0;i<6;i++) {
-			Coords case_sautee = case_actual.add(Coords.sens(i));
-			Coords case_next = case_actual.add(Coords.sens(i, 2));
-
-			boolean come_back = false;
-
-			for(int j=0;j<chemin.length-1;j++) {
-				if(case_next.equals(chemin[j])) {
-					come_back = true;
-					break;
-				}
-			}
-
-			if(!come_back) {
-				if((plateau.getZone(case_next) >= 0) && (plateau.getZone(case_sautee) >= 0)) {
-					if(!plateau.isEmpty(case_sautee) && plateau.isEmpty(case_next)) {
-						Coords [] new_chemin = new Coords[chemin.length + 1];
-
-						for(int j=0;j<chemin.length;j++) new_chemin[j] = chemin[j];
-
-						new_chemin[new_chemin.length - 1] = case_next;
-
-						Coords [] recursion = testSautMultiple(new_chemin, cible);
-						if(recursion != null) return recursion;
-					}
-				}
-			}
-		}
-
-		return null;
-	}
-
-
-	private void impossible(Coup coup, String cause, boolean important) throws IllegalMoveNiaksException {
-		throw new IllegalMoveNiaksException(coup, cause, important);
-	}
-	private void impossible(Coup coup, String cause) throws IllegalMoveNiaksException {
-		throw new IllegalMoveNiaksException(coup, cause);
-	}
 
 
 	/**
@@ -181,7 +61,7 @@ public class Partie {
 	 * @throws IllegalMoveNiaksException si le coup est invalide
 	 */
 	public void jouerCoup(Coup coup) throws IllegalMoveNiaksException {
-		coup = coupValide(coup);
+		coup = plateau.coupValide(coup);
 
 		plateau.movePion(coup.getPion(), coup.getCaseArrivee());
 		niaks.notifyPions(plateau.getPions(), coup);

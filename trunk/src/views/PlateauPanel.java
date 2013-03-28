@@ -299,7 +299,7 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 		
 		if(last == null || !c.equals(last)) {
 			try {
-				Coup coup = partie.coupValide(c);
+				Coup coup = partie.getPlateau().coupValide(c);
 				setChemin(coup.getChemin());
 			} catch (IllegalMoveNiaksException e) {
 				removeChemin();
