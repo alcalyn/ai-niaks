@@ -306,11 +306,13 @@ public class Plateau extends MinimaxNode {
 	protected ArrayList<MinimaxNode> getChilds() {
 		ArrayList<MinimaxNode> childs = new ArrayList<MinimaxNode>();
 		
-		for (Pion p : getPions(getJoueur())) {
-			for (Pion cp : cases) if(cp != null) {
-				Coords c = cp.getCoords();
-				
+		for(int i=-taille*2;i<=taille*2;i++) for(int j=-taille*2;j<=taille*2;j++) if(isset(new Coords(i, j))) {
+			Coords c = new Coords(i, j);
+			for(Pion p : getPions(getJoueur())) {
 				Coup coup = new Coup(p, c);
+				
+				System.out.println("test "+i+" "+j);
+				
 				if(getPartie().isCoupValide(coup)) {
 					Plateau next = new Plateau(this);
 					next.movePion(p, c);
