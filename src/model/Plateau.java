@@ -284,6 +284,14 @@ public class Plateau extends MinimaxNode {
 		return pions[joueur - 1][i];
 	}
 	
+	public Pion getPion(int joueur, int i) {
+		return pions[joueur][i];
+	}
+	
+	public Pion getPion(Joueur joueur, int i) {
+		return getPions(joueur)[i];
+	}
+	
 	public Pion [] getPions(Joueur joueur) {
 		for(int i=0;i<getNbJoueur();i++) {
 			if(joueur == joueurs[i]) {
@@ -428,7 +436,7 @@ public class Plateau extends MinimaxNode {
 	}
 	
 	public boolean joueurPeutAller(Joueur j, int zone) {
-		return (zone == 0) || (zone == j.getStartZone()) || zone == j.getEndZone();
+		return (zone == 0) || (zone == j.getStartZone()) || (zone == j.getEndZone());
 	}
 
 	public  int getTaille() {
@@ -438,18 +446,20 @@ public class Plateau extends MinimaxNode {
 	@Override
 	protected ArrayList<MinimaxNode> getChilds() {
 		ArrayList<MinimaxNode> childs = new ArrayList<MinimaxNode>();
+		Joueur joueur = getJoueur();
 		
 		for(int i=-taille*2;i<=taille*2;i++) for(int j=-taille*2;j<=taille*2;j++) {
 			Coords c = new Coords(i, j);
 			
-			if(isset(c) && isEmpty(c) && joueurPeutAller(getJoueur(), getZone(c))) {
-				for(Pion p : getPions(getJoueur())) {
+			if(isset(c) && isEmpty(c) && joueurPeutAller(joueur, getZone(c))) {
+				Pion [] pions = getPions(joueur);
+				for(int k=0;k<pions.length;k++) {
+					Pion p = pions[k];
 					Coup coup = new Coup(p, c);
 					
 					if(isCoupValide(coup)) {
 						Plateau next = new Plateau(this);
-						System.out.println(next.getPion((char) 2, 0) == this.getPion((char) 2, 0));
-						next.movePion(p, c);
+						next.movePion(next.getPion(joueur, k), c);
 						next.nextJoueur();
 						childs.add(next);
 					}
@@ -457,21 +467,7 @@ public class Plateau extends MinimaxNode {
 			}
 		}
 		
-		// TODO
-		System.out.println(childs.size());
-		for (MinimaxNode p : childs) {
-			System.out.println(((Plateau) p).getLastCoup());
-		}
-		
-		while(true)
-			try {
-				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-		//return childs;
+		return childs;
 	}
 
 	@Override

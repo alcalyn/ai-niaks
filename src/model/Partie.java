@@ -61,6 +61,7 @@ public class Partie {
 	 * @throws IllegalMoveNiaksException si le coup est invalide
 	 */
 	public void jouerCoup(Coup coup) throws IllegalMoveNiaksException {
+		System.out.println(getJoueur()+" joue "+coup);
 		coup = plateau.coupValide(coup);
 
 		plateau.movePion(coup.getPion(), coup.getCaseArrivee());
@@ -76,8 +77,8 @@ public class Partie {
 					coords[i][j] = pions[i][j].getCoords();
 				}
 			}
+			
 			niaks.getHost().queryUpdatePions(coords);
-
 			niaks.getHost().queryUpdateCurrentPlayer(plateau.getJoueur().getPseudo());
 		}
 	}

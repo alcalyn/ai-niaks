@@ -10,7 +10,7 @@ public class Coup {
 	
 	public Coup(Pion pion, Coords destination) {
 		this.pion = pion;
-		this.case_depart = pion.getCoords();
+		this.case_depart = new Coords(pion.getCoords());
 		this.case_arrivee = destination;
 	}
 	
