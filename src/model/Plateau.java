@@ -326,16 +326,17 @@ public class Plateau extends MinimaxNode {
 		return cases[indexOf(x, y)];
 	}
 	
-	public void movePion(Pion pion, Coords c) {
-		if(cases[indexOf(c)] == null) {
+	public void movePion(Pion pion, Coords destination) {
+		if(isEmpty(destination)) {
+			last_coup = null;
+			
 			if(pion.getCoords() != null) {
 				cases[indexOf(pion.getCoords())] = null;
+				last_coup = new Coup(pion, destination);
 			}
 			
-			pion.setCoords(c);
-			cases[indexOf(c)] = pion;
-			
-			last_coup = new Coup(pion, c);
+			pion.setCoords(destination);
+			cases[indexOf(destination)] = pion;
 		}
 	}
 	
@@ -503,6 +504,8 @@ public class Plateau extends MinimaxNode {
 		return new Plateau(this);
 	}
 	
+	/*
+	@Override
 	protected double getEval() {
 		int res=0;
 
@@ -512,6 +515,7 @@ public class Plateau extends MinimaxNode {
 
 		return res;
 	}
+	*/
 
 	private double getEvalsJoueurs(Joueur joueur){
 		int nbpion= (taille * (taille+ 1)) /2;
@@ -525,5 +529,17 @@ public class Plateau extends MinimaxNode {
 	}
 
 	
+	public String toString() {
+		String s = "Plateau (taille "+taille+")\n";
+		
+		for (Joueur j : getPartie().getJoueurs()) {
+			s += "     - Pions de "+j+" :\n";
+			for (Pion p : getPions(j)) {
+				s += "           "+p+"\n";
+			}
+		}
+		
+		return s;
+	}
 	
 }

@@ -63,7 +63,7 @@ public class Coup {
 	
 	
 	public String toString() {
-		return "Coup ["+pion.toString()+" go to case "+case_arrivee.toString()+"]";
+		return "Coup ["+pion+" at "+case_depart+" go to case "+case_arrivee+"]";
 	}
 	
 }

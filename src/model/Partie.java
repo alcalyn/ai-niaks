@@ -32,7 +32,7 @@ public class Partie {
 			
 			@Override
 			public boolean horizon(MinimaxNode node, int depth) {
-				return depth == 0;
+				return depth <= 0;
 			}
 			
 			@Override
@@ -49,7 +49,9 @@ public class Partie {
 	
 	
 	public Plateau autoPlay() {
-		return (Plateau) minimax.getNext(plateau, minimax.getDefaultElagator());
+		plateau.reinitMinimaxNode();
+		Plateau next = (Plateau) minimax.getNext(plateau, minimax.getDefaultElagator());
+		return next;
 	}
 	
 	
@@ -61,7 +63,6 @@ public class Partie {
 	 * @throws IllegalMoveNiaksException si le coup est invalide
 	 */
 	public void jouerCoup(Coup coup) throws IllegalMoveNiaksException {
-		System.out.println(getJoueur()+" joue "+coup);
 		coup = plateau.coupValide(coup);
 
 		plateau.movePion(coup.getPion(), coup.getCaseArrivee());
