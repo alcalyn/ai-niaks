@@ -21,7 +21,10 @@ public class Ordinateur extends Joueur {
 	@Override
 	public Coup jouerCoup() {
 		Coup coup = getPartie().autoPlay().getLastCoup();
-		return coup;
+		
+		Pion p = getPartie().getPlateau().getCase(coup.getCaseDepart());
+		Coup ret = new Coup(p, coup.getCaseArrivee());
+		return ret;
 	}
 
 

@@ -14,6 +14,19 @@ public abstract class MinimaxNode implements Comparable<MinimaxNode> {
 	private Double minimax = null;
 	
 	
+	/**
+	 * reinit if you use this node modified since last time
+	 * when minimax has been performed.
+	 */
+	public void reinitMinimaxNode() {
+		parent = null;
+		childs = null;
+		eval = null;
+		player = null;
+		minimax = null;
+	}
+	
+	
 	public final MinimaxNode[] childs() {
 		if(childs == null) {
 			ArrayList<MinimaxNode> al = getChilds();
@@ -52,7 +65,7 @@ public abstract class MinimaxNode implements Comparable<MinimaxNode> {
 	
 	public final double minimax(int depth, MinimaxElagator elagator) {
 		if(Minimax.stats) Minimax.node_count ++;
-		if(Minimax.stats) Minimax.max_depth = Math.max(Minimax.start_depth - depth, Minimax.start_depth);
+		if(Minimax.stats) Minimax.max_depth = Math.max(depth, Minimax.start_depth);
 		
 		if((childs().length > 0) && elagator.horizon(this, depth)) {
 			for(int i = 0 ; i < childs().length ; i++) {
