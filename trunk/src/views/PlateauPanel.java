@@ -3,6 +3,7 @@ package views;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -284,6 +285,17 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 			cell_size,
 			cell_size
 		);
+		
+		/*
+		// tests
+		g.setColor(Color.RED);
+		g.setFont(new Font("Courier new", Font.BOLD, 12));
+		g.drawString(
+				Integer.toString(coords.distance(new Coords(-4, 8))),
+				c.x + origin.x,
+				c.y + origin.y
+		);
+		*/
 	}
 	
 	

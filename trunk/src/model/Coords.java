@@ -94,6 +94,10 @@ public class Coords implements Serializable {
 		return toCoords3().distance();
 	}
 	
+	public int distance(Coords to) {
+		return to.toCoords3().sub(this.toCoords3()).distance();
+	}
+	
 	public Coords3 toCoords3() {
 		if(x < 0 && y > 0) {
 			Coords3 ret = new Coords3();

@@ -46,6 +46,10 @@ public class Coords3 {
 		return new Coords3(x + c.x, y + c.y, z + c.z);
 	}
 	
+	public Coords3 sub(Coords3 c) {
+		return new Coords3(x - c.x, y - c.y, z - c.z);
+	}
+	
 	public Coords3 mul(Coords coords) {
 		if(x == 0) return new Coords3(0, coords.x * this.y, coords.y * this.z);
 		if(y == 0) return new Coords3(coords.x * this.x, 0, coords.y * this.z);

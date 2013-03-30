@@ -473,12 +473,12 @@ public class Plateau extends MinimaxNode {
 
 	@Override
 	protected double getEval() {
-		// TODO Auto-generated method stub
-		return Math.random() - 0.5;
+		return Strategies.simpleStrategie(this, getJoueur());
 	}
 
 	@Override
 	protected boolean getPlayer() {
+		// Les ordinateurs joueront ensemble
 		return (getJoueur() instanceof Ordinateur);
 	}
 
@@ -504,30 +504,46 @@ public class Plateau extends MinimaxNode {
 		return new Plateau(this);
 	}
 	
-	/*
-	@Override
-	protected double getEval() {
-		int res=0;
-
-		for (int i = 1; i< taille ; i++){
-			res = i* ((taille * 4)+(2-i));
+	
+	public int evalJoueur(Joueur joueur){
+		int sum = 0;
+		
+		for (Pion p : getPions(joueur)) {
+			sum += evalPion(p);
 		}
-
-		return res;
+		
+		return sum - getMinimumEval();
 	}
-	*/
-
-	private double getEvalsJoueurs(Joueur joueur){
-		int nbpion= (taille * (taille+ 1)) /2;
-		double res = 0;
-		for (Pion pion : getPions(joueur)) {
-			double evaluni=0;
-			evaluni = pion.getEval();			
-			res += evaluni;
+	
+	public int evalPion(Pion p) {
+		Coords from = p.getCoords();
+		Coords to = getBranchExtremeCoords(p.getJoueur().getEndZone());
+		
+		return from.distance(to);
+	}
+	
+	public Coords getBranchExtremeCoords(int zone) {
+		switch(zone) {
+			case 1: return new Coords(taille, taille);
+			case 2: return new Coords(-taille, 2*taille);
+			case 3: return new Coords(-2*taille, taille);
+			case 4: return new Coords(-taille, -taille);
+			case 5: return new Coords(taille, -2*taille);
+			case 6: return new Coords(2*taille, -taille);
+			
+			default: return null;
 		}
-		return res;
 	}
-
+	
+	public int getMinimumEval() {
+		int sum = 0;
+		
+		for(int i=2;i<=taille;i++) {
+			sum += i * (i-1);
+		}
+		
+		return sum;
+	}
 	
 	public String toString() {
 		String s = "Plateau (taille "+taille+")\n";
