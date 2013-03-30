@@ -18,9 +18,14 @@ public class Plateau extends MinimaxNode {
 	
 	
 	public Plateau(int taille, Joueur[] joueurs) {
+		initPlateau(taille, joueurs);
+		joueur = (int) Math.floor(Math.random() * joueurs.length);
+	}
+	
+	
+	private void initPlateau(int taille, Joueur[] joueurs) {
 		this.taille = taille;
 		this.joueurs = joueurs;
-		joueur = 0;
 		initPions();
 		initCases();
 		placerPions();
@@ -485,8 +490,8 @@ public class Plateau extends MinimaxNode {
 
 	@Override
 	protected boolean getPlayer() {
-		// Les ordinateurs joueront ensemble
-		return (getJoueur() instanceof Ordinateur);
+		boolean b = getJoueur() == getJoueur().getPartie().getJoueur();
+		return b;
 	}
 
 	@Override
@@ -513,11 +518,17 @@ public class Plateau extends MinimaxNode {
 	
 	
 	public int evalJoueur(Joueur joueur){
+		return evalJoueur(joueur, false);
+	}
+	
+	public int evalJoueur(Joueur joueur, boolean toZero){
 		int sum = 0;
 		
 		for (Pion p : getPions(joueur)) {
 			sum += evalPion(p);
 		}
+		
+		if(toZero) sum -= getMinimumEval();
 		
 		return sum;
 	}

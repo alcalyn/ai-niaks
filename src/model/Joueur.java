@@ -93,6 +93,10 @@ public abstract class Joueur implements Serializable {
 				new Color(0x000000),
 		}[c];
 	}
-
+	
+	
+	public String toString() {
+		return "Joueur "+pseudo;
+	}
 	
 }
