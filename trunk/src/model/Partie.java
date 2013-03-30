@@ -12,6 +12,8 @@ public class Partie {
 	private Plateau plateau;
 	private int taille_plateau;
 	private Joueur[] joueurs;
+	private boolean coup_longs = false;
+	private boolean multiple_coup_longs = false;
 	private Minimax minimax;
 
 	private boolean isFinished = false;
@@ -217,6 +219,26 @@ public class Partie {
 	}
 
 
+	public boolean isCoupLongs() {
+		return coup_longs;
+	}
+
+
+	public boolean isMultipleCoupLongs() {
+		return multiple_coup_longs;
+	}
+
+
+	public void setCoupLongs(boolean coup_longs) {
+		this.coup_longs = coup_longs;
+	}
+
+
+	public void setMultipleCoupLongs(boolean multiple_coup_longs) {
+		this.multiple_coup_longs = multiple_coup_longs;
+	}
+
+	
 
 
 }

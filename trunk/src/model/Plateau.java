@@ -210,24 +210,31 @@ public class Plateau extends MinimaxNode {
 			return coup;
 		}
 		
-		// saut long
-		for(int sens=0;sens<6;sens++) {
-			for(int taille=4;taille<getTaille()*4;taille+=2) {
-				if(depart.add(Coords.sens(sens, taille)).equals(arrivee)) {
-					Coords middle = depart.add(Coords.sens(sens, taille / 2));
-					
-					for(int i=1;i<taille-1;i++) {
-						Coords c = depart.add(Coords.sens(sens, i));
+		if(getPartie().isCoupLongs()) {
+			// saut long
+			for(int sens=0;sens<6;sens++) {
+				for(int taille=4;taille<getTaille()*4;taille+=2) {
+					if(depart.add(Coords.sens(sens, taille)).equals(arrivee)) {
+						Coords middle = depart.add(Coords.sens(sens, taille / 2));
 						
-						if(c.equals(middle) == isEmpty(c)) {
-							impossible(coup, "Coup long invalide");
+						for(int i=1;i<taille-1;i++) {
+							Coords c = depart.add(Coords.sens(sens, i));
+							
+							if(c.equals(middle) == isEmpty(c)) {
+								impossible(coup, "Coup long invalide");
+							}
 						}
+						
+						coup.setSimpleChemin();
+						return coup;
 					}
-					
-					coup.setSimpleChemin();
-					return coup;
 				}
 			}
+		}
+		
+		if(getPartie().isMultipleCoupLongs()) {
+			// variante des coups longs multiple
+			// TODO
 		}
 
 		impossible(coup, "Coup invalide");
@@ -473,7 +480,7 @@ public class Plateau extends MinimaxNode {
 
 	@Override
 	protected double getEval() {
-		return Strategies.simpleStrategie(this, getJoueur());
+		return Strategies.backFirstStrategie(this, getJoueur());
 	}
 
 	@Override
@@ -512,7 +519,7 @@ public class Plateau extends MinimaxNode {
 			sum += evalPion(p);
 		}
 		
-		return sum - getMinimumEval();
+		return sum;
 	}
 	
 	public int evalPion(Pion p) {
