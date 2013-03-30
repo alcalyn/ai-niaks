@@ -2,20 +2,9 @@
 
 tout doux liste :
 
-	-	Vue ok pour l'instant, avancer le mod�le :
-		cr�er dans Partie une fonction qui recoie un coup jou�, Partie::play(Pion pion, Coords coords);
-		elle v�rifie si le pion appartient bien au joueur qui joue en ce moment,
-		elle verifie si la case destination existe, si le coup est valide...
-		si c'est bon elle fait nextPlayer() et update les vues.
-		sinon throw une NiaksException
-		
-	-	Pouvoir attendre des joueurs avant de lancer une partie,
-		afin d'ajouter des joueurs à la volée avant de commencer.
-		Donc menu > Partie > Lancer la partie, ajouter ordi...
-		un event est intercépté si un joueur distant tente de se co, et demande de l'accepter ou pas
-	
-	-	Petit bug d'arrondi dans la vue, dans les cases loin du centre,
-		la souris n'est plus tr�s en face des cases.
+	-	Bug :
+			Ordi marche pas avec plusieurs joueurs... tampis
+			Ordi marche pas en ligne
 	
 	-	Ecran d'accueil...
 	

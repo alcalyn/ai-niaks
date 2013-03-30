@@ -19,6 +19,7 @@ public class JoueurPanel extends JPanel{
 	private Joueur joueur;
 	private boolean isCurrent = false;
 	private JLabel label_pseudo;
+	private JLabel label_eval;
 	
 	
 	public JoueurPanel(Joueur joueur) {
@@ -27,10 +28,13 @@ public class JoueurPanel extends JPanel{
 		initPanel();
 		
 		label_pseudo = new JLabel(joueur.getPseudo());
+		label_eval = new JLabel();
+		updateEval(0);
 		label_pseudo.setOpaque(true);
 		label_pseudo.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
 		label_pseudo.setBackground(Color.WHITE);
 		add(label_pseudo, BorderLayout.NORTH);
+		add(label_eval, BorderLayout.SOUTH);
 	}
 
 
@@ -57,6 +61,13 @@ public class JoueurPanel extends JPanel{
 		label_pseudo.setBackground(isCurrent ? Color.WHITE : new Color(0xF8F8F8));
 		label_pseudo.setFont(new Font("Comic sans ms", isCurrent ? Font.BOLD : Font.PLAIN, 14));
 		label_pseudo.setForeground(isCurrent ? Color.BLACK : Color.GRAY);
+		
+		updateEval(this.joueur.getPartie().getPlateau().evalJoueur(this.joueur, true));
+	}
+	
+	
+	private void updateEval(int eval) {
+		label_eval.setText("Distance : "+Integer.toString(eval));
 	}
 
 }
