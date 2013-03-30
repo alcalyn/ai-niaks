@@ -27,6 +27,7 @@ public class Minimax {
 		
 		ArrayList<MinimaxNode> coups = new ArrayList<MinimaxNode>();
 		
+		
 		for (MinimaxNode child : current.childs()) {
 			if(child.lastMinimax() == current.lastMinimax()) {
 				coups.add(child);

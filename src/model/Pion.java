@@ -61,10 +61,4 @@ public class Pion {
 		}
 	}
 	
-	public double getEval(){
-		double res=0;
-		//TO DO calculer la disctance entre le pion et la endZone
-		return res;
-	}
-	
 }
