@@ -27,10 +27,14 @@ public class Strategies {
 	 * afin de penaliser les pions les plus eloignes.
 	 * 
 	 * Avantages :
-	 * 		- pas plus complique
+	 * 		- aussi simple a coder, le code ne change presque pas,
+	 * 			la complexite non plus
 	 * 
 	 * Inconvenients :
-	 * 		- On peut encore le bloquer
+	 * 		- Meme s'il a tendance a rapprocher ses pions arriere,
+	 * 			il en laisse toujours un ou deux a un moment de la partie.
+	 * 			Il suffit donc de ne pas l'aider a les remonter, et on gagne
+	 * 			aisement car il ne voit pas assez en profondeur.
 	 */
 	public static int backFirstStrategie(Plateau plateau, Joueur joueur) {
 		int sum = 0;
