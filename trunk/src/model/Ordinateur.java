@@ -36,14 +36,10 @@ public class Ordinateur extends Joueur {
 			
 			@Override
 			public void run() {
-				System.out.println("ordi joue...");
-				
 				Coup coup = getPartie().autoPlay().getLastCoup();
 				
 				Pion p = getPartie().getPlateau().getCase(coup.getCaseDepart());
 				coup_calcule = new Coup(p, coup.getCaseArrivee());
-				
-				System.out.println("ordi a joue");
 				
 				try {
 					getPartie().notifyCoupPlayed(current_player);
