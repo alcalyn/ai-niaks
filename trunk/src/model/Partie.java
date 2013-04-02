@@ -92,7 +92,7 @@ public class Partie {
 	 * @param joueur qui vient de jouer sur un autre thread (humain sur l'UI ou joueur distant)
 	 * @throws IllegalMoveNiaksException
 	 */
-	public void notifyCoupPlayed(CoupListener joueur) throws IllegalMoveNiaksException {
+	public void notifyCoupPlayed(Joueur joueur) throws IllegalMoveNiaksException {
 		if(joueur == plateau.getJoueur()) {
 			Coup coup = plateau.getJoueur().jouerCoup();
 
@@ -102,8 +102,6 @@ public class Partie {
 			} else {
 				System.out.println("Partie :: Erreur, coup notified but null");
 			}
-		} else {
-			joueur.purge();
 		}
 	}
 

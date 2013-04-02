@@ -24,31 +24,38 @@ public class Ordinateur extends Joueur {
 
 	@Override
 	public Coup jouerCoup() {
-		Coup c = coup_calcule;
-		coup_calcule = null;
-		return c;
-		
-		if(coup_calcule == null) {
-			Thread t = new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					Coup coup = getPartie().autoPlay().getLastCoup();
-					
-					Pion p = getPartie().getPlateau().getCase(coup.getCaseDepart());
-					Coup ret = new Coup(p, coup.getCaseArrivee());
-					
-					getPartie().notifyCoupPlayed(this);
-				}
-			});
-		}
-		
-		
+		return coup_calcule;
 	}
 
 
 	@Override
 	public boolean playsInstantly() {
+		final Joueur current_player = this;
+		
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				System.out.println("ordi joue...");
+				
+				Coup coup = getPartie().autoPlay().getLastCoup();
+				
+				Pion p = getPartie().getPlateau().getCase(coup.getCaseDepart());
+				coup_calcule = new Coup(p, coup.getCaseArrivee());
+				
+				System.out.println("ordi a joue");
+				
+				try {
+					getPartie().notifyCoupPlayed(current_player);
+				} catch (IllegalMoveNiaksException e) {
+					System.out.println("L'ordi a joue un coup illegal");
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		t.start();
+		
 		return false;
 	}
 
