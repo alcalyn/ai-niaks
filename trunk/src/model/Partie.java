@@ -34,7 +34,7 @@ public class Partie {
 			
 			@Override
 			public boolean horizon(MinimaxNode node, int depth) {
-				return depth <= 1;
+				return depth <= 2;
 			}
 			
 			@Override

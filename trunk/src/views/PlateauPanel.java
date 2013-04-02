@@ -103,7 +103,11 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 			}
 		}
 		
-		setBottomBranch(h.getStartZone() - 1);
+		if(h != null) {
+			setBottomBranch(h.getStartZone() - 1);
+		} else {
+			setBottomBranch(0);
+		}
 	}
 
 	private void addMouseListeners() {
