@@ -1,8 +1,12 @@
 package model;
 
+import exceptions.IllegalMoveNiaksException;
+
 public class Ordinateur extends Joueur {
 	
 	private static int cpu_count = 0;
+	
+	private Coup coup_calcule = null;
 	
 	private double difficulte;
 	
@@ -20,17 +24,35 @@ public class Ordinateur extends Joueur {
 
 	@Override
 	public Coup jouerCoup() {
-		Coup coup = getPartie().autoPlay().getLastCoup();
+		Coup c = coup_calcule;
+		coup_calcule = null;
+		return c;
 		
-		Pion p = getPartie().getPlateau().getCase(coup.getCaseDepart());
-		Coup ret = new Coup(p, coup.getCaseArrivee());
-		return ret;
+		if(coup_calcule == null) {
+			Thread t = new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					Coup coup = getPartie().autoPlay().getLastCoup();
+					
+					Pion p = getPartie().getPlateau().getCase(coup.getCaseDepart());
+					Coup ret = new Coup(p, coup.getCaseArrivee());
+					
+					getPartie().notifyCoupPlayed(this);
+				}
+			});
+		}
+		
+		
 	}
 
 
 	@Override
 	public boolean playsInstantly() {
-		return true;
+		return false;
 	}
+
+
+
 
 }
