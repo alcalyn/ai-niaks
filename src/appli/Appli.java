@@ -1,38 +1,33 @@
 package appli;
 
-import exceptions.PartieNotReadyToStartNiaksException;
-import exceptions.ProfilNotSetNiaksException;
-import model.Coords;
-import model.Coords3;
-import model.Humain;
 import model.Niaks;
 import model.Ordinateur;
 import views.NiaksFrame;
+import exceptions.PartieNotReadyToStartNiaksException;
+import exceptions.ProfilNotSetNiaksException;
 
 
 public class Appli {
 
-	
-	public static void test(int x, int y) {
-		Coords3 c3 = new Coords(x, y).toCoords3();
-		int distance = Math.abs(c3.x) + Math.abs(c3.y) + Math.abs(c3.z);
-		System.out.println("dist "+x+" "+y+" ==> "+distance);
-	}
 
 	public static void main(String[] args) {
+		System.out.println("Starting appli");
 		
 		Niaks niaks = new Niaks();
 		
 		NiaksFrame niaks_frame = new NiaksFrame(niaks);
 		
 		
-		boolean lancer_direct = false;
+		boolean lancer_direct = true;
 		
 		if(lancer_direct) {
 			try {
-				niaks.setProfil("Roger");
+				niaks.setProfil("Ju");
 				niaks.startPreparation();
-				niaks.getPartiePreparator().addJoueur(new Humain("Alfred"));
+				niaks.getPartiePreparator().removeAllJoueur();
+				niaks.getPartiePreparator().addJoueur(new Ordinateur(1.0));
+				niaks.getPartiePreparator().addJoueur(new Ordinateur(1.0));
+				niaks.getPartiePreparator().setPlateauSize(2);
 				
 				niaks.startPartie();
 			} catch (ProfilNotSetNiaksException e) {

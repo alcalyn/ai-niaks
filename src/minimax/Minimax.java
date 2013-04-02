@@ -11,7 +11,7 @@ public class Minimax {
 	
 	
 	
-	public static boolean stats = false;
+	public static boolean stats = true;
 	public static int node_count = 0;
 	public static int start_depth;
 	public static int max_depth;

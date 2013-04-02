@@ -85,6 +85,11 @@ public class PartiePreparator implements Serializable {
 		}
 	}
 	
+	public void removeAllJoueur() {
+		joueurs = new ArrayList<Joueur>();
+		niaks.notifyJoueurs(getArrayJoueurs());
+	}
+	
 	public void setDefaultColor() {
 		for(int i=0;i<joueurs.size();i++) {
 			joueurs.get(i).setCouleur(Joueur.defaultColor(i));
