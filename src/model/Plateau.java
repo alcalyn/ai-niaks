@@ -365,17 +365,28 @@ public class Plateau extends MinimaxNode {
 	}
 
 	private int indexOf(int x, int y) {
-		//return 4 * taille * (2 * taille + y + 1) + x + y;
 		int _x = x + 2 * taille;
 		int _y = y + 2 * taille;
-		int module = 4 * taille + 1;
+		
+		if(_x < taille) {
+			_x += taille + 1;
+			_y += taille;
+		}
+		
+		if(_x > 3*taille) {
+			_x -= taille;
+			_y += 2*taille + 1;
+		}
+		
+		_x -= taille;
+		
+		
+		int module = 2 * taille + 1;
 		return _y * module + _x;
 	}
 	
 	private int getCaseMatriceLength() {
-		 // crade...
-		int nb = taille * 4 + 1;
-		return nb * nb;
+		return 8 * (taille + 1) * (taille + 1);
 	}
 	
 	private int indexOf(Coords coords) {
