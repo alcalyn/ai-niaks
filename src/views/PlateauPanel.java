@@ -333,8 +333,6 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 	}
 
 	private void pionMoved(Pion pion, Coords coords) {
-		System.out.println("Pion moved : "+pion+" to "+coords);
-		
 		for (CoupListener coup_listener : coup_listeners.getListeners(CoupListener.class)) {
 			try {
 				coup_listener.coupPlayed(new Coup(pion, coords));
