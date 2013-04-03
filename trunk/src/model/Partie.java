@@ -53,7 +53,7 @@ public class Partie {
 	public Plateau autoPlay() {
 		plateau.reinitMinimaxNode();
 		Plateau next = (Plateau) minimax.getNext(plateau, minimax.getDefaultElagator());
-		System.out.println("next minimax = "+next.eval());
+		System.out.println("next eval = "+next.eval());
 		return next;
 	}
 	

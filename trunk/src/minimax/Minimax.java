@@ -1,7 +1,6 @@
 package minimax;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import model.Plateau;
 
@@ -26,9 +25,7 @@ public class Minimax {
 		
 		ArrayList<MinimaxNode> coups = getBestChilds(current);
 		
-		Collections.shuffle(coups);
-		
-		return coups.get(0);
+		return getBestEval(current, coups);
 	}
 	
 	
@@ -37,16 +34,39 @@ public class Minimax {
 	public ArrayList<MinimaxNode> getBestChilds(MinimaxNode current) {
 		ArrayList<MinimaxNode> coups = new ArrayList<MinimaxNode>();
 		
-		System.out.println("===== best childs =====");
+		System.out.println("     best childs for "+current.player()+" (current minimax = "+current.lastMinimax()+")");
 		
 		for (MinimaxNode child : current.childs()) {
-			System.out.println("     "+((Plateau) child).getLastCoup()+" ; minimax = "+child.lastMinimax()+" ; eval = "+child.eval());
+			System.out.println("         "+((Plateau) child).getLastCoup()+"	; minimax = "+child.lastMinimax()+"	; eval = "+child.eval());
 			if(child.lastMinimax() == current.lastMinimax()) {
 				coups.add(child);
 			}
 		}
 		
 		return coups;
+	}
+	
+	public MinimaxNode getBestEval(MinimaxNode current, ArrayList<MinimaxNode> coups) {
+		double best_eval = coups.get(0).eval();
+		MinimaxNode best = coups.get(0);
+		
+		for(int i=1;i<coups.size();i++) {
+			MinimaxNode coup = coups.get(i);
+			
+			if(current.player()) {
+				if(coup.eval() > best_eval) {
+					best_eval = coup.eval();
+					best = coup;
+				}
+			} else {
+				if(coup.eval() < best_eval) {
+					best_eval = coup.eval();
+					best = coup;
+				}
+			}
+		}
+		
+		return best;
 	}
 
 	
