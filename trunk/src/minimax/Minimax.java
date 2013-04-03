@@ -15,6 +15,8 @@ public class Minimax {
 	
 	private MinimaxElagator defaultElagator = null;
 	
+	private ArrayList<MinimaxObserver> observers = new ArrayList<MinimaxObserver>();
+	
 	
 	
 	public final MinimaxNode getNext(MinimaxNode current, MinimaxElagator elagator) {
@@ -58,5 +60,8 @@ public class Minimax {
 	public void setDefaultElagator(MinimaxElagator defaultElagator) {
 		this.defaultElagator = defaultElagator;
 	}
+	
+
+	
 	
 }
