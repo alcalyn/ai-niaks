@@ -17,12 +17,11 @@ public class Strategies {
 	 *			de ne pas aider ses pions arrière.
 	 */
 	public static int simpleStrategie(Plateau plateau, Joueur max, Joueur min) {
-		if(plateau.getPartie().getPlateau().getJoueur() == max) {
-			return - plateau.evalJoueur(max);
-		} else {
-			return plateau.evalJoueur(min);
-		}
-		//return - (plateau.evalJoueur(max) - plateau.evalJoueur(min));
+		return - (plateau.evalJoueur(max) - plateau.evalJoueur(min));
+	}
+	
+	public static int simpleStrategie(Plateau plateau, Joueur max) {
+		return - plateau.evalJoueur(max);
 	}
 	
 	
@@ -56,6 +55,17 @@ public class Strategies {
 		}
 		
 		return - (eval_max - eval_min);
+	}
+	
+	public static int backFirstStrategie(Plateau plateau, Joueur max) {
+		int eval_max = 0;
+		
+		for (Pion p : plateau.getPions(max)) {
+			int evalPion = plateau.evalPion(p);
+			eval_max += evalPion * evalPion;
+		}
+		
+		return - eval_max;
 	}
 	
 }
