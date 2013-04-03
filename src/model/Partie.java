@@ -141,7 +141,7 @@ public class Partie {
 		return true;
 	}
 
-	public void checkGameFinished() {
+	private void checkGameFinished() {
 		for (Joueur joueur : joueurs) {
 			if(!joueur.hasWon()) {
 				return;
@@ -151,7 +151,11 @@ public class Partie {
 		isFinished = true;
 		niaks.gameFinished();
 	}
-
+	
+	public boolean isFinished() {
+		checkGameFinished();
+		return isFinished;
+	}
 
 	public int getTaillePlateau() {
 		return taille_plateau;
