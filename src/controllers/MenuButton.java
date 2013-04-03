@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import niakwork.NiakworkHostSocket;
 
+import views.MinimaxView;
 import views.NiaksFrame;
 
 import exceptions.NiaksException;
@@ -22,7 +23,9 @@ public class MenuButton extends ModelActionner {
 		SEARCH_LOCAL = 7,
 		CONNECT_TO = 8,
 		JOIN_HOST = 9,
-		SELECT_TAILLE_PLATEAU = 10;
+		SELECT_TAILLE_PLATEAU = 10,
+		SHOW_MINIMAX_VIEW = 11;
+	
 	
 	
 	
@@ -97,6 +100,12 @@ public class MenuButton extends ModelActionner {
 						JOptionPane.DEFAULT_OPTION,
 						JOptionPane.INFORMATION_MESSAGE
 				);
+				break;
+			
+			case SHOW_MINIMAX_VIEW:
+				if(niaks.getEtat() == niaks.PARTIE) {
+					new MinimaxView(niaks.getPartie().getMinimax());
+				}
 				break;
 				
 			default:

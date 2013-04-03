@@ -241,6 +241,16 @@ public class Partie {
 		this.multiple_coup_longs = multiple_coup_longs;
 	}
 
+
+	public Minimax getMinimax() {
+		return minimax;
+	}
+
+
+	public void setMinimax(Minimax minimax) {
+		this.minimax = minimax;
+	}
+
 	
 
 
