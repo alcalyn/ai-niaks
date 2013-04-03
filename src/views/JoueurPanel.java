@@ -62,7 +62,7 @@ public class JoueurPanel extends JPanel{
 		label_pseudo.setFont(new Font("Comic sans ms", isCurrent ? Font.BOLD : Font.PLAIN, 14));
 		label_pseudo.setForeground(isCurrent ? Color.BLACK : Color.GRAY);
 		
-		updateEval(this.joueur.getPartie().getPlateau().evalJoueur(this.joueur, true));
+		updateEval(this.joueur.getPartie().getPlateau().evalJoueur(this.joueur));
 	}
 	
 	

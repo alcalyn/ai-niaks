@@ -15,6 +15,7 @@ public class Plateau extends MinimaxNode {
 	private int joueur;
 	private Pion[] cases;
 	private Coup last_coup = null;
+	private Integer min_eval = null;
 	
 	
 	public Plateau(int taille, Joueur[] joueurs) {
@@ -501,28 +502,24 @@ public class Plateau extends MinimaxNode {
 
 	@Override
 	protected double getEval() {
-		return Strategies.backFirstStrategie(this, joueurs[0], joueurs[1]);
+		return Strategies.simpleStrategie(this, joueurs[0], joueurs[1]);
 	}
 
 	@Override
 	protected boolean getPlayer() {
-		System.out.println(getJoueur()+" : "+(getJoueur() == joueurs[0]));
 		return getJoueur() == joueurs[0];
 	}
 	
 	
-	public int evalJoueur(Joueur joueur){
-		return evalJoueur(joueur, false);
-	}
 	
-	public int evalJoueur(Joueur joueur, boolean toZero){
+	public int evalJoueur(Joueur joueur){
 		int sum = 0;
 		
 		for (Pion p : getPions(joueur)) {
 			sum += evalPion(p);
 		}
 		
-		if(toZero) sum -= getMinimumEval();
+		sum -= getMinimumEval();
 		
 		return sum;
 	}
@@ -548,13 +545,17 @@ public class Plateau extends MinimaxNode {
 	}
 	
 	public int getMinimumEval() {
-		int sum = 0;
-		
-		for(int i=2;i<=taille;i++) {
-			sum += i * (i-1);
+		if(min_eval == null) {
+			int sum = 0;
+			
+			for(int i=2;i<=taille;i++) {
+				sum += i * (i-1);
+			}
+			
+			min_eval = new Integer(sum);
 		}
 		
-		return sum;
+		return min_eval.intValue();
 	}
 	
 	public String toString() {

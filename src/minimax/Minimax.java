@@ -3,6 +3,8 @@ package minimax;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import model.Plateau;
+
 
 public class Minimax {
 	
@@ -33,7 +35,10 @@ public class Minimax {
 	public ArrayList<MinimaxNode> getBestChilds(MinimaxNode current) {
 		ArrayList<MinimaxNode> coups = new ArrayList<MinimaxNode>();
 		
+		System.out.println("===== best childs =====");
+		
 		for (MinimaxNode child : current.childs()) {
+			System.out.println("     "+((Plateau) child).getLastCoup()+" ; minimax = "+child.lastMinimax()+" ; eval = "+child.eval());
 			if(child.lastMinimax() == current.lastMinimax()) {
 				coups.add(child);
 			}
