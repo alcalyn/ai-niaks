@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public interface MinimaxObserver {
 	
 	
-	public void updateChilds(ArrayList<MinimaxNode> childs);
+	public void updateProcessed(ArrayList<MinimaxNode> childs, MinimaxNode best_selected);
 	
 	
 }

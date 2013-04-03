@@ -25,7 +25,9 @@ public class Minimax {
 		
 		ArrayList<MinimaxNode> coups = getBestChilds(current);
 		
-		return getBestEval(current, coups);
+		MinimaxNode best = getBestEval(current, coups);
+		
+		return best;
 	}
 	
 	
@@ -83,5 +85,18 @@ public class Minimax {
 	
 
 	
+	public void addObserver(MinimaxObserver o) {
+		observers.add(o);
+	}
+	
+	public void removeObserver(MinimaxObserver o) {
+		observers.remove(o);
+	}
+	
+	public void notifyProcessed(ArrayList<MinimaxNode> childs, MinimaxNode best_selected) {
+		for (MinimaxObserver observer : observers) {
+			observer.updateProcessed(childs, best_selected);
+		}
+	}
 	
 }

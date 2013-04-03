@@ -41,6 +41,7 @@ public class NiakMenu extends JMenuBar implements Observer {
 	private JMenuItem[]		hosts;
 	
 	private JMenu		projet;
+	private JMenuItem		show_minimax_view;
 	
 	private JMenu		about;
 	
@@ -108,6 +109,10 @@ public class NiakMenu extends JMenuBar implements Observer {
 	
 	private JMenu menuProjet() {
 		projet = new JMenu("Projet L3");
+		
+		show_minimax_view = new JMenuItem("Ouvrir une vue Minimax");
+		show_minimax_view.addActionListener(new MenuButton(niaks, niaks_frame, MenuButton.SHOW_MINIMAX_VIEW));
+		projet.add(show_minimax_view);
 		
 		return projet;
 	}
