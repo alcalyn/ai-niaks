@@ -16,8 +16,8 @@ public class Strategies {
 	 *			Et si on connait sa stratégie, on fait en sorte
 	 *			de ne pas aider ses pions arrière.
 	 */
-	public static int simpleStrategie(Plateau plateau, Joueur joueur) {
-		return - plateau.evalJoueur(joueur);
+	public static int simpleStrategie(Plateau plateau, Joueur max, Joueur min) {
+		return plateau.evalJoueur(max) - plateau.evalJoueur(min);
 	}
 	
 	
@@ -36,15 +36,21 @@ public class Strategies {
 	 * 			Il suffit donc de ne pas l'aider a les remonter, et on gagne
 	 * 			aisement car il ne voit pas assez en profondeur.
 	 */
-	public static int backFirstStrategie(Plateau plateau, Joueur joueur) {
-		int sum = 0;
+	public static int backFirstStrategie(Plateau plateau, Joueur max, Joueur min) {
+		int eval_max = 0;
+		int eval_min = 0;
 		
-		for (Pion p : plateau.getPions(joueur)) {
+		for (Pion p : plateau.getPions(max)) {
 			int evalPion = plateau.evalPion(p);
-			sum += evalPion * evalPion;
+			eval_max += evalPion * evalPion;
 		}
 		
-		return - sum;
+		for (Pion p : plateau.getPions(min)) {
+			int evalPion = plateau.evalPion(p);
+			eval_min += evalPion * evalPion;
+		}
+		
+		return eval_max - eval_min;
 	}
 	
 }

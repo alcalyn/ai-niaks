@@ -472,20 +472,25 @@ public class Plateau extends MinimaxNode {
 		ArrayList<MinimaxNode> childs = new ArrayList<MinimaxNode>();
 		Joueur joueur = getJoueur();
 		
-		for(int i=-taille*2;i<=taille*2;i++) for(int j=-taille*2;j<=taille*2;j++) {
-			Coords c = new Coords(i, j);
-			
-			if(isset(c) && isEmpty(c) && joueurPeutAller(joueur, getZone(c))) {
-				Pion [] pions = getPions(joueur);
-				for(int k=0;k<pions.length;k++) {
-					Pion p = pions[k];
-					Coup coup = new Coup(p, c);
-					
-					if(isCoupValide(coup)) {
-						Plateau next = new Plateau(this);
-						next.movePion(next.getPion(joueur, k), c);
-						next.nextJoueur();
-						childs.add(next);
+		if(!getPartie().isFinished()) {
+			for(int i=-taille*2;i<=taille*2;i++) for(int j=-taille*2;j<=taille*2;j++) {
+				Coords c = new Coords(i, j);
+				
+				if(isset(c) && isEmpty(c) && joueurPeutAller(joueur, getZone(c))) {
+					Pion [] pions = getPions(joueur);
+					for(int k=0;k<pions.length;k++) {
+						Pion p = pions[k];
+						Coup coup = new Coup(p, c);
+						
+						if(isCoupValide(coup)) {
+							Plateau next = new Plateau(this);
+							next.movePion(next.getPion(joueur, k), c);
+							next.nextJoueur();
+							if(getPartie().hasWon(next.getJoueur())) {
+								next.nextJoueur();
+							}
+							childs.add(next);
+						}
 					}
 				}
 			}
@@ -496,35 +501,13 @@ public class Plateau extends MinimaxNode {
 
 	@Override
 	protected double getEval() {
-		return Strategies.backFirstStrategie(this, getJoueur());
+		return Strategies.backFirstStrategie(this, joueurs[0], joueurs[1]);
 	}
 
 	@Override
 	protected boolean getPlayer() {
-		boolean b = getJoueur() == getJoueur().getPartie().getJoueur();
-		return b;
-	}
-
-	@Override
-	public boolean equals(MinimaxNode other) {
-		Plateau o = (Plateau) other;
-		
-		if(o.joueur != this.joueur) {
-			return false;
-		}
-		
-		for(int i=0;i<pions.length;i++) {
-			for(int j=0;j<pions[i].length;j++) {
-				if(!pions[i][j].getCoords().equals(o.pions[i][j].getCoords())) return false;
-			}
-		}
-		
-		return true;
-	}
-
-	@Override
-	public MinimaxNode clone() {
-		return new Plateau(this);
+		System.out.println(getJoueur()+" : "+(getJoueur() == joueurs[0]));
+		return getJoueur() == joueurs[0];
 	}
 	
 	
