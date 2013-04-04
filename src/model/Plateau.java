@@ -203,6 +203,10 @@ public class Plateau extends MinimaxNode {
 		if(!joueurPeutAller(joueur, zone)) {
 			impossible(coup, "Vous ne pouvez pas aller sur les autres branches");
 		}
+		
+		if((getZone(depart) != joueur.getStartZone()) && (getZone(arrivee) == joueur.getStartZone())) {
+			impossible(coup, "Impossible de revenir dans votre branche pour bloquer votre opposant");
+		}
 
 		// coup simple
 		for(int i=0;i<6;i++) {

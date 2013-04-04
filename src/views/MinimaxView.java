@@ -63,7 +63,7 @@ public class MinimaxView extends JFrame implements MinimaxObserver {
 	@Override
 	public void updateProcessed(MinimaxNode current, MinimaxNode [] childs, MinimaxNode best_selected) {
 		breadcrumb.updateBread(new MinimaxNodeView[] {
-				new MinimaxNodeView((Plateau) current)
+				new MinimaxNodeView(this, (Plateau) current)
 		});
 		
 		
@@ -77,7 +77,7 @@ public class MinimaxView extends JFrame implements MinimaxObserver {
 		
 		for (MinimaxNode child : childs) {
 			Plateau p = (Plateau) child;
-			MinimaxNodeView node = new MinimaxNodeView(p);
+			MinimaxNodeView node = new MinimaxNodeView(this, p);
 			nodes[i++] = node;
 			center.add(node);
 		}
