@@ -1,12 +1,10 @@
 package views;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -24,20 +22,26 @@ public class MinimaxView extends JFrame implements MinimaxObserver {
 	
 	private Minimax minimax;
 	
-	private JPanel main;
+	private BreadcrumbNodes breadcrumb;
+	private JPanel center = null;
 	private MinimaxNodeView [] nodes = null;
 	
 	
 	public MinimaxView(Minimax minimax) {
 		super("Vue minimax");
+		setLayout(new BorderLayout());
 		
 		this.minimax = minimax;
 		listenMinimax();
 		
+		breadcrumb = new BreadcrumbNodes();
+		breadcrumb.setPreferredSize(new Dimension(600, 100));
+		add(breadcrumb, BorderLayout.NORTH);
+		
 		setSize(600, 600);
-		setLayout(new GridLayout(6, 6));
 		setVisible(true);
 	}
+	
 	
 	
 	private void listenMinimax() {
@@ -58,11 +62,13 @@ public class MinimaxView extends JFrame implements MinimaxObserver {
 
 	@Override
 	public void updateProcessed(MinimaxNode current, MinimaxNode [] childs, MinimaxNode best_selected) {
-		if(nodes != null) {
-			for (MinimaxNodeView node : nodes) {
-				getContentPane().remove(node);
-			}
-		}
+		breadcrumb.updateBread(new MinimaxNodeView[] {new MinimaxNodeView((Plateau) current)});
+		
+		
+		if(center != null) remove(center);
+		center = new JPanel();
+		center.setLayout(new GridLayout(6, 6));
+		add(center, BorderLayout.CENTER);
 		
 		nodes = new MinimaxNodeView[childs.length];
 		int i = 0;
@@ -71,7 +77,7 @@ public class MinimaxView extends JFrame implements MinimaxObserver {
 			Plateau p = (Plateau) child;
 			MinimaxNodeView node = new MinimaxNodeView(p);
 			nodes[i++] = node;
-			add(node);
+			center.add(node);
 		}
 		
 		validate();

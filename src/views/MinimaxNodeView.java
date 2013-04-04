@@ -24,7 +24,7 @@ public class MinimaxNodeView extends JPanel {
 		setLayout(new BorderLayout());
 		
 		miniature = new PlateauMiniature(plateau);
-		label_south = new JLabel("Minimax = "+plateau.lastMinimax()+" | Eval = "+plateau.eval());
+		label_south = new JLabel("Mmax = "+plateau.lastMinimax()+" | h = "+plateau.eval());
 		
 		add(miniature, BorderLayout.CENTER);
 		add(label_south, BorderLayout.SOUTH);
