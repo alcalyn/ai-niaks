@@ -20,7 +20,7 @@ public class Partie {
 	
 	
 	
-	public Partie(Niaks niaks, Joueur[] joueurs, int taille_plateau) {
+	public Partie(Niaks niaks, Joueur[] joueurs, final int taille_plateau) {
 		this.niaks = niaks;
 		this.joueurs = joueurs;
 
@@ -35,7 +35,7 @@ public class Partie {
 			
 			@Override
 			public boolean horizon(MinimaxNode node, int depth) {
-				boolean in_depth_range = depth <= 3;
+				boolean in_depth_range = depth <= new int[]{6, 2, 1, 0, 0, 0}[taille_plateau - 1];
 				boolean come_back = false;
 				
 				/*
