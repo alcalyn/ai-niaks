@@ -2,6 +2,11 @@ package model;
 
 public class Strategies {
 	
+	
+	public static final int
+		MAX_SCORE =  100000,
+		MIN_SCORE = -100000;
+	
 	/*
 	 * L'ordi joue le coup qui reduit le plus
 	 * l'espace de chacun de ses pions à l'arrivee
@@ -21,13 +26,13 @@ public class Strategies {
 		int eval_min = 0;
 		
 		if(plateau.hasWon(max)) {
-			eval_max = 100000;
+			eval_max = MAX_SCORE;
 		} else {
 			eval_max = - plateau.evalJoueur(max);
 		}
 		
 		if(plateau.hasWon(min)) {
-			eval_min = 100000;
+			eval_min = MAX_SCORE;
 		} else {
 			eval_min = - plateau.evalJoueur(min);
 		}
@@ -39,7 +44,7 @@ public class Strategies {
 		int eval_max = 0;
 		
 		if(plateau.hasWon(max)) {
-			eval_max = 100000;
+			eval_max = MAX_SCORE;
 		} else {
 			eval_max = - plateau.evalJoueur(max);
 		}
@@ -68,7 +73,7 @@ public class Strategies {
 		int eval_min = 0;
 		
 		if(plateau.hasWon(max)) {
-			eval_max = 100000;
+			eval_max = MAX_SCORE;
 		} else {
 			for (Pion p : plateau.getPions(max)) {
 				int evalPion = plateau.evalPion(p);
@@ -77,7 +82,7 @@ public class Strategies {
 		}
 		
 		if(plateau.hasWon(min)) {
-			eval_min = 100000;
+			eval_min = MAX_SCORE;
 		} else {
 			for (Pion p : plateau.getPions(min)) {
 				int evalPion = plateau.evalPion(p);
@@ -92,7 +97,7 @@ public class Strategies {
 		int eval_max = 0;
 		
 		if(plateau.hasWon(max)) {
-			eval_max = 100000;
+			eval_max = MAX_SCORE;
 		} else {
 			for (Pion p : plateau.getPions(max)) {
 				int evalPion = plateau.evalPion(p);

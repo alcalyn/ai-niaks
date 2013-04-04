@@ -17,8 +17,9 @@ public class Partie {
 	private boolean multiple_coup_longs = false;
 	private Minimax minimax;
 	private boolean isFinished = false;
-
-
+	
+	
+	
 	public Partie(Niaks niaks, Joueur[] joueurs, int taille_plateau) {
 		this.niaks = niaks;
 		this.joueurs = joueurs;
@@ -34,12 +35,29 @@ public class Partie {
 			
 			@Override
 			public boolean horizon(MinimaxNode node, int depth) {
-				return (depth <= 2);
+				boolean in_depth_range = depth <= 3;
+				boolean come_back = false;
+				
+				/*
+				if((depth % 2) == 0) {
+					if(plateau.player()) {
+						if(node.eval() < plateau.eval()) come_back = true;
+					} else {
+						if(node.eval() > plateau.eval()) come_back = true;
+					}
+				}
+				*/
+				
+				return in_depth_range && !come_back;
 			}
 			
 			@Override
 			public boolean elage(MinimaxNode node, int depth) {
-				return false;
+				if(node.player()) {
+					return node.eval() >= Strategies.MAX_SCORE;
+				} else {
+					return node.eval() <= Strategies.MIN_SCORE;
+				}
 			}
 
 		});

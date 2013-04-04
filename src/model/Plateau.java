@@ -15,7 +15,6 @@ public class Plateau extends MinimaxNode {
 	private int joueur;
 	private Pion[] cases;
 	private Coup last_coup = null;
-	private Integer min_eval = null;
 
 	private boolean isFinished = false;
 	
@@ -39,6 +38,8 @@ public class Plateau extends MinimaxNode {
 		this.joueur = copy.joueur;
 		this.joueurs = copy.joueurs;
 		this.cases = new Pion[copy.cases.length];
+		this.last_coup = copy.last_coup == null ? null : new Coup(copy.last_coup) ;
+		this.isFinished = copy.isFinished;
 		
 		int nb_joueur = copy.getNbJoueur();
 		int nb_pion = (copy.taille * (copy.taille + 1)) / 2;

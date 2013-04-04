@@ -62,7 +62,9 @@ public class MinimaxView extends JFrame implements MinimaxObserver {
 
 	@Override
 	public void updateProcessed(MinimaxNode current, MinimaxNode [] childs, MinimaxNode best_selected) {
-		breadcrumb.updateBread(new MinimaxNodeView[] {new MinimaxNodeView((Plateau) current)});
+		breadcrumb.updateBread(new MinimaxNodeView[] {
+				new MinimaxNodeView((Plateau) current)
+		});
 		
 		
 		if(center != null) remove(center);
