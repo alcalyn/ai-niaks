@@ -521,7 +521,7 @@ public class Plateau extends MinimaxNode {
 
 	@Override
 	protected boolean getPlayer() {
-		return getJoueur() == joueurs[0];
+		return joueur == 0;
 	}
 	
 	
@@ -559,17 +559,7 @@ public class Plateau extends MinimaxNode {
 	}
 	
 	public int getMinimumEval() {
-		if(min_eval == null) {
-			int sum = 0;
-			
-			for(int i=2;i<=taille;i++) {
-				sum += i * (i-1);
-			}
-			
-			min_eval = new Integer(sum);
-		}
-		
-		return min_eval.intValue();
+		return getPartie().getMinimumEval();
 	}
 	
 	public boolean hasWon(Joueur joueur) {

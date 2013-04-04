@@ -17,6 +17,7 @@ public class Partie {
 
 	private Plateau plateau;
 	private int taille_plateau;
+	private Integer min_eval = null;
 	private Joueur[] joueurs;
 	private boolean coup_longs = false;
 	private boolean multiple_coup_longs = false;
@@ -39,7 +40,7 @@ public class Partie {
 			
 			@Override
 			public boolean horizon(MinimaxNode node, int depth) {
-				return (depth <= 2);
+				return (depth <= 1);
 			}
 			
 			@Override
@@ -241,6 +242,20 @@ public class Partie {
 
 	public void setMinimax(Minimax minimax) {
 		this.minimax = minimax;
+	}
+	
+	public int getMinimumEval() {
+		if(min_eval == null) {
+			int sum = 0;
+			
+			for(int i=2;i<=taille_plateau;i++) {
+				sum += i * (i-1);
+			}
+			
+			min_eval = new Integer(sum);
+		}
+		
+		return min_eval.intValue();
 	}
 
 	
