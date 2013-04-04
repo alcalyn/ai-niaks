@@ -17,11 +17,34 @@ public class Strategies {
 	 *			de ne pas aider ses pions arrière.
 	 */
 	public static int simpleStrategie(Plateau plateau, Joueur max, Joueur min) {
-		return - (plateau.evalJoueur(max) - plateau.evalJoueur(min));
+		int eval_max = 0;
+		int eval_min = 0;
+		
+		if(plateau.hasWon(max)) {
+			eval_max = 100000;
+		} else {
+			eval_max = - plateau.evalJoueur(max);
+		}
+		
+		if(plateau.hasWon(min)) {
+			eval_min = 100000;
+		} else {
+			eval_min = - plateau.evalJoueur(min);
+		}
+		
+		return eval_max - eval_min;
 	}
 	
 	public static int simpleStrategie(Plateau plateau, Joueur max) {
-		return - plateau.evalJoueur(max);
+		int eval_max = 0;
+		
+		if(plateau.hasWon(max)) {
+			eval_max = 100000;
+		} else {
+			eval_max = - plateau.evalJoueur(max);
+		}
+		
+		return eval_max;
 	}
 	
 	
@@ -44,28 +67,40 @@ public class Strategies {
 		int eval_max = 0;
 		int eval_min = 0;
 		
-		for (Pion p : plateau.getPions(max)) {
-			int evalPion = plateau.evalPion(p);
-			eval_max += evalPion * evalPion;
+		if(plateau.hasWon(max)) {
+			eval_max = 100000;
+		} else {
+			for (Pion p : plateau.getPions(max)) {
+				int evalPion = plateau.evalPion(p);
+				eval_max -= evalPion * evalPion;
+			}
 		}
 		
-		for (Pion p : plateau.getPions(min)) {
-			int evalPion = plateau.evalPion(p);
-			eval_min += evalPion * evalPion;
+		if(plateau.hasWon(min)) {
+			eval_min = 100000;
+		} else {
+			for (Pion p : plateau.getPions(min)) {
+				int evalPion = plateau.evalPion(p);
+				eval_min -= evalPion * evalPion;
+			}
 		}
 		
-		return - (eval_max - eval_min);
+		return eval_max - eval_min;
 	}
 	
 	public static int backFirstStrategie(Plateau plateau, Joueur max) {
 		int eval_max = 0;
 		
-		for (Pion p : plateau.getPions(max)) {
-			int evalPion = plateau.evalPion(p);
-			eval_max += evalPion * evalPion;
+		if(plateau.hasWon(max)) {
+			eval_max = 100000;
+		} else {
+			for (Pion p : plateau.getPions(max)) {
+				int evalPion = plateau.evalPion(p);
+				eval_max -= evalPion * evalPion;
+			}
 		}
 		
-		return - eval_max;
+		return eval_max;
 	}
 	
 }

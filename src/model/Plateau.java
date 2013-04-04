@@ -504,16 +504,6 @@ public class Plateau extends MinimaxNode {
 
 	@Override
 	protected double getEval() {
-		if(hasWon(joueurs[0])) {
-			return Partie.MAX_SCORE;
-		}
-		
-		if(joueurs.length > 1) {
-			if(hasWon(joueurs[1])) {
-				return Partie.MIN_SCORE;
-			}
-		}
-		
 		return joueurs.length == 1 ?
 				Strategies.backFirstStrategie(this, joueurs[0]) :
 				Strategies.backFirstStrategie(this, joueurs[0], joueurs[1]);

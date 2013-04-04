@@ -7,12 +7,6 @@ import exceptions.IllegalMoveNiaksException;
 
 public class Partie {
 	
-	
-	public static final double
-		MAX_SCORE =  10000000,
-		MIN_SCORE = -10000000;
-	
-	
 	private Niaks niaks;
 
 	private Plateau plateau;
@@ -40,7 +34,7 @@ public class Partie {
 			
 			@Override
 			public boolean horizon(MinimaxNode node, int depth) {
-				return (depth <= 1);
+				return (depth <= 2);
 			}
 			
 			@Override
@@ -59,7 +53,6 @@ public class Partie {
 	public Plateau autoPlay() {
 		plateau.reinitMinimaxNode();
 		Plateau next = (Plateau) minimax.getNext(plateau, minimax.getDefaultElagator());
-		System.out.println("next eval = "+next.eval());
 		return next;
 	}
 	
@@ -144,7 +137,7 @@ public class Partie {
 		if(!isFinished) {
 			if(plateau.isFinished()) {
 				isFinished = true;
-				niaks.notifyGameFinished();
+				niaks.gameFinished();
 			}
 		}
 		
