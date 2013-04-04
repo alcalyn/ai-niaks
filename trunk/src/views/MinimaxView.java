@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -62,9 +63,8 @@ public class MinimaxView extends JFrame implements MinimaxObserver {
 
 	@Override
 	public void updateProcessed(MinimaxNode current, MinimaxNode [] childs, MinimaxNode best_selected) {
-		breadcrumb.updateBread(new MinimaxNodeView[] {
-				new MinimaxNodeView(this, (Plateau) current)
-		});
+		
+		breadcrumb.updateBread(getBreadcrumb(current));
 		
 		
 		if(center != null) remove(center);
@@ -83,6 +83,24 @@ public class MinimaxView extends JFrame implements MinimaxObserver {
 		}
 		
 		validate();
+	}
+	
+	
+	private MinimaxNodeView [] getBreadcrumb(MinimaxNode from) {
+		ArrayList<MinimaxNodeView> ret = new ArrayList<MinimaxNodeView>();
+		
+		MinimaxNode node = from;
+		
+		ret.add(new MinimaxNodeView(this, (Plateau) node));
+		
+		while(node.parent() != null) {
+			node = node.parent();
+			ret.add(0, new MinimaxNodeView(this, (Plateau) node));
+		}
+		
+		MinimaxNodeView [] array = new MinimaxNodeView[ret.size()];
+		ret.toArray(array);
+		return array;
 	}
 
 }
