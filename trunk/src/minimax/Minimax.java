@@ -9,7 +9,7 @@ public class Minimax {
 	
 	public static final boolean MAX = true, MIN = false;
 	
-	public static boolean stats = true;
+	public static boolean stats = false;
 	
 	
 	private MinimaxElagator defaultElagator = null;
@@ -23,9 +23,13 @@ public class Minimax {
 		current.minimax(0, elagator);
 		if(Minimax.stats) MinimaxStats.trace();
 		
+		MinimaxNode[] childs = current.childs();
+		
 		ArrayList<MinimaxNode> coups = getBestChilds(current);
 		
 		MinimaxNode best = getBestEval(current, coups);
+		
+		notifyProcessed(current, childs, best);
 		
 		return best;
 	}
@@ -36,10 +40,7 @@ public class Minimax {
 	public ArrayList<MinimaxNode> getBestChilds(MinimaxNode current) {
 		ArrayList<MinimaxNode> coups = new ArrayList<MinimaxNode>();
 		
-		System.out.println("     best childs for "+current.player()+" (current minimax = "+current.lastMinimax()+")");
-		
 		for (MinimaxNode child : current.childs()) {
-			System.out.println("         "+((Plateau) child).getLastCoup()+"	; minimax = "+child.lastMinimax()+"	; eval = "+child.eval());
 			if(child.lastMinimax() == current.lastMinimax()) {
 				coups.add(child);
 			}
@@ -93,9 +94,9 @@ public class Minimax {
 		observers.remove(o);
 	}
 	
-	public void notifyProcessed(ArrayList<MinimaxNode> childs, MinimaxNode best_selected) {
+	public void notifyProcessed(MinimaxNode current, MinimaxNode [] childs, MinimaxNode best_selected) {
 		for (MinimaxObserver observer : observers) {
-			observer.updateProcessed(childs, best_selected);
+			observer.updateProcessed(current, childs, best_selected);
 		}
 	}
 	
