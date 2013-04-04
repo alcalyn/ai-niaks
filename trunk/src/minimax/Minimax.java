@@ -7,7 +7,10 @@ import model.Plateau;
 
 public class Minimax {
 	
-	public static final boolean MAX = true, MIN = false;
+	public static final boolean
+		MAX = true,
+		MIN = false;
+	
 	
 	public static boolean stats = false;
 	
@@ -24,6 +27,10 @@ public class Minimax {
 		if(Minimax.stats) MinimaxStats.trace();
 		
 		MinimaxNode[] childs = current.childs();
+		
+		if(childs.length == 0) {
+			return null;
+		}
 		
 		ArrayList<MinimaxNode> coups = getBestChilds(current);
 		
