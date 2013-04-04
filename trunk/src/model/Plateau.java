@@ -16,6 +16,8 @@ public class Plateau extends MinimaxNode {
 	private Pion[] cases;
 	private Coup last_coup = null;
 	private Integer min_eval = null;
+
+	private boolean isFinished = false;
 	
 	
 	public Plateau(int taille, Joueur[] joueurs) {
@@ -473,20 +475,25 @@ public class Plateau extends MinimaxNode {
 		ArrayList<MinimaxNode> childs = new ArrayList<MinimaxNode>();
 		Joueur joueur = getJoueur();
 		
-		for(int i=-taille*2;i<=taille*2;i++) for(int j=-taille*2;j<=taille*2;j++) {
-			Coords c = new Coords(i, j);
-			
-			if(isset(c) && isEmpty(c) && joueurPeutAller(joueur, getZone(c))) {
-				Pion [] pions = getPions(joueur);
-				for(int k=0;k<pions.length;k++) {
-					Pion p = pions[k];
-					Coup coup = new Coup(p, c);
-					
-					if(isCoupValide(coup)) {
-						Plateau next = new Plateau(this);
-						next.movePion(next.getPion(joueur, k), c);
-						next.nextJoueur();
-						childs.add(next);
+		if(!isFinished()) {
+			for(int i=-taille*2;i<=taille*2;i++) for(int j=-taille*2;j<=taille*2;j++) {
+				Coords c = new Coords(i, j);
+				
+				if(isset(c) && isEmpty(c) && joueurPeutAller(joueur, getZone(c))) {
+					Pion [] pions = getPions(joueur);
+					for(int k=0;k<pions.length;k++) {
+						Pion p = pions[k];
+						Coup coup = new Coup(p, c);
+						
+						if(isCoupValide(coup)) {
+							Plateau next = new Plateau(this);
+							next.movePion(next.getPion(joueur, k), c);
+							next.nextJoueur();
+							if(hasWon(next.getJoueur())) {
+								next.nextJoueur();
+							}
+							childs.add(next);
+						}
 					}
 				}
 			}
@@ -497,6 +504,16 @@ public class Plateau extends MinimaxNode {
 
 	@Override
 	protected double getEval() {
+		if(hasWon(joueurs[0])) {
+			return Partie.MAX_SCORE;
+		}
+		
+		if(joueurs.length > 1) {
+			if(hasWon(joueurs[1])) {
+				return Partie.MIN_SCORE;
+			}
+		}
+		
 		return joueurs.length == 1 ?
 				Strategies.backFirstStrategie(this, joueurs[0]) :
 				Strategies.backFirstStrategie(this, joueurs[0], joueurs[1]);
@@ -553,6 +570,33 @@ public class Plateau extends MinimaxNode {
 		}
 		
 		return min_eval.intValue();
+	}
+	
+	public boolean hasWon(Joueur joueur) {
+		Pion [] pions = getPions(joueur);
+
+		for (Pion pion : pions) {
+			if(getZone(pion.getCoords()) != joueur.getEndZone()) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+	
+	public void checkGameFinished() {
+		for (Joueur joueur : joueurs) {
+			if(!joueur.hasWon()) {
+				return;
+			}
+		}
+
+		isFinished = true;
+	}
+	
+	public boolean isFinished() {
+		checkGameFinished();
+		return isFinished;
 	}
 	
 	public String toString() {
