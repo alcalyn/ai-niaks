@@ -6,7 +6,13 @@ import minimax.MinimaxNode;
 import exceptions.IllegalMoveNiaksException;
 
 public class Partie {
-
+	
+	
+	public static final double
+		MAX_SCORE =  10000000,
+		MIN_SCORE = -10000000;
+	
+	
 	private Niaks niaks;
 
 	private Plateau plateau;
@@ -15,7 +21,6 @@ public class Partie {
 	private boolean coup_longs = false;
 	private boolean multiple_coup_longs = false;
 	private Minimax minimax;
-
 	private boolean isFinished = false;
 
 
@@ -34,7 +39,7 @@ public class Partie {
 			
 			@Override
 			public boolean horizon(MinimaxNode node, int depth) {
-				return depth <= 2;
+				return (depth <= 2);
 			}
 			
 			@Override
@@ -131,30 +136,17 @@ public class Partie {
 
 
 	public boolean hasWon(Joueur joueur) {
-		Pion [] pions = plateau.getPions(joueur);
-
-		for (Pion pion : pions) {
-			if(plateau.getZone(pion.getCoords()) != joueur.getEndZone()) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	private void checkGameFinished() {
-		for (Joueur joueur : joueurs) {
-			if(!joueur.hasWon()) {
-				return;
-			}
-		}
-
-		isFinished = true;
-		niaks.gameFinished();
+		return plateau.hasWon(joueur);
 	}
 	
 	public boolean isFinished() {
-		checkGameFinished();
+		if(!isFinished) {
+			if(plateau.isFinished()) {
+				isFinished = true;
+				niaks.notifyGameFinished();
+			}
+		}
+		
 		return isFinished;
 	}
 
@@ -187,13 +179,13 @@ public class Partie {
 			if(hasWon(getJoueur())) {
 				getJoueur().setWon(true);
 				niaks.notifyJoueurWon(getJoueur());
-				checkGameFinished();
+				isFinished();
 			}
 		}
 
 		do {
 			plateau.nextJoueur();
-		} while(getJoueur().hasWon() && !isFinished);
+		} while(getJoueur().hasWon() && !plateau.isFinished());
 
 		niaks.notifyCurrentPlayer(plateau.getJoueur());
 		return plateau.getJoueurIndex();
@@ -204,7 +196,7 @@ public class Partie {
 			if(hasWon(getJoueur())) {
 				getJoueur().setWon(true);
 				niaks.notifyJoueurWon(getJoueur());
-				checkGameFinished();
+				isFinished();
 			}
 		}
 
