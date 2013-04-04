@@ -14,6 +14,18 @@ public class Coup {
 		this.case_arrivee = destination;
 	}
 	
+	public Coup(Coup copy) {
+		this.pion = copy.pion;
+		this.case_depart = copy.case_depart;
+		this.case_arrivee = copy.case_arrivee;
+		if(copy.chemin != null) {
+			this.chemin = new Coords[copy.chemin.length];
+			for(int i=0;i<copy.chemin.length;i++) {
+				this.chemin[i] = new Coords(copy.chemin[i]);
+			}
+		}
+	}
+	
 	
 	
 	
