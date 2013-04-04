@@ -31,12 +31,13 @@ import model.CoupListener;
 import model.Humain;
 import model.Joueur;
 import model.Observer;
+import model.OriginRotation;
 import model.Partie;
 import model.Pion;
 
 
 
-public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
+public class PlateauPanel extends JPanel implements OriginRotation, Observer, CoupEmitter {
 	
 	private static final long serialVersionUID = 1809255821090205779L;
 	
@@ -364,11 +365,12 @@ public class PlateauPanel extends JPanel implements Observer, CoupEmitter {
 		repaint();
 	}
 	
-	
+	@Override
 	public double getRotation() {
 		return rotation;
 	}
 	
+	@Override
 	public Point getOrigin() {
 		return origin;
 	}

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import model.Coords;
+import model.OriginRotation;
 
 public class Chemin {
 	
@@ -13,12 +14,12 @@ public class Chemin {
 	
 	
 	
-	private PlateauPanel plateau_panel;
+	private OriginRotation plateau_panel;
 	private Coords [] chemin;
 	private int taille;
 	
 	
-	public Chemin(PlateauPanel plateau_panel, Coords[] chemin) {
+	public Chemin(OriginRotation plateau_panel, Coords[] chemin) {
 		this.plateau_panel = plateau_panel;
 		this.chemin = chemin;
 		this.taille = chemin.length;
