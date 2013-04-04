@@ -102,7 +102,11 @@ public abstract class MinimaxNode implements Comparable<MinimaxNode> {
 	}
 	
 	public final double lastMinimax() {
-		return minimax;
+		return minimax.doubleValue();
+	}
+	
+	public final boolean isLastMinimaxSet() {
+		return minimax != null;
 	}
 	
 	
