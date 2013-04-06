@@ -35,7 +35,7 @@ public class Partie {
 			
 			@Override
 			public boolean horizon(MinimaxNode node, int depth) {
-				boolean in_depth_range = depth <= new int[]{6, 2, 1, 0, 0, 0}[taille_plateau - 1];
+				boolean in_depth_range = depth <= new int[]{6, 2, 2, 2, 0, 0}[taille_plateau - 1];
 				boolean come_back = false;
 				
 				/*
@@ -47,6 +47,7 @@ public class Partie {
 					}
 				}
 				*/
+				//if(come_back) System.out.println("come back lv "+depth);
 				
 				return in_depth_range && !come_back;
 			}

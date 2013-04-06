@@ -51,8 +51,10 @@ public class PlateauMiniature extends JPanel implements OriginRotation {
 		dimension = new Dimension(diametre, diametre);
 		origin = new Point(diametre/2, diametre/2);
 		
-		if(plateau.getLastCoup() != null && plateau.getLastCoup().getChemin() != null) {
+		if(plateau.getLastCoup() != null) {
+			plateau.getLastCoup().setSimpleChemin();
 			chemin = new Chemin(this, plateau.getLastCoup().getChemin());
+			chemin.setGraphicsDimension(cell_size - 1, cell_spacing);
 		}
 	}
 	
