@@ -26,14 +26,14 @@ public class Strategies {
 		int eval_min = 0;
 		
 		if(plateau.hasWon(max)) {
-			eval_max = MAX_SCORE - 100 * plateau.getTour();
+			eval_max = MAX_SCORE;
 			return eval_max;
 		} else {
 			eval_max = - plateau.evalJoueur(max);
 		}
 		
 		if(plateau.hasWon(min)) {
-			eval_min = MAX_SCORE - 100 * plateau.getTour();
+			eval_min = MAX_SCORE;
 			return - eval_min;
 		} else {
 			eval_min = - plateau.evalJoueur(min);

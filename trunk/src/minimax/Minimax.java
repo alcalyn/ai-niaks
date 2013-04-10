@@ -1,8 +1,7 @@
 package minimax;
 
 import java.util.ArrayList;
-
-import model.Plateau;
+import java.util.Collections;
 
 
 public class Minimax {
@@ -53,6 +52,7 @@ public class Minimax {
 			}
 		}
 		
+		Collections.shuffle(coups);
 		return coups;
 	}
 	
