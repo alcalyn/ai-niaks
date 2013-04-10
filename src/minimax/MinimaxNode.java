@@ -81,11 +81,16 @@ public abstract class MinimaxNode implements Comparable<MinimaxNode> {
 					}
 				}
 				
-				
 				if(player()) {
-					if((parent() != null) && (parent().minimax != null) && (minimax > parent().minimax)) break;
+					if((parent() != null) && (parent().minimax != null) && (minimax > parent().minimax)) {
+						if(Minimax.stats) MinimaxStats.ab_elagage_count++;
+						break;
+					}
 				} else {
-					if((parent() != null) && (parent().minimax != null) && (minimax < parent().minimax)) break;
+					if((parent() != null) && (parent().minimax != null) && (minimax < parent().minimax)) {
+						if(Minimax.stats) MinimaxStats.ab_elagage_count++;
+						break;
+					}
 				}
 				
 				if(elagator.elage(this, depth)) {

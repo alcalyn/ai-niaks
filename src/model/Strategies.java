@@ -26,13 +26,15 @@ public class Strategies {
 		int eval_min = 0;
 		
 		if(plateau.hasWon(max)) {
-			eval_max = MAX_SCORE;
+			eval_max = MAX_SCORE - 100 * plateau.getTour();
+			return eval_max;
 		} else {
 			eval_max = - plateau.evalJoueur(max);
 		}
 		
 		if(plateau.hasWon(min)) {
-			eval_min = MAX_SCORE;
+			eval_min = MAX_SCORE - 100 * plateau.getTour();
+			return - eval_min;
 		} else {
 			eval_min = - plateau.evalJoueur(min);
 		}
@@ -74,6 +76,7 @@ public class Strategies {
 		
 		if(plateau.hasWon(max)) {
 			eval_max = MAX_SCORE;
+			return eval_max;
 		} else {
 			for (Pion p : plateau.getPions(max)) {
 				int evalPion = plateau.evalPion(p);
@@ -83,6 +86,7 @@ public class Strategies {
 		
 		if(plateau.hasWon(min)) {
 			eval_min = MAX_SCORE;
+			return - eval_min;
 		} else {
 			for (Pion p : plateau.getPions(min)) {
 				int evalPion = plateau.evalPion(p);

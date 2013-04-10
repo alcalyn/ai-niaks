@@ -41,6 +41,7 @@ public class Plateau extends MinimaxNode {
 		this.cases = new Pion[copy.cases.length];
 		this.last_coup = copy.last_coup == null ? null : new Coup(copy.last_coup) ;
 		this.isFinished = copy.isFinished;
+		this.tour = copy.tour;
 		
 		int nb_joueur = copy.getNbJoueur();
 		int nb_pion = (copy.taille * (copy.taille + 1)) / 2;
@@ -353,12 +354,12 @@ public class Plateau extends MinimaxNode {
 			
 			if(pion.getCoords() != null) {
 				cases[indexOf(pion.getCoords())] = null;
-				tour++;
 				last_coup = new Coup(pion, destination);
 			}
 			
 			pion.setCoords(destination);
 			cases[indexOf(destination)] = pion;
+			tour++;
 		}
 	}
 	
@@ -511,7 +512,8 @@ public class Plateau extends MinimaxNode {
 
 	@Override
 	protected double getEval() {
-		if(true) {
+		boolean simple = false;
+		if(simple) {
 			return joueurs.length == 1 ?
 					Strategies.simpleStrategie(this, joueurs[0]) :
 					Strategies.simpleStrategie(this, joueurs[0], joueurs[1]);
