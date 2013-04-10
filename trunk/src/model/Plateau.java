@@ -579,8 +579,10 @@ public class Plateau extends MinimaxNode {
 	
 	public void checkGameFinished() {
 		for (Joueur joueur : joueurs) {
-			if(!joueur.hasWon()) {
-				return;
+			for (Pion p : getPions(joueur)) {
+				if(getZone(p.getCoords()) != joueur.getEndZone()) {
+					return;
+				}
 			}
 		}
 
