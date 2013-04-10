@@ -29,7 +29,7 @@ public class MinimaxNodeView extends JPanel {
 		miniature = new PlateauMiniature(plateau);
 		
 		label_south = new JLabel();
-		write("Mmax = "+(plateau.isLastMinimaxSet() ? plateau.lastMinimax() : "> DEPTH LIMIT")+" | h = "+plateau.eval()+" | "+plateau.childs().length+" fils");
+		write("Mmax = "+(plateau.isLastMinimaxSet() ? plateau.lastMinimax() : "NO")+" | h = "+plateau.eval()+" | "+plateau.childs().length+" fils");
 		
 		add(miniature, BorderLayout.CENTER);
 		add(label_south, BorderLayout.SOUTH);

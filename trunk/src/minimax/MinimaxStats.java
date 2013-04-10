@@ -8,6 +8,7 @@ public class MinimaxStats {
 	public static int node_count;
 	public static int start_depth;
 	public static int max_depth;
+	public static int ab_elagage_count;
 	public static int elagage_count;
 	public static int horizon_size;
 	
@@ -15,6 +16,7 @@ public class MinimaxStats {
 	public static void init() {
 		node_count = 0;
 		start_depth = 0;
+		ab_elagage_count = 0;
 		elagage_count = 0;
 		horizon_size = 0;
 	}
@@ -23,7 +25,8 @@ public class MinimaxStats {
 		System.out.println("===== MinimaxStats =====");
 		System.out.println(node_count+" noeuds explorés.");
 		System.out.println("max depth = "+max_depth);
-		System.out.println("nb d'elagage = "+elagage_count);
+		System.out.println("nb d'elagage alphabeta = "+ab_elagage_count);
+		System.out.println("nb d'elagage utilisateur = "+elagage_count);
 		System.out.println("taille de l'horizon = "+horizon_size);
 	}
 	
