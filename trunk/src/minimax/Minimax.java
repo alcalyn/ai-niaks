@@ -11,7 +11,7 @@ public class Minimax {
 		MIN = false;
 	
 	
-	public static boolean stats = true;
+	public static boolean stats = false;
 	
 	
 	private MinimaxElagator defaultElagator = null;
