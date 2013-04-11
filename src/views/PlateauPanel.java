@@ -39,7 +39,7 @@ public class PlateauPanel extends JPanel implements OriginRotation, Observer, Co
 	private static final long serialVersionUID = 1809255821090205779L;
 	
 	
-	public static final Color bg_color = Color.WHITE;
+	public static final Color bg_color = new Color(0xFFFFFF);
 	public static final Color plateau_color = new Color(0xFFFFCC);
 	public static final Color cell_color = new Color(0x000000);
 	public static final int pion_size = 28;
@@ -287,6 +287,14 @@ public class PlateauPanel extends JPanel implements OriginRotation, Observer, Co
 			cell_size,
 			cell_size
 		);
+		
+		g.setColor(Color.DARK_GRAY);
+		g.fillOval(
+				c.x - cell_size / 2 + origin.x + 3,
+				c.y - cell_size / 2 + origin.y + 3,
+				cell_size - 4,
+				cell_size - 4
+			);
 		
 		/*
 		// tests

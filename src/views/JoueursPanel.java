@@ -47,7 +47,7 @@ public class JoueursPanel extends JPanel implements Observer {
 	
 	private void initPanel() {
 		setLayout(new GridBagLayout());
-		setBackground(new Color(0xF6F6F6));
+		setBackground(new Color(0x88F6F6F6, true));
 	}
 	
 	

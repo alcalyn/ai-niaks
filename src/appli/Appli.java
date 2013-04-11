@@ -2,6 +2,8 @@ package appli;
 
 import model.Niaks;
 import model.Ordinateur;
+import strategies.BackFirstStrategy;
+import views.ConsoleView;
 import views.NiaksFrame;
 import exceptions.PartieNotReadyToStartNiaksException;
 import exceptions.ProfilNotSetNiaksException;
@@ -15,7 +17,8 @@ public class Appli {
 		
 		Niaks niaks = new Niaks();
 		
-		NiaksFrame niaks_frame = new NiaksFrame(niaks);
+		new NiaksFrame(niaks);
+		new ConsoleView(niaks);
 		
 		
 		boolean lancer_direct = true;
@@ -24,9 +27,7 @@ public class Appli {
 			try {
 				niaks.setProfil("Ju");
 				niaks.startPreparation();
-				niaks.getPartiePreparator().removeAllJoueur();
-				niaks.getPartiePreparator().addJoueur(new Ordinateur(1.0));
-				niaks.getPartiePreparator().addJoueur(new Ordinateur(1.0));
+				niaks.getPartiePreparator().addJoueur(new Ordinateur(new BackFirstStrategy()));
 				niaks.getPartiePreparator().setPlateauSize(2);
 				
 				niaks.startPartie();
