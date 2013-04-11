@@ -2,11 +2,13 @@ package views;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.JPanel;
 
 import model.Coords;
 import model.Pion;
+import model.Res;
 
 public class PionPanel extends JPanel {
 	
@@ -14,6 +16,10 @@ public class PionPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 8890517428788892944L;
+	
+	
+	private static final int shadow_size = 2;
+	
 	private PlateauPanel plateau_panel;
 	private Pion pion;
 	private boolean isOver = false;
@@ -40,16 +46,19 @@ public class PionPanel extends JPanel {
 			setPosition(drag.x, drag.y);
 		}
 		
-		g.fillOval(0, 0, PlateauPanel.pion_size, PlateauPanel.pion_size);
+		g.fillOval(shadow_size, shadow_size, PlateauPanel.pion_size, PlateauPanel.pion_size);
+		
+		int scale = (int) (PlateauPanel.pion_size * 1.43);
+		g.drawImage(Res.getImage("pion-ombre.png").getScaledInstance(scale, scale, Image.SCALE_SMOOTH), -3, -5, null);
 	}
 	
 	
 	public void setPosition(int x, int y) {
 		setBounds(
-			x - PlateauPanel.pion_size / 2 + plateau_panel.getOrigin().x,
-			y - PlateauPanel.pion_size / 2 + plateau_panel.getOrigin().y,
-			PlateauPanel.pion_size,
-			PlateauPanel.pion_size
+			x - PlateauPanel.pion_size / 2 + plateau_panel.getOrigin().x - shadow_size,
+			y - PlateauPanel.pion_size / 2 + plateau_panel.getOrigin().y - shadow_size,
+			PlateauPanel.pion_size + shadow_size * 2,
+			PlateauPanel.pion_size + shadow_size * 2
 		);
 	}
 
