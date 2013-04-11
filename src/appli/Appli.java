@@ -3,7 +3,6 @@ package appli;
 import model.Niaks;
 import model.Ordinateur;
 import strategies.BackFirstStrategy;
-import views.ConsoleView;
 import views.NiaksFrame;
 import exceptions.PartieNotReadyToStartNiaksException;
 import exceptions.ProfilNotSetNiaksException;
@@ -18,10 +17,10 @@ public class Appli {
 		Niaks niaks = new Niaks();
 		
 		new NiaksFrame(niaks);
-		new ConsoleView(niaks);
+		//new ConsoleView(niaks);
 		
 		
-		boolean lancer_direct = true;
+		boolean lancer_direct = false;
 		
 		if(lancer_direct) {
 			try {

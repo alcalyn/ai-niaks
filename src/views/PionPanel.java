@@ -2,13 +2,11 @@ package views;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
 
 import javax.swing.JPanel;
 
 import model.Coords;
 import model.Pion;
-import model.Res;
 
 public class PionPanel extends JPanel {
 	
@@ -18,7 +16,6 @@ public class PionPanel extends JPanel {
 	private static final long serialVersionUID = 8890517428788892944L;
 	
 	
-	private static final int shadow_size = 2;
 	
 	private PlateauPanel plateau_panel;
 	private Pion pion;
@@ -33,12 +30,8 @@ public class PionPanel extends JPanel {
 	
 	public void paintComponent(Graphics g) {
 		Coords coords = pion.getCoords().mul(PlateauPanel.cell_spacing).toWindow(plateau_panel.getRotation());
-		
-		g.setColor(pion.getCouleur());
-		
-		if(isOver) {
-			g.setColor(new Color(g.getColor().getRGB() + 0xCC000000, true));
-		}
+		Color pColor = pion.getCouleur();
+		Color shadow = new Color(isOver ? 0x66000000 : 0x33000000, true);
 		
 		if(drag == null) {
 			setPosition(coords.x, coords.y);
@@ -46,19 +39,23 @@ public class PionPanel extends JPanel {
 			setPosition(drag.x, drag.y);
 		}
 		
-		g.fillOval(shadow_size, shadow_size, PlateauPanel.pion_size, PlateauPanel.pion_size);
+		g.setColor(pColor);
+		g.fillOval(0, 0, PlateauPanel.pion_size, PlateauPanel.pion_size);
 		
-		int scale = (int) (PlateauPanel.pion_size * 1.43);
-		g.drawImage(Res.getImage("pion-ombre.png").getScaledInstance(scale, scale, Image.SCALE_SMOOTH), -3, -5, null);
+		g.setColor(shadow);
+		g.fillOval(0, 0, PlateauPanel.pion_size, PlateauPanel.pion_size);
+		
+		g.setColor(pColor);
+		g.fillOval(1 + (isOver ? 1 : 0), 1 + (isOver ? 1 : 0), PlateauPanel.pion_size - 4, PlateauPanel.pion_size - 4);
 	}
 	
 	
 	public void setPosition(int x, int y) {
 		setBounds(
-			x - PlateauPanel.pion_size / 2 + plateau_panel.getOrigin().x - shadow_size,
-			y - PlateauPanel.pion_size / 2 + plateau_panel.getOrigin().y - shadow_size,
-			PlateauPanel.pion_size + shadow_size * 2,
-			PlateauPanel.pion_size + shadow_size * 2
+			x - PlateauPanel.pion_size / 2 + plateau_panel.getOrigin().x,
+			y - PlateauPanel.pion_size / 2 + plateau_panel.getOrigin().y,
+			PlateauPanel.pion_size,
+			PlateauPanel.pion_size
 		);
 	}
 
