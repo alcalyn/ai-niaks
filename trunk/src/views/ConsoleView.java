@@ -2,15 +2,14 @@ package views;
 
 import java.io.PrintStream;
 
-import niakwork.NiakworkHostSocket;
-import niakwork.NiakworkPlayerSocket;
 import model.Coup;
 import model.Joueur;
 import model.Model;
 import model.Niaks;
 import model.Observer;
-import model.Partie;
 import model.Pion;
+import niakwork.NiakworkHostSocket;
+import niakwork.NiakworkPlayerSocket;
 
 public class ConsoleView implements Observer {
 	

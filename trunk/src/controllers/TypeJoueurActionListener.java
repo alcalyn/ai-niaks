@@ -9,6 +9,7 @@ import model.Humain;
 import model.Ordinateur;
 import model.PartiePreparator;
 import model.Strategies;
+import model.Strategy;
 
 public class TypeJoueurActionListener implements ActionListener {
 	
@@ -32,11 +33,12 @@ public class TypeJoueurActionListener implements ActionListener {
 		if(index == partie_preparator.getNbJoueur()) {
 			switch(select) {
 				case 1:
-					partie_preparator.addJoueur(new Humain(""));
+					partie_preparator.addJoueur(new Humain(Humain.getRandomPseudo()));
 					break;
 					
 				case 2:
-					partie_preparator.addJoueur(new Ordinateur(0, Strategies.getDefaultStrategy()));
+					Strategy strat = Strategies.getStrategyByDifficult("Moyen");
+					partie_preparator.addJoueur(new Ordinateur(strat));
 					break;
 			}
 		} else {
@@ -47,12 +49,13 @@ public class TypeJoueurActionListener implements ActionListener {
 					
 				case 1:
 					partie_preparator.removeJoueur(index);
-					partie_preparator.addJoueur(new Humain(""), index);
+					partie_preparator.addJoueur(new Humain(Humain.getRandomPseudo()), index);
 					break;
 					
 				case 2:
 					partie_preparator.removeJoueur(index);
-					partie_preparator.addJoueur(new Ordinateur(0, Strategies.getDefaultStrategy()), index);
+					Strategy strat = Strategies.getStrategyByDifficult("Moyen");
+					partie_preparator.addJoueur(new Ordinateur(strat), index);
 					break;
 		}
 		}

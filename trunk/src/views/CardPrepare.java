@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
@@ -20,9 +22,12 @@ import model.Observer;
 import model.Ordinateur;
 import model.PartiePreparator;
 import model.Pion;
+import model.Strategies;
+import model.Strategy;
 import niakwork.NiakworkHostSocket;
 import niakwork.NiakworkPlayer;
 import niakwork.NiakworkPlayerSocket;
+import controllers.DifficultListener;
 import controllers.TFPseudoListener;
 import controllers.TypeJoueurActionListener;
 
@@ -111,7 +116,7 @@ public class CardPrepare extends JPanel implements Observer {
 		p.add(createColorComponent(j.getCouleur()), lc(line, c++));
 		p.add(createComboBox(j, line), lc(line, c++));
 		p.add(createTF(j), lc(line, c++));
-		p.add((j instanceof Ordinateur) ? createCPULevel() : new JLabel(), lc(line, c++));
+		p.add((j instanceof Ordinateur) ? createCPULevel(partie_preparator, (Ordinateur) j) : new JLabel(), lc(line, c++));
 	}
 
 	
@@ -137,22 +142,21 @@ public class CardPrepare extends JPanel implements Observer {
 			combo.setSelectedIndex(3);
 		}
 		
-		if(c == partie_preparator.getHost()) {
-			combo.setEditable(false);
-			combo.setEnabled(false);
-		} else {
-			combo.addActionListener(new TypeJoueurActionListener(partie_preparator, index));
-		}
+		combo.addActionListener(new TypeJoueurActionListener(partie_preparator, index));
 		
 		return combo;
 	}
 	
-	private JComboBox createCPULevel() {
+	private JComboBox createCPULevel(PartiePreparator partie_preparator, Ordinateur ordinateur) {
 		JComboBox combo = new JComboBox();
 		
-		combo.addItem("Facile");
-		combo.addItem("Moyen");
-		combo.addItem("Difficile");
+		Set<Entry<String, Strategy>> a = Strategies.getStrategiesAndDifficult().entrySet();
+		for (Entry<String, Strategy> entry : a) {
+			combo.addItem(entry.getKey());
+		}
+		
+		combo.setSelectedItem(Strategies.getDifficultByStrategy(ordinateur.getStrategy()));
+		combo.addActionListener(new DifficultListener(partie_preparator, ordinateur));
 		
 		return combo;
 	}

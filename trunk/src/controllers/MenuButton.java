@@ -103,7 +103,7 @@ public class MenuButton extends ModelActionner {
 				break;
 			
 			case SHOW_MINIMAX_VIEW:
-				if(niaks.getEtat() == niaks.PARTIE) {
+				if(niaks.getEtat() == Niaks.PARTIE) {
 					new MinimaxView(niaks.getPartie().getMinimax());
 				}
 				break;

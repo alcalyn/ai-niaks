@@ -6,6 +6,9 @@ import exceptions.IllegalMoveNiaksException;
 
 public class Humain extends Joueur implements CoupListener {
 	
+	private static final long serialVersionUID = -2107712846619458144L;
+	
+	
 	
 	private Coup coup_recu = null;
 	
@@ -38,6 +41,27 @@ public class Humain extends Joueur implements CoupListener {
 
 	public void purge() {
 		coup_recu = null;
+	}
+
+
+	public static String getRandomPseudo() {
+		String [] pseudos = new String [] {
+				"Alfred",
+				"Georges",
+				"Palmito",
+				"Robert",
+				"Gertrude",
+				"Gontrand",
+				"Albert",
+				"Alberto",
+				"Parfait",
+				"Gillette",
+				"Ginette",
+				"Jean-Jacques",
+				"Michel"
+		};
+		
+		return pseudos[(int) (pseudos.length * Math.random())];
 	}
 	
 
