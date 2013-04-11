@@ -512,15 +512,18 @@ public class Plateau extends MinimaxNode {
 
 	@Override
 	protected double getEval() {
-		boolean simple = false;
-		if(simple) {
+		Joueur current = getPartie().getJoueur();
+		
+		if(current instanceof Ordinateur) {
+			Ordinateur ordi = (Ordinateur) current;
+			
 			return joueurs.length == 1 ?
-					Strategies.simpleStrategie(this, joueurs[0]) :
-					Strategies.simpleStrategie(this, joueurs[0], joueurs[1]);
+					ordi.getStrategy().calc(this, joueurs[0]) :
+					ordi.getStrategy().calc(this, joueurs[0], joueurs[1]);
 		} else {
 			return joueurs.length == 1 ?
-					Strategies.backFirstStrategie(this, joueurs[0]) :
-					Strategies.backFirstStrategie(this, joueurs[0], joueurs[1]);
+					Strategies.getDefaultStrategy().calc(this, joueurs[0]) :
+					Strategies.getDefaultStrategy().calc(this, joueurs[0], joueurs[1]);
 		}
 	}
 

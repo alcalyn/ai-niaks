@@ -9,11 +9,13 @@ public class Ordinateur extends Joueur {
 	private Coup coup_calcule = null;
 	
 	private double difficulte;
+	private Strategy strategy;
 	
 	
-	public Ordinateur(double difficulte) {
+	public Ordinateur(double difficulte, Strategy strategy) {
 		super(getOrdiPseudo());
 		this.difficulte = difficulte;
+		this.strategy = strategy;
 	}
 	
 	
@@ -53,6 +55,11 @@ public class Ordinateur extends Joueur {
 		t.start();
 		
 		return false;
+	}
+	
+	
+	public Strategy getStrategy() {
+		return strategy;
 	}
 
 
