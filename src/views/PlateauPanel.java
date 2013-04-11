@@ -3,7 +3,6 @@ package views;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -18,11 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.EventListenerList;
 
-import niakwork.NiakworkHostSocket;
-import niakwork.NiakworkPlayerSocket;
-
-import exceptions.IllegalMoveNiaksException;
-
 import model.Coords;
 import model.Coords3;
 import model.Coup;
@@ -34,6 +28,9 @@ import model.Observer;
 import model.OriginRotation;
 import model.Partie;
 import model.Pion;
+import niakwork.NiakworkHostSocket;
+import niakwork.NiakworkPlayerSocket;
+import exceptions.IllegalMoveNiaksException;
 
 
 

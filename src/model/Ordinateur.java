@@ -4,17 +4,19 @@ import exceptions.IllegalMoveNiaksException;
 
 public class Ordinateur extends Joueur {
 	
+	private static final long serialVersionUID = -1624054167594296013L;
+	
+	
+
 	private static int cpu_count = 0;
 	
 	private Coup coup_calcule = null;
 	
-	private double difficulte;
 	private Strategy strategy;
 	
 	
-	public Ordinateur(double difficulte, Strategy strategy) {
+	public Ordinateur(Strategy strategy) {
 		super(getOrdiPseudo());
-		this.difficulte = difficulte;
 		this.strategy = strategy;
 	}
 	
@@ -60,6 +62,14 @@ public class Ordinateur extends Joueur {
 	
 	public Strategy getStrategy() {
 		return strategy;
+	}
+	
+	public void setStrategy(Strategy strategy) {
+		this.strategy = strategy;
+	}
+	
+	public void setStrategy(String strategy) {
+		this.strategy = Strategies.getStrategyByDifficult(strategy);
 	}
 
 
