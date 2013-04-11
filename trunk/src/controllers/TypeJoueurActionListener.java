@@ -8,6 +8,7 @@ import javax.swing.JComboBox;
 import model.Humain;
 import model.Ordinateur;
 import model.PartiePreparator;
+import model.Strategies;
 
 public class TypeJoueurActionListener implements ActionListener {
 	
@@ -35,7 +36,7 @@ public class TypeJoueurActionListener implements ActionListener {
 					break;
 					
 				case 2:
-					partie_preparator.addJoueur(new Ordinateur(0));
+					partie_preparator.addJoueur(new Ordinateur(0, Strategies.getDefaultStrategy()));
 					break;
 			}
 		} else {
@@ -51,7 +52,7 @@ public class TypeJoueurActionListener implements ActionListener {
 					
 				case 2:
 					partie_preparator.removeJoueur(index);
-					partie_preparator.addJoueur(new Ordinateur(0), index);
+					partie_preparator.addJoueur(new Ordinateur(0, Strategies.getDefaultStrategy()), index);
 					break;
 		}
 		}
