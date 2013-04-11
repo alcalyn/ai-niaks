@@ -52,6 +52,14 @@ public class Chemin {
 				passage_size,
 				passage_size
 		);
+		
+		g.setColor(new Color(0x22000000, true));
+		g.fillOval(
+				pw.x - passage_size / 2 + abstractPlateau.getOrigin().x + 2,
+				pw.y - passage_size / 2 + abstractPlateau.getOrigin().y + 2,
+				passage_size - 4,
+				passage_size - 4
+		);
 	}
 	
 	private void drawLine(Graphics g, Coords p0, Coords p1) {
