@@ -71,6 +71,7 @@ public class Niaks extends Model {
 		etat = PARTIE;
 		
 		notifyEtat(PARTIE);
+		notifyCurrentPlayer(partie.getJoueur());
 	}
 	
 	
