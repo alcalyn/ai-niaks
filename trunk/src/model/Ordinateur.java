@@ -40,7 +40,14 @@ public class Ordinateur extends Joueur {
 			
 			@Override
 			public void run() {
-				Coup coup = getPartie().autoPlay().getLastCoup();
+				Plateau plateau = null;
+				if(getPartie() == null || (plateau = getPartie().autoPlay()) == null) {
+					return;
+				}
+				
+				Coup coup = plateau.getLastCoup();
+				
+				if(coup == null) return;
 				
 				Pion p = getPartie().getPlateau().getCase(coup.getCaseDepart());
 				coup_calcule = new Coup(p, coup.getCaseArrivee());

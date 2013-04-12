@@ -26,12 +26,24 @@ public class PartiePreparator implements Serializable {
 	}
 	
 	public Partie createPartie() throws PartieNotReadyToStartNiaksException {
+		if(joueurs.size() == 0) {
+			throw new PartieNotReadyToStartNiaksException("Il n'y a aucun joueur");
+		}
+		
 		if(joueurs.size() > 6) {
 			throw new PartieNotReadyToStartNiaksException("Il y a trop de joueurs");
 		}
 		
 		if(joueurs.size() == 5) {
 			throw new PartieNotReadyToStartNiaksException("Il ne peut pas y avoir 5 joueurs");
+		}
+		
+		if(joueurs.size() > 2) {
+			for (Joueur j : joueurs) {
+				if(j instanceof Ordinateur) {
+					throw new PartieNotReadyToStartNiaksException("Les ordinateurs ne peuvent jouer qu'en duel");
+				}
+			}
 		}
 		
 		Joueur js [] = new Joueur[getNbJoueur()];

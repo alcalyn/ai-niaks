@@ -210,7 +210,6 @@ public class NiakMenu extends JMenuBar implements Observer {
 
 	@Override
 	public void updateTaillePlateau(int taille) {
-		System.out.println("up taille : "+taille);
 		refreshTaillePlateau();
 	}
 
