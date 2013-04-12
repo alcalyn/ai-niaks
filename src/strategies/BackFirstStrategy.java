@@ -47,7 +47,7 @@ public class BackFirstStrategy implements Strategy {
 		int eval_max = 0;
 		int eval_min = 0;
 		
-		if(plateau.hasWon(max)) {
+		if(plateau.hasWon(max) && !plateau.hasWon(min)) {
 			eval_max = Strategies.MAX_SCORE;
 			return eval_max;
 		} else {
@@ -57,7 +57,7 @@ public class BackFirstStrategy implements Strategy {
 			}
 		}
 		
-		if(plateau.hasWon(min)) {
+		if(plateau.hasWon(min) && !plateau.hasWon(max)) {
 			eval_min = Strategies.MAX_SCORE;
 			return - eval_min;
 		} else {
