@@ -32,6 +32,7 @@ public class PionPanel extends JPanel {
 		Coords coords = pion.getCoords().mul(PlateauPanel.cell_spacing).toWindow(plateau_panel.getRotation());
 		Color pColor = pion.getCouleur();
 		Color shadow = new Color(isOver ? 0x66000000 : 0x44000000, true);
+		Color light  = new Color(isOver ? 0x44ffffff : 0x33ffffff, true);
 		
 		if(drag == null) {
 			setPosition(coords.x, coords.y);
@@ -46,6 +47,9 @@ public class PionPanel extends JPanel {
 		g.fillOval(0, 0, PlateauPanel.pion_size, PlateauPanel.pion_size);
 		
 		g.setColor(pColor);
+		g.fillOval(1 + (isOver ? 1 : 0), 1 + (isOver ? 1 : 0), PlateauPanel.pion_size - 4, PlateauPanel.pion_size - 4);
+		
+		g.setColor(light);
 		g.fillOval(1 + (isOver ? 1 : 0), 1 + (isOver ? 1 : 0), PlateauPanel.pion_size - 4, PlateauPanel.pion_size - 4);
 	}
 	
