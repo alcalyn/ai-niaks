@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import strategies.BackFirstPionIsoleStrategy;
 import strategies.BackFirstStrategy;
+import strategies.PionIsoleStrategy;
 import strategies.SimpleStrategy;
 
 public class Strategies {
@@ -33,6 +35,7 @@ public class Strategies {
 			
 			strategies.put("Facile", new SimpleStrategy());
 			strategies.put("Moyen", new BackFirstStrategy());
+			strategies.put("Difficile", new BackFirstPionIsoleStrategy());
 		}
 		
 		return strategies;

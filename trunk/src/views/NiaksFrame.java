@@ -125,6 +125,14 @@ public class NiaksFrame extends JFrame implements Observer, ExceptionCatcher {
 	
 	@Override
 	public void updatePions(Pion[][] pions, Coup coup) {
+		try {
+			String pseudo = niaks.getProfil();
+			String sTours = Integer.toString(niaks.getPartie().getPlateau().getTour());
+			setTitle(pseudo == null ? "Niaks" : "Niaks - "+pseudo+" (Tour "+sTours+")");
+		} catch(NullPointerException e) {
+			String pseudo = niaks.getProfil();
+			setTitle(pseudo == null ? "Niaks" : "Niaks - "+pseudo);
+		}
 	}
 
 	@Override
