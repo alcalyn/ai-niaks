@@ -35,19 +35,16 @@ public class Partie {
 			
 			@Override
 			public boolean horizon(MinimaxNode node, int depth) {
-				boolean in_depth_range = depth <= new int[]{6, 2, 1, 0, 0, 0}[taille_plateau - 1];
+				boolean in_depth_range = depth <= new int[]{6, 2, 2, 1, 0, 0}[taille_plateau - 1];
 				boolean come_back = false;
 				
-				/*
-				if((depth % 2) == 0) {
-					if(plateau.player()) {
-						if(node.eval() < plateau.eval()) come_back = true;
-					} else {
-						if(node.eval() > plateau.eval()) come_back = true;
-					}
+				// ne pas exploiter les noeuds ou
+				// le joueur se deplace en arriere
+				if(plateau.player()) {
+					if(node.eval() > plateau.eval()) come_back = true;
+				} else {
+					if(node.eval() < plateau.eval()) come_back = true;
 				}
-				*/
-				//if(come_back) System.out.println("come back lv "+depth);
 				
 				return in_depth_range && !come_back;
 			}

@@ -500,6 +500,7 @@ public class Plateau extends MinimaxNode {
 							if(hasWon(next.getJoueur())) {
 								next.nextJoueur();
 							}
+							
 							childs.add(next);
 						}
 					}
