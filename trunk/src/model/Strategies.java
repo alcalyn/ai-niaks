@@ -6,7 +6,6 @@ import java.util.Set;
 
 import strategies.BackFirstPionIsoleStrategy;
 import strategies.BackFirstStrategy;
-import strategies.PionIsoleStrategy;
 import strategies.SimpleStrategy;
 
 public class Strategies {
