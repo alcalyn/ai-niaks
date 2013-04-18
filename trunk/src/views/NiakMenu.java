@@ -29,6 +29,8 @@ public class NiakMenu extends JMenuBar implements Observer {
 	
 	private JMenu		partie;
 	private JMenuItem		lancer_partie;
+	private JMenuItem		nouvelle_partie;
+	private JMenuItem		recommencer;
 	private JMenu			taille_plateau;
 	private JCheckBoxMenuItem []	tailles = null;
 	
@@ -44,6 +46,7 @@ public class NiakMenu extends JMenuBar implements Observer {
 	private JMenuItem		show_minimax_view;
 	
 	private JMenu		about;
+	private JMenuItem		project;
 	
 	
 	
@@ -119,6 +122,11 @@ public class NiakMenu extends JMenuBar implements Observer {
 	
 	private JMenu menuAbout() {
 		about = new JMenu("?");
+		project = new JMenuItem("A propos du projet");
+		
+		project.addActionListener(new MenuButton(niaks, niaks_frame, MenuButton.SHOW_ABOUT_PROJECT));
+		
+		about.add(project);
 		
 		return about;
 	}
