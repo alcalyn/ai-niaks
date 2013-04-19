@@ -1,0 +1,10 @@
+
+
+tout doux liste :
+
+	-	Bug :
+			Ordi marche pas avec plusieurs joueurs... tampis
+			Ordi marche pas en ligne
+	
+	-	Ecran d'accueil...
+	
