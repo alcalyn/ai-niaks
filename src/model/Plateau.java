@@ -413,6 +413,10 @@ public class Plateau extends MinimaxNode {
 		return joueurs[joueur];
 	}
 	
+	public Joueur getJoueur(int i) {
+		return joueurs[i];
+	}
+	
 	public int getJoueurIndex() {
 		return joueur;
 	}
