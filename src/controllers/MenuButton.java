@@ -65,6 +65,14 @@ public class MenuButton extends ModelActionner {
 					catchException(e);
 				}
 				break;
+			
+			case NEW_GAME:
+				niaks.newGame();
+				break;
+			
+			case RESTART_GAME:
+				niaks.restartGame();
+				break;
 				
 			case CONNECT:
 				try {

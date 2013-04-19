@@ -74,6 +74,25 @@ public class Niaks extends Model {
 		notifyCurrentPlayer(partie.getJoueur());
 	}
 	
+	public void newGame() {
+		try {
+			startPreparation();
+		} catch (ProfilNotSetNiaksException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void restartGame() {
+		try {
+			startPreparation();
+			startPartie();
+		} catch (ProfilNotSetNiaksException e) {
+			e.printStackTrace();
+		} catch (PartieNotReadyToStartNiaksException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public void setProfil(String pseudo) {
 		this.pseudo = pseudo;
