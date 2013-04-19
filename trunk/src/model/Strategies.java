@@ -36,7 +36,7 @@ public class Strategies {
 			strategies.put("Facile", new SimpleStrategy());
 			strategies.put("Moyen", new BackFirstStrategy());
 			strategies.put("Difficile", new BackFirstPionIsoleStrategy());
-			strategies.put("Test", new PionIsoleStrategy());
+			//strategies.put("Test", new PionIsoleStrategy());
 		}
 		
 		return strategies;

@@ -5,23 +5,26 @@ import model.Plateau;
 import model.Strategies;
 import model.Strategy;
 
+/**
+ * 
+ * 		SimpleStrategy
+ * 
+ * 
+ * L'ordi joue le coup qui reduit le plus
+ * l'espace de chacun de ses pions à l'arrivee
+ * 
+ * Avantages :
+ * 		- simple à coder
+ * 		- L'ordi joue deja convenablement
+ * 
+ * Inconvenients :
+ * 		- Il risque de laisser des pions à l'arriere
+ * 			si il ne trouve pas d'occasion pour l'avancer.
+ *			Et si on connait sa stratégie, on fait en sorte
+ *			de ne pas aider ses pions arrière.
+ *
+ */
 public class SimpleStrategy implements Strategy {
-
-	
-	/*
-	 * L'ordi joue le coup qui reduit le plus
-	 * l'espace de chacun de ses pions à l'arrivee
-	 * 
-	 * Avantages :
-	 * 		- simple à coder
-	 * 		- L'ordi joue deja convenablement
-	 * 
-	 * Inconvenients :
-	 * 		- Il risque de laisser des pions à l'arriere
-	 * 			si il ne trouve pas d'occasion pour l'avancer.
-	 *			Et si on connait sa stratégie, on fait en sorte
-	 *			de ne pas aider ses pions arrière.
-	 */
 	
 	
 	@Override
