@@ -28,7 +28,7 @@ public class About extends JFrame {
 		pane.setEditable(false);
 		pane.setContentType("text/html");
 		try {
-			pane.setText(new Scanner(new File(about_file)).useDelimiter("\\A").next());
+			pane.setText(new Scanner(new File(getClass().getResource(about_file).getFile())).useDelimiter("\\A").next());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
