@@ -67,15 +67,20 @@ public class NiakMenu extends JMenuBar implements Observer {
 
 	private JMenu menuPartie() {
 		partie = new JMenu("Partie");
-		
 		lancer_partie = new JMenuItem("Lancer la partie");
-		lancer_partie.addActionListener(new MenuButton(niaks, niaks_frame, MenuButton.LANCER_PARTIE));
-		partie.add(lancer_partie);
-		
-		partie.addSeparator();
-		
 		taille_plateau = new JMenu("Taille du plateau");
+		nouvelle_partie = new JMenuItem("Nouvelle partie");
+		recommencer = new JMenuItem("Recommencer cette partie");
+		
+		lancer_partie.addActionListener(new MenuButton(niaks, niaks_frame, MenuButton.LANCER_PARTIE));
+		nouvelle_partie.addActionListener(new MenuButton(niaks, niaks_frame, MenuButton.NEW_GAME));
+		recommencer.addActionListener(new MenuButton(niaks, niaks_frame, MenuButton.RESTART_GAME));
+		
+		partie.add(lancer_partie);
 		partie.add(taille_plateau);
+		partie.addSeparator();
+		partie.add(nouvelle_partie);
+		partie.add(recommencer);
 		
 		return partie;
 	}
@@ -193,8 +198,11 @@ public class NiakMenu extends JMenuBar implements Observer {
 
 	@Override
 	public void updateEtat(int etat_partie) {
-		partie.setEnabled(etat_partie == Niaks.PREPARATION);
 		lancer_partie.setEnabled(etat_partie == Niaks.PREPARATION);
+		taille_plateau.setEnabled(etat_partie == Niaks.PREPARATION);
+		
+		nouvelle_partie.setEnabled(etat_partie == Niaks.PARTIE);
+		recommencer.setEnabled(etat_partie == Niaks.PARTIE);
 		refreshTaillePlateau();
 		
 		/*
