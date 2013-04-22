@@ -10,8 +10,9 @@ public abstract class MinimaxNode implements Comparable<MinimaxNode> {
 	private MinimaxNode parent = null;
 	private MinimaxNode[] childs = null;
 	private Double eval = null;
-	private Boolean player = null;
 	private Double minimax = null;
+	private int minimax_depth = -1;
+	private Boolean player = null;
 	
 	
 	/**
@@ -67,6 +68,10 @@ public abstract class MinimaxNode implements Comparable<MinimaxNode> {
 		if(Minimax.stats) MinimaxStats.node_count ++;
 		if(Minimax.stats) MinimaxStats.depth(depth);
 		
+		if(isLastMinimaxSetForDepth(depth)) {
+			return minimax.doubleValue();
+		}
+		
 		if((childs().length > 0) && elagator.horizon(this, depth)) {
 			for(int i = 0 ; i < childs().length ; i++) {
 				double child = childs()[i].minimax(depth + 1, elagator);
@@ -110,8 +115,20 @@ public abstract class MinimaxNode implements Comparable<MinimaxNode> {
 		return minimax.doubleValue();
 	}
 	
+	public final double lastMinimax(int depth) {
+		if(isLastMinimaxSetForDepth(depth)) {
+			return minimax.doubleValue();
+		} else {
+			return 0.0;
+		}
+	}
+	
 	public final boolean isLastMinimaxSet() {
 		return minimax != null;
+	}
+	
+	public final boolean isLastMinimaxSetForDepth(int depth) {
+		return minimax != null && depth == minimax_depth;
 	}
 	
 	

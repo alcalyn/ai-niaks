@@ -6,6 +6,9 @@ import java.util.Collections;
 
 public class Minimax {
 	
+	
+	public static boolean multi_thread = true;
+	
 	public static final boolean
 		MAX = true,
 		MIN = false;
@@ -22,7 +25,34 @@ public class Minimax {
 	
 	public final MinimaxNode getNext(MinimaxNode current, MinimaxElagator elagator) {
 		if(Minimax.stats) MinimaxStats.init();
+		
+		ArrayList<Thread> threads = new ArrayList<Thread>();
+		final MinimaxElagator final_elagator = elagator;
+		
+		for (final MinimaxNode childs : current.childs()) {
+			Thread fred = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					childs.minimax(1, final_elagator);
+				}
+			});
+			
+			threads.add(fred);
+			
+			if(multi_thread) fred.start();
+			else fred.run();
+		}
+		
+		if(multi_thread) for (Thread fred : threads) {
+			try {
+				fred.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		current.minimax(0, elagator);
+		
 		if(Minimax.stats) MinimaxStats.trace();
 		
 		MinimaxNode[] childs = current.childs();
