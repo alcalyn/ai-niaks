@@ -501,12 +501,23 @@ public class Plateau extends MinimaxNode {
 						if(isCoupValide(coup)) {
 							Plateau next = new Plateau(this);
 							next.movePion(next.getPion(joueur, k), c);
-							next.nextJoueur();
-							if(hasWon(next.getJoueur())) {
-								next.nextJoueur();
+							
+							// ne pas prendre en compte les coups ou ca recule
+							boolean come_back = false;
+							if(player()) {
+								if(next.eval() < this.eval()) come_back = true;
+							} else {
+								if(next.eval() > this.eval()) come_back = true;
 							}
 							
-							childs.add(next);
+							if(!come_back) {
+								next.nextJoueur();
+								if(hasWon(next.getJoueur())) {
+									next.nextJoueur();
+								}
+								
+								childs.add(next);
+							}
 						}
 					}
 				}
