@@ -7,6 +7,10 @@ import exceptions.IllegalMoveNiaksException;
 
 public class Partie {
 	
+	private static final int [] minimax_depth = new int []
+			{10, 3, 1, 0, 0, 0};
+	
+	
 	private Niaks niaks;
 
 	private Plateau plateau;
@@ -35,18 +39,10 @@ public class Partie {
 			
 			@Override
 			public boolean horizon(MinimaxNode node, int depth) {
-				boolean in_depth_range = depth <= new int[]{6, 2, 2, 1, 0, 0}[taille_plateau - 1];
-				boolean come_back = false;
+				boolean in_depth_range = depth <= minimax_depth[taille_plateau - 1];
+				boolean is_finished = Math.abs(node.eval()) == Strategies.MAX_SCORE;
 				
-				// ne pas exploiter les noeuds ou
-				// le joueur se deplace en arriere
-				if(plateau.player()) {
-					if(node.eval() > plateau.eval()) come_back = true;
-				} else {
-					if(node.eval() < plateau.eval()) come_back = true;
-				}
-				
-				return in_depth_range && !come_back;
+				return in_depth_range && !is_finished;
 			}
 			
 			@Override
