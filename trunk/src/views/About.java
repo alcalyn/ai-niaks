@@ -1,13 +1,12 @@
 package views;
 
 import java.awt.Color;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import model.Res;
 
 public class About extends JFrame {
 	
@@ -27,11 +26,7 @@ public class About extends JFrame {
 		JEditorPane pane = new JEditorPane();
 		pane.setEditable(false);
 		pane.setContentType("text/html");
-		try {
-			pane.setText(new Scanner(new File(getClass().getResource(about_file).getFile())).useDelimiter("\\A").next());
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		pane.setText(Res.getFileContent(about_file));
 		panel.add(pane);
 		
 		panel.setBackground(Color.WHITE);
