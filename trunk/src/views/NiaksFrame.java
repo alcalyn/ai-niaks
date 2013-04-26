@@ -18,6 +18,7 @@ import model.Partie;
 import model.PartiePreparator;
 import model.Pion;
 import model.ProfilManager;
+import model.Res;
 import controllers.ExceptionCatcher;
 import exceptions.NiaksException;
 import exceptions.ProfilNotSetNiaksException;
@@ -47,6 +48,8 @@ public class NiaksFrame extends JFrame implements Observer, ExceptionCatcher {
 		niaks.addObserver(this);
 		
 		checkForProfil();
+		
+		setVisible(true);
 	}
 	
 	
@@ -56,7 +59,7 @@ public class NiaksFrame extends JFrame implements Observer, ExceptionCatcher {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 600);
 		setLayout(new BorderLayout());
-		setVisible(true);
+		setIconImage(Res.getImage("niaks-icon.png"));
 	}
 	
 	private void initNiakMenu() {
